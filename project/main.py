@@ -1,4 +1,4 @@
-"""Main entry point for the CO3085 Course Assistant NLP pipeline."""
+"""Chạy ba bước Phần I của Course Assistant (CO3085)."""
 
 from __future__ import annotations
 
@@ -8,7 +8,10 @@ from src.grammar import CourseParser, SentenceGenerator, export_grammar, load_cf
 
 
 def run_part1(base_dir: Path) -> None:
-    """Execute Part I: Grammar export (3.1), Sentence generation (3.2), and Parsing (3.3)."""
+    """Nạp/xuất grammar (3.1), sinh câu (3.2), phân tích input (3.3).
+
+    base_dir là thư mục project/, không phụ thuộc vị trí gọi lệnh Python.
+    """
     grammar_src = base_dir / "src" / "grammar" / "grammar.txt"
     input_sentences = base_dir / "input" / "sentences.txt"
     output_dir = base_dir / "output"
@@ -17,17 +20,29 @@ def run_part1(base_dir: Path) -> None:
     samples_out = output_dir / "samples.txt"
     parse_results_out = output_dir / "parse-results.txt"
 
-    # 3.1 Load nltk.CFG and export to output/grammar.txt
+    # Kiểm tra input trước khi ghi bất kỳ output nào để lỗi thiếu file rõ ràng.
+    for required_path in (grammar_src, input_sentences):
+        if not required_path.is_file():
+            raise FileNotFoundError(f"Không tìm thấy file đầu vào: {required_path}")
+
+    # 3.1: Cả generator và parser dùng cùng một grammar nguồn.
     grammar = load_cfg(grammar_src)
     export_grammar(grammar_src, grammar_out)
 
-    # 3.2 Generate up to 10,000 valid domain sentences into output/samples.txt
+    # 3.2: Mặc định 5.000 câu; seed và các giới hạn nằm ở SentenceGenerator.
     generator = SentenceGenerator(grammar)
-    generator.generate_to_file(samples_out, max_samples=5000)
+    samples = generator.generate_to_file(samples_out)
 
-    # 3.3 Parse input/sentences.txt using nltk.ChartParser into output/parse-results.txt
+    # 3.3: Mỗi dòng input cho một cây hoặc (), giữ đúng thứ tự đầu vào.
     parser = CourseParser(grammar)
-    parser.parse_file(input_sentences, parse_results_out)
+    parse_results = parser.parse_file(input_sentences, parse_results_out)
+    tree_count = sum(result != "()" for result in parse_results)
+    print(f"Đã xuất grammar: {grammar_out}")
+    print(f"Đã sinh {len(samples)} câu sau {generator.last_attempts} lần thử: {samples_out}")
+    print(
+        f"Đã phân tích {len(parse_results)} dòng: {tree_count} có cây, "
+        f"{len(parse_results) - tree_count} không có cây: {parse_results_out}"
+    )
 
 
 def main() -> None:

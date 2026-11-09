@@ -1,4 +1,4 @@
-"""Context-Free Grammar (CFG), sentence generator, and syntactic parser using NLTK."""
+"""Các thành phần Phần I: đọc CFG, sinh câu và phân tích cú pháp."""
 
 from .cfg import load_cfg, export_grammar
 from .generator import SentenceGenerator

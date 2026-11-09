@@ -1,6 +1,11 @@
-FROM python:3.8-slim
-WORKDIR /nlp
+FROM python:3.14-slim
+
+# Build context là project/: requirements.txt và main.py ở cùng thư mục.
+WORKDIR /app
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["python3", "main.py"]
+
+CMD ["python", "main.py"]

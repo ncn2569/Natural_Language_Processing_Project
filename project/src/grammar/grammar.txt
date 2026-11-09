@@ -1,6 +1,13 @@
-# A. Sentence structure: no intent/domain-specific sentence branches
+# Grammar nguồn của Phần I. Parser và generator cùng nạp file này.
+# Chuỗi trong dấu nháy là terminal (có thể nhiều âm tiết), dùng chữ thường.
+# Nhãn không có dấu nháy là nonterminal. Dấu | phân tách các lựa chọn.
+# A -> B C nghĩa là A có thể được mở rộng thành B rồi C.
+
+# A. Cấu trúc câu: trần thuật, câu hỏi Wh, Yes/No và yêu cầu.
+# Đây là các nhóm cú pháp, không phải intent như GET_DEADLINE hay GET_RESOURCE.
 Sentences -> Sentence
 Sentence -> Clause | WhClause | YesNoQuestion | Request
+# Predicate đứng một mình hỗ trợ câu khuyết chủ ngữ; TimePhrase thêm thời gian.
 Clause -> Subject Predicate | Predicate | TimePhrase Clause
 Subject -> NounPhrase
 Predicate -> VerbPhrase | AdjectivePhrase
@@ -9,18 +16,23 @@ WhClause -> Subject WhPredicate | WhNounPhrase Predicate | WhPredicate | WhTime 
 WhPredicate -> WhVerbPhrase | WhQuantity UnitNoun | WhPlace
 Request -> RequestVerb NounPhrase | RequestVerb WhClause | ImperativeMarker VerbPhrase
 
-# B. Noun phrases: reuse quantification, modification and coordination
+# B. Danh ngữ: lượng từ, bổ ngữ và kết hợp bằng "và"/"hoặc".
+# Ví dụ: "môn nlp", "tuần 5", "tài liệu của phần này".
 NounPhrase -> SimpleNounPhrase | SimpleNounPhrase Conjunction NounPhrase
 SimpleNounPhrase -> Pronoun | Nominal | Quantifier Nominal
 Nominal -> NounHead | NounHead Modifiers
+# Noun NounHead là luật dự phòng cho "deadline bài tập lớn"; dễ gây nhập nhằng.
 NounHead -> Noun | ProperName | NamePrefix NameExpression | IndexedNoun Index | Noun NounHead
 NameExpression -> ProperName | ProperName Conjunction NameExpression
+# Nhiều bổ ngữ có thể gắn ở các mức khác nhau; parser chọn cây bằng heuristic.
 Modifiers -> Modifier | Modifier Modifiers
 Modifier -> Demonstrative | AdjectivePhrase | PrepositionalPhrase
 WhNounPhrase -> WhPronoun | WhQuantity CountNoun | Nominal WhDeterminer | Quantifier Nominal WhDeterminer | Quantifier WhPronoun
 CountNoun -> Noun | UnitNoun
 
-# C. Verb phrases: classify verbs by complement shape, not question topic
+# C. Động ngữ: phân nhóm động từ theo thành phần đi kèm.
+# ObjectVerb nhận danh ngữ ("học cfg"), PrepositionalVerb nhận cụm giới từ
+# ("nói về cfg"). Modal cho phép "cần học", "có thể sử dụng"...
 VerbPhrase -> VerbCore | VerbCore PrepositionalPhrase
 VerbCore -> IntransitiveVerb | ObjectVerb NounPhrase | PrepositionalVerb PrepositionalPhrase | Modal VerbPhrase | Copula NounPhrase | KnowledgeVerb WhClause
 WhVerbPhrase -> ObjectVerb WhNounPhrase | PrepositionalVerb WhPrepositionalPhrase | IntransitiveVerb WhAdverb | ObjectVerb NounPhrase WhAdverb | Modal WhVerbPhrase | Copula WhNounPhrase | Copula WhAdverb | VerbCore WhPrepositionalPhrase
@@ -30,7 +42,7 @@ WhAdverb -> WhTime | WhPlace | WhDuration
 AdjectivePhrase -> Adjective | DegreeBefore Adjective | Adjective DegreeAfter
 TimePhrase -> TimeExpression | TimeNoun Number
 
-# D. Function words and grammatical vocabulary
+# D. Từ chức năng: lượng từ, giới từ, từ để hỏi và dấu hiệu yêu cầu.
 Quantifier -> "những" | "các" | "một" | "vài"
 Demonstrative -> "này" | "đó" | "ấy" | "sau"
 Conjunction -> "và" | "hoặc"
@@ -54,7 +66,9 @@ Pronoun -> "tôi" | "em" | "bạn" | "chúng tôi" | "chúng ta" | "nó"
 TimeExpression -> "hôm nay" | "ngày mai" | "hôm qua"
 TimeNoun -> "tuần" | "tháng"
 
-# E. Domain lexicon: adding a name here requires no sentence-pattern change
+# E. Từ vựng trong miền môn học. Thêm tên cùng nhóm ở đây thường không cần
+# thêm cấu trúc câu; cách diễn đạt mới vẫn có thể cần production mới.
+# CFG mô tả cấu trúc; từ vựng kết hợp được chưa bảo đảm câu tự nhiên về nghĩa.
 Noun -> "môn" | "môn học" | "học phần" | "bài tập" | "bài tập lớn" | "tài liệu" | "tài liệu tham khảo" | "giáo trình" | "nội dung" | "chủ đề" | "phần" | "phần chính" | "chương" | "tuần" | "yêu cầu" | "phương pháp" | "quy định" | "lịch học" | "deadline" | "hạn nộp" | "thời hạn nộp" | "thông tin" | "giảng viên" | "sinh viên" | "file" | "báo cáo" | "mã nguồn" | "công cụ ai" | "thư viện công khai" | "thi giữa kỳ" | "thi cuối kỳ"
 UnitNoun -> "tín chỉ" | "phút" | "giờ" | "ngày"
 NamePrefix -> "môn" | "môn học" | "học phần" | "phần" | "chủ đề"

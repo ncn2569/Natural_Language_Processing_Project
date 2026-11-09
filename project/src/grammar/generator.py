@@ -1,246 +1,148 @@
-"""Sentence generator built on `nltk.CFG` (Section 3.2)."""
+"""Phần I, mục 3.2: sinh câu bằng cách mở rộng các luật CFG có giới hạn."""
 
 from __future__ import annotations
 
-import math
-from collections import deque
+import random
+import warnings
 from pathlib import Path
-from typing import Dict, List, Set, Tuple
 
 import nltk
 from nltk.grammar import Nonterminal
 
-Template = Tuple[str, ...]
-
-# Core sentence patterns from `Sentences -> Sentence -> Clause | WhClause | YesNoQuestion | Request`
-#Khởi động sinh câu từ 7 cấu trúc câu chính này để đảm bảo câu sinh ra cân bằng giữa các loại câu hỏi và yêu cầu.
-CORE_PATTERNS: List[Tuple[str, ...]] = [
-    ("Subject", "WhPredicate"),  #Câu hỏi Wh: Tuần 5 học gì?
-    ("WhNounPhrase", "Predicate"),  # Chương nào nói về CFG?
-    ("Subject", "Predicate", "QuestionParticle"), # Câu Yes/No: Bài tập lớn có dùng AI không?
-    ("RequestVerb", "WhClause"), # Câu yêu cầu: Cho biết môn NLP ở đâu
-    ("RequestVerb", "NounPhrase"), # Tra cứu bài tập lớn
-    ("ImperativeMarker", "VerbPhrase"),  # Hãy học...
-    ("Subject", "Predicate"), # Câu trần thuật
-]
-#Bỏ qua các luật tự đệ quy lặp từ (ví dụ NounHead -> Noun NounHead dễ sinh ra "môn môn môn"
-SKIPPED_FALLBACK_RULES = {
-    ("NounHead", ("Noun", "NounHead")),
-    ("Modifiers", ("Modifier", "Modifiers")),
-    ("Clause", ("Predicate",)),
-    ("WhClause", ("WhPredicate",)),
-}
+DEFAULT_SAMPLE_COUNT = 5_000
+MAX_SAMPLE_COUNT = 10_000
 
 
 class SentenceGenerator:
-    """
-    Generates valid sentences from an `nltk.CFG`:
-    - Uses bounded BFS over `nltk.CFG.productions()` to avoid `nltk.parse.generate`'s
-      exponential recursion limit on cyclic rules.
-    - Instantiates pre-terminal templates in round-robin order up to `max_samples`.
+    """Chọn luật → mở rộng vế phải → nhận câu hoàn chỉnh và chưa trùng.
+
+    Giới hạn độ sâu, số terminal và số lần thử giúp thuật toán kết thúc ngay
+    cả với grammar đệ quy. Câu sinh thuộc CFG nhưng có thể chưa tự nhiên về nghĩa.
     """
 
     def __init__(
         self,
         grammar: nltk.CFG,
-        max_template_len: int = 8,
-        max_templates_per_branch: int = 400,
+        seed: int = 42,
+        max_depth: int = 14,
+        max_terminal_phrases: int = 12,
+        max_attempts: int = 100_000,
     ) -> None:
+        if min(max_depth, max_terminal_phrases, max_attempts) < 1:
+            raise ValueError("Giới hạn độ sâu, số terminal và số lần thử phải dương.")
         self.grammar = grammar
-        self.max_template_len = max_template_len
-        self.max_templates_per_branch = max_templates_per_branch
+        self.seed = seed
+        self.max_depth = max_depth
+        self.max_terminal_phrases = max_terminal_phrases
+        self.max_attempts = max_attempts
+        self.last_attempts = 0
 
-        # Group NLTK productions by LHS symbol name
-        self.by_lhs: Dict[str, List[nltk.Production]] = {}
-        for prod in grammar.productions():
-            self.by_lhs.setdefault(prod.lhs().symbol(), []).append(prod)
+        self.rules_by_symbol: dict[Nonterminal, list[nltk.Production]] = {}
+        for production in grammar.productions():
+            self.rules_by_symbol.setdefault(production.lhs(), []).append(production)
 
-        # Pre-terminals are non-terminals whose productions are all lexical
-        self.preterminals: Set[str] = {
-            lhs
-            for lhs, prods in self.by_lhs.items()
-            if prods and all(p.is_lexical() for p in prods)
-        }
-
-        self.lexical_map: Dict[str, List[str]] = {
-            lhs: [str(p.rhs()[0]) for p in prods if p.is_lexical()]
-            for lhs, prods in self.by_lhs.items()
-            if lhs in self.preterminals
-        }
-
-    def _collect_templates(self, initial_pattern: Tuple[str, ...]) -> List[Template]:
-        """Expand syntactic non-terminals via bounded BFS down to pre-terminal templates."""
-        templates: List[Template] = []
-        seen: Set[Template] = set()
-        queue: deque[Tuple[Tuple[str, ...], Set[nltk.Production]]] = deque(
-            [(initial_pattern, set())]
-        )
-
-        while queue and len(templates) < self.max_templates_per_branch:
-            current, used_prods = queue.popleft()
-            if len(current) > self.max_template_len:
-                continue
-
-            # Tìm ký hiệu Non-terminal đầu tiên chưa phải là Pre-terminal
-            expand_idx = next(
-                (i for i, sym in enumerate(current) if sym not in self.preterminals),
-                -1,
-            )
-             # Nếu tất cả đã là Pre-terminal (ví dụ: ["NamePrefix", "CourseName", "WhPlace"])
-            if expand_idx == -1:
-                if current not in seen:
-                    seen.add(current)
-                    templates.append(current)
-                continue
-
-            target = current[expand_idx]
-            for prod in self.by_lhs.get(target, []):
-                # Không áp dụng cùng một luật quá 1 lần trên 1 nhánh (tránh lặp vô hạn)
-                if prod in used_prods:
-                    continue
-                # ... Thay thế và đẩy nhánh mới vào hàng đợi queue ...
-                rhs_names = tuple(
-                    s.symbol() if isinstance(s, Nonterminal) else str(s)
-                    for s in prod.rhs()
-                )
-                if (target, rhs_names) in SKIPPED_FALLBACK_RULES:
-                    continue
-
-                next_syms = current[:expand_idx] + rhs_names + current[expand_idx + 1 :]
-                if len(next_syms) <= self.max_template_len:
-                    queue.append((next_syms, used_prods | {prod}))
-
-        templates.sort(
-            key=lambda t: (
-                0
-                if any(
-                    s
-                    in {
-                        "CourseName",
-                        "TopicName",
-                        "IndexedNoun",
-                        "ExamName",
-                        "OutcomeName",
-                        "ToolName",
-                        "AssignmentName",
-                    }
-                    for s in t
-                )
-                else 1,
-                0
-                if any(
-                    s
-                    in {
-                        "ObjectVerb",
-                        "PrepositionalVerb",
-                        "Copula",
-                        "RequestVerb",
-                        "WhQuantity",
-                        "WhPlace",
-                    }
-                    for s in t
-                )
-                else 1,
-                len(t),
-            )
-        )
-        return templates
-
-    def _instantiate_template(
-        self, template: Template, max_per_template: int
-    ) -> List[str]:
-        """ Lấy danh sách từ khả dĩ cho từng vị trí"""
-        slot_options = [self.lexical_map.get(sym, [sym]) for sym in template]
-        # Tính tổng số tổ hợp có thể tạo ra
-        radix_total = 1
-        for opts in slot_options:
-            radix_total *= len(opts)
-        # Chọn bước nhảy coprime với tổng số tổ hợp
-        limit = min(radix_total, max_per_template)
-        stride = 1
-        if radix_total > limit:
-            stride = max(1, radix_total // limit)
-            while math.gcd(stride, radix_total) != 1:
-                stride += 1
-
-        results: List[str] = []
-        seen_local: Set[str] = set()
-        k = len(slot_options)
-        idx = 0
-
-        for _ in range(min(radix_total, limit * 2)):
-            # Giải mã chỉ số `idx` thành từ ở từng vị trí (mixed-radix indexing)
-            if len(results) >= limit:
+        # Đi qua các lớp bọc đơn như Sentences -> Sentence để luân phiên
+        # các nhánh thật của grammar, thay vì viết tay bảy mẫu câu độc lập.
+        branch_symbol = grammar.start()
+        visited_symbols = set()
+        while branch_symbol not in visited_symbols:
+            visited_symbols.add(branch_symbol)
+            branches = self.rules_by_symbol.get(branch_symbol, [])
+            if len(branches) != 1 or len(branches[0].rhs()) != 1:
                 break
-            rem = idx
-            words: List[str] = []
-            for s_idx in range(k - 1, -1, -1):
-                opts = slot_options[s_idx]
-                base = len(opts)
-                choice_idx = rem % base
-                # Tránh sinh 2 từ giống nhau qua liên từ "và"/"hoặc" (ví dụ: "nlp và nlp")
-                if (
-                    s_idx >= 2
-                    and template[s_idx - 1] == "Conjunction"
-                    and template[s_idx] == template[s_idx - 2]
-                    and base > 1
-                ):
-                    choice_idx = (choice_idx + 1) % base
-                words.append(opts[choice_idx])
-                rem //= base
-            words.reverse()
-            # Bước nhảy idx tiếp theo
-            sent = " ".join(words)
-            if sent not in seen_local:
-                seen_local.add(sent)
-                results.append(sent)
-            idx = (idx + stride) % radix_total
+            child = branches[0].rhs()[0]
+            if not isinstance(child, Nonterminal):
+                break
+            branch_symbol = child
+        self.branches = self.rules_by_symbol.get(branch_symbol, [])
 
-        return results
+    def _expand_symbol(
+        self,
+        symbol: str | Nonterminal,
+        depth: int,
+        terminals: list[str],
+        rng: random.Random,
+    ) -> bool:
+        """Thêm terminal hoặc mở rộng nonterminal; False thì hủy cả lần thử.
 
-    def generate(self, max_samples: int = 10000) -> List[str]:
-        """ Thu thập templates từ các nhánh CORE_PATTERNS"""
-        branch_lists = [self._collect_templates(pat) for pat in CORE_PATTERNS]
-        # Xen kẽ các templates từ từng nhánh (interleave)
-        interleaved: List[Template] = []
-        max_len = max((len(b) for b in branch_lists), default=0)
-        for i in range(max_len):
-            for b in branch_lists:
-                if i < len(b):
-                    interleaved.append(b[i])
+        Vế trái của nhánh được chọn ở độ sâu 0; con của nó ở độ sâu 1.
+        Nonterminal chỉ được mở rộng khi depth < max_depth. Terminal ở độ
+        sâu max_depth vẫn được nhận vì không cần mở rộng thêm.
+        """
+        if isinstance(symbol, str):
+            # Một terminal có thể chứa nhiều âm tiết, như "bài tập lớn".
+            if len(terminals) >= self.max_terminal_phrases:
+                return False
+            terminals.append(symbol)
+            return True
 
-        if not interleaved:
-            return []
+        rules = self.rules_by_symbol.get(symbol, [])
+        if depth >= self.max_depth or not rules:
+            return False
 
-        quota = max(15, (max_samples // len(interleaved)) + 10)
-        # Sinh trước các pool câu cho từng template
-        pools = [self._instantiate_template(t, quota) for t in interleaved]
+        # Cùng một luật được phép dùng cho cả chủ ngữ và tân ngữ.
+        # Giới hạn độ sâu thay cho việc cấm dùng lại luật trong cả câu.
+        chosen_rule = rng.choice(rules)
+        for child in chosen_rule.rhs():
+            if not self._expand_symbol(child, depth + 1, terminals, rng):
+                return False
+        return True
 
-        samples: List[str] = []
-        seen: Set[str] = set()
-        round_idx = 0
-        max_pool = max((len(p) for p in pools), default=0)
+    def generate(self, max_samples: int = DEFAULT_SAMPLE_COUNT) -> list[str]:
+        """Sinh tối đa số câu yêu cầu; cảnh báo nếu hết lượt thử trước khi đủ.
 
-        # Lấy xoay vòng (round-robin): Mỗi template lấy 1 câu, rồi lặp lại vòng tiếp theo
-        while len(samples) < max_samples and round_idx < max_pool:
-            for pool in pools:
-                if round_idx < len(pool):
-                    sent = pool[round_idx]
-                    if sent not in seen:
-                        seen.add(sent)
-                        samples.append(sent)
-                        if len(samples) >= max_samples:
-                            break
-            round_idx += 1
+        Cùng grammar, cấu hình, seed và môi trường cho cùng danh sách theo thứ tự.
+        Có thể yêu cầu 0 câu; số lượng vượt giới hạn của đề sẽ bị từ chối.
+        """
+        if not 0 <= max_samples <= MAX_SAMPLE_COUNT:
+            raise ValueError(f"Số câu phải nằm trong khoảng 0 đến {MAX_SAMPLE_COUNT}.")
 
+        # Random cục bộ không làm thay đổi trạng thái ngẫu nhiên của phần khác.
+        rng = random.Random(self.seed)
+        samples = []
+        seen_sentences = set()
+        self.last_attempts = 0
+
+        while (
+            len(samples) < max_samples
+            and self.last_attempts < self.max_attempts
+            and self.branches
+        ):
+            branch = self.branches[self.last_attempts % len(self.branches)]
+            self.last_attempts += 1
+            terminals: list[str] = []
+            complete = True
+            for symbol in branch.rhs():
+                if not self._expand_symbol(symbol, 1, terminals, rng):
+                    complete = False
+                    break
+            if not complete:
+                continue  # Bỏ câu dang dở; lần thử sau dùng danh sách terminal mới.
+
+            sentence = " ".join(terminals).strip()
+            if sentence and sentence not in seen_sentences:
+                seen_sentences.add(sentence)
+                samples.append(sentence)
+
+        # List giữ thứ tự xuất; set chỉ giúp kiểm tra trùng, không dùng để ghi file.
+        if len(samples) < max_samples:
+            warnings.warn(
+                f"Chỉ sinh được {len(samples)}/{max_samples} câu sau "
+                f"{self.last_attempts} lần thử; giới hạn độ sâu/số terminal hoặc "
+                "số câu khác nhau của grammar có thể chưa cho phép đạt mục tiêu.",
+                UserWarning,
+                stacklevel=2,
+            )
         return samples
 
     def generate_to_file(
-        self, output_path: str | Path, max_samples: int = 10000
-    ) -> List[str]:
-        """Generate sentences and write them to `output/samples.txt`."""
-        samples = self.generate(max_samples=max_samples)
-        out = Path(output_path)
-        out.parent.mkdir(parents=True, exist_ok=True)
-        out.write_text("\n".join(samples) + "\n", encoding="utf-8")
+        self, output_path: str | Path, max_samples: int = DEFAULT_SAMPLE_COUNT
+    ) -> list[str]:
+        """Ghi mỗi câu một dòng; trả danh sách thực tế để báo cáo số lượng."""
+        samples = self.generate(max_samples)
+        output = Path(output_path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(
+            "\n".join(samples) + ("\n" if samples else ""), encoding="utf-8"
+        )
         return samples
