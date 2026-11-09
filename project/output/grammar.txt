@@ -1,0 +1,75 @@
+# A. Sentence structure: no intent/domain-specific sentence branches
+Sentences -> Sentence
+Sentence -> Clause | WhClause | YesNoQuestion | Request
+Clause -> Subject Predicate | Predicate | TimePhrase Clause
+Subject -> NounPhrase
+Predicate -> VerbPhrase | AdjectivePhrase
+YesNoQuestion -> Clause QuestionParticle
+WhClause -> Subject WhPredicate | WhNounPhrase Predicate | WhPredicate | WhTime Clause | TimePhrase WhClause
+WhPredicate -> WhVerbPhrase | WhQuantity UnitNoun | WhPlace
+Request -> RequestVerb NounPhrase | RequestVerb WhClause | ImperativeMarker VerbPhrase
+
+# B. Noun phrases: reuse quantification, modification and coordination
+NounPhrase -> SimpleNounPhrase | SimpleNounPhrase Conjunction NounPhrase
+SimpleNounPhrase -> Pronoun | Nominal | Quantifier Nominal
+Nominal -> NounHead | NounHead Modifiers
+NounHead -> Noun | ProperName | NamePrefix NameExpression | IndexedNoun Index | Noun NounHead
+NameExpression -> ProperName | ProperName Conjunction NameExpression
+Modifiers -> Modifier | Modifier Modifiers
+Modifier -> Demonstrative | AdjectivePhrase | PrepositionalPhrase
+WhNounPhrase -> WhPronoun | WhQuantity CountNoun | Nominal WhDeterminer | Quantifier Nominal WhDeterminer | Quantifier WhPronoun
+CountNoun -> Noun | UnitNoun
+
+# C. Verb phrases: classify verbs by complement shape, not question topic
+VerbPhrase -> VerbCore | VerbCore PrepositionalPhrase
+VerbCore -> IntransitiveVerb | ObjectVerb NounPhrase | PrepositionalVerb PrepositionalPhrase | Modal VerbPhrase | Copula NounPhrase | KnowledgeVerb WhClause
+WhVerbPhrase -> ObjectVerb WhNounPhrase | PrepositionalVerb WhPrepositionalPhrase | IntransitiveVerb WhAdverb | ObjectVerb NounPhrase WhAdverb | Modal WhVerbPhrase | Copula WhNounPhrase | Copula WhAdverb | VerbCore WhPrepositionalPhrase
+PrepositionalPhrase -> Preposition NounPhrase | AboutPreposition VerbPhrase
+WhPrepositionalPhrase -> Preposition WhNounPhrase
+WhAdverb -> WhTime | WhPlace | WhDuration
+AdjectivePhrase -> Adjective | DegreeBefore Adjective | Adjective DegreeAfter
+TimePhrase -> TimeExpression | TimeNoun Number
+
+# D. Function words and grammatical vocabulary
+Quantifier -> "những" | "các" | "một" | "vài"
+Demonstrative -> "này" | "đó" | "ấy" | "sau"
+Conjunction -> "và" | "hoặc"
+Preposition -> "của" | "về" | "ở" | "vào" | "trong" | "đến" | "cho"
+AboutPreposition -> "về"
+Copula -> "là"
+Modal -> "cần" | "phải" | "muốn" | "được" | "được phép" | "có thể" | "có" | "đã" | "đang" | "chưa" | "không" | "yêu cầu"
+QuestionParticle -> "không" | "chưa"
+ImperativeMarker -> "hãy"
+RequestVerb -> "cho biết" | "cho tôi biết" | "tra cứu"
+KnowledgeVerb -> "biết"
+WhPronoun -> "gì" | "ai"
+WhDeterminer -> "nào" | "gì"
+WhQuantity -> "bao nhiêu" | "mấy"
+WhTime -> "khi nào" | "bao giờ"
+WhPlace -> "ở đâu"
+WhDuration -> "bao lâu"
+DegreeBefore -> "rất" | "khá"
+DegreeAfter -> "lắm" | "quá"
+Pronoun -> "tôi" | "em" | "bạn" | "chúng tôi" | "chúng ta" | "nó"
+TimeExpression -> "hôm nay" | "ngày mai" | "hôm qua"
+TimeNoun -> "tuần" | "tháng"
+
+# E. Domain lexicon: adding a name here requires no sentence-pattern change
+Noun -> "môn" | "môn học" | "học phần" | "bài tập" | "bài tập lớn" | "tài liệu" | "tài liệu tham khảo" | "giáo trình" | "nội dung" | "chủ đề" | "phần" | "phần chính" | "chương" | "tuần" | "yêu cầu" | "phương pháp" | "quy định" | "lịch học" | "deadline" | "hạn nộp" | "thời hạn nộp" | "thông tin" | "giảng viên" | "sinh viên" | "file" | "báo cáo" | "mã nguồn" | "công cụ ai" | "thư viện công khai" | "thi giữa kỳ" | "thi cuối kỳ"
+UnitNoun -> "tín chỉ" | "phút" | "giờ" | "ngày"
+NamePrefix -> "môn" | "môn học" | "học phần" | "phần" | "chủ đề"
+IndexedNoun -> "chương" | "tuần" | "phần" | "bài tập"
+Index -> Number | RomanNumber
+Number -> "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" | "10" | "11" | "12" | "13" | "14" | "15" | "16"
+RomanNumber -> "i" | "ii" | "iii" | "iv"
+ProperName -> CourseName | TopicName | ToolName | AssignmentName | ExamName | OutcomeName
+CourseName -> "nlp" | "co3085" | "xử lý ngôn ngữ tự nhiên" | "natural language processing"
+TopicName -> "cfg" | "parsing" | "parser" | "grammar" | "đánh giá" | "pcfg" | "dependency grammar" | "features" | "augmented grammar" | "unification" | "pos tagging" | "logical form" | "thematic roles" | "selectional restriction" | "semantic network" | "wsd" | "semantic grammar" | "knowledge representation" | "question answering" | "local discourse context" | "reference" | "anaphora" | "centering" | "statistical nlp" | "python nlp" | "văn phạm" | "văn phạm phi ngữ cảnh" | "phân tích cú pháp" | "văn phạm phụ thuộc" | "nét" | "văn phạm gia tố" | "hợp nhất" | "gán nhãn từ loại" | "dạng luận lý" | "vai trò chủ đề" | "giới hạn lựa chọn" | "mạng ngữ nghĩa" | "văn phạm ngữ nghĩa" | "biểu diễn tri thức" | "hỏi đáp" | "ngữ cảnh diễn ngôn cục bộ" | "tham chiếu"
+ToolName -> "ai" | "llm" | "rag" | "llm/rag"
+AssignmentName -> "btl" | "btl01"
+ExamName -> "midterm" | "final"
+OutcomeName -> "lo1" | "lo2" | "lo3" | "lo4" | "l.o.1.1" | "l.o.2.1" | "l.o.2.2" | "l.o.2.3" | "l.o.2.4" | "l.o.2.5" | "l.o.3.1" | "l.o.3.2" | "l.o.3.3" | "l.o.3.4" | "l.o.4.1" | "l.o.4.2" | "lo1.1" | "lo2.1" | "lo2.2" | "lo2.3" | "lo2.4" | "lo2.5" | "lo3.1" | "lo3.2" | "lo3.3" | "lo3.4" | "lo4.1" | "lo4.2"
+IntransitiveVerb -> "học" | "nộp" | "kéo dài"
+ObjectVerb -> "tra cứu" | "có" | "gồm" | "bao gồm" | "học" | "dạy" | "giảng dạy" | "nộp" | "hoàn thành" | "xây dựng" | "dùng" | "sử dụng" | "xuất" | "tham khảo" | "biết"
+PrepositionalVerb -> "học" | "nói" | "trình bày" | "liên quan" | "nằm" | "thuộc"
+Adjective -> "khó" | "dễ" | "quan trọng" | "cần thiết" | "đầy đủ"
