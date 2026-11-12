@@ -1,0 +1,152 @@
+[001] Môn NLP có bao nhiêu tín chỉ?
+  SELECT credits FROM course_info WHERE course_id='CO3085'
+
+[002] Tuần 5 học những nội dung gì?
+  SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+
+[003] Phần CFG và Parsing nằm ở tuần nào?
+  SELECT week FROM schedule JOIN topics ON chapter WHERE topic MATCH 'CFG'
+
+[004] Bài tập lớn có những yêu cầu gì?
+  SELECT title, description, parts FROM assignments WHERE id='BTL01'
+
+[005] Deadline của bài tập lớn là khi nào?
+  SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+
+[006] Deadline bài tập lớn là khi nào?
+  SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+
+[007] Tài liệu nào nói về CFG?
+  SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'CFG'
+
+[008] Bài tập lớn có được sử dụng công cụ AI không?
+  SELECT text FROM regulations WHERE key='AI_USAGE'
+
+[009] Tôi cần hoàn thành những bài tập nào?
+  -- khong tao truy van (UNKNOWN)
+
+[010] Tuần 5 học những gì?
+  SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+
+[011] Tài liệu của phần này ở đâu?
+  -- khong tao truy van (NEEDS_CONTEXT)
+
+[012] CO3085 có mấy tín chỉ?
+  SELECT credits FROM course_info WHERE course_id='CO3085'
+
+[013] Môn học gồm những phần nào?
+  SELECT main_parts FROM course_info WHERE course_id='CO3085'
+
+[014] Tuần 3 học gì?
+  SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+
+[015] Chương 4 học vào tuần nào?
+  SELECT week FROM schedule WHERE chapter='CH04'
+
+[016] Chương nào nói về CFG?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'CFG' ORDER BY match_tier DESC
+
+[017] PCFG được học ở đâu?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'PCFG' ORDER BY match_tier DESC
+
+[018] Chương nào nói về semantic grammar?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'SEMANTIC_GRAMMAR' ORDER BY match_tier DESC
+
+[019] L.O.2.5 là gì?
+  SELECT text FROM learning_outcomes WHERE id='LO2.5'
+
+[020] L.O.4.2 liên quan đến nội dung nào?
+  SELECT text FROM learning_outcomes WHERE id='LO4.2'
+
+[021] Bài tập lớn yêu cầu xây dựng những gì?
+  SELECT title, description, parts FROM assignments WHERE id='BTL01'
+
+[022] Phần I của bài tập lớn là gì?
+  SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+
+[023] Bài tập lớn có phần hỏi đáp không?
+  SELECT name, description, outputs FROM assignments WHERE part='PART_II'
+
+[024] Có được dùng LLM/RAG không?
+  SELECT text FROM regulations WHERE key='LLM_RAG'
+
+[025] Quy định về sử dụng AI là gì?
+  SELECT text FROM regulations WHERE key='AI_USAGE'
+
+[026] Midterm bao nhiêu phút?
+  SELECT midterm FROM course_info.exam_format
+
+[027] Final bao nhiêu phút?
+  SELECT final FROM course_info.exam_format
+
+[028] Tài liệu tham khảo về statistical NLP là gì?
+  SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'STATISTICAL_NLP'
+
+[029] Tài liệu nào liên quan đến Python NLP?
+  SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'PYTHON_NLP'
+
+[030] Chương 12 nói về gì?
+  SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH12'
+
+[031] Chương nào học về reference?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'REFERENCE' ORDER BY match_tier DESC
+
+[032] Chương nào học về question answering?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'QUESTION_ANSWERING' ORDER BY match_tier DESC
+
+[033] Chương nào học về selectional restriction?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'SELECTIONAL_RESTRICTION' ORDER BY match_tier DESC
+
+[034] Chương 10 có những phương pháp gì?
+  SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH10'
+
+[035] Chương 11 có liên quan đến hỏi đáp không?
+  SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+
+[036] Chương 4 nói về gì?
+  SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH04'
+
+[037] Nó có liên quan đến parsing không?
+  -- khong tao truy van (NEEDS_CONTEXT)
+
+[038] Chương 11 có hỏi đáp không?
+  SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+
+[039] Bài tập lớn có phần parser không?
+  SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+
+[040] Phần này cần xuất file gì?
+  -- khong tao truy van (NEEDS_CONTEXT)
+
+[041] Tài liệu của chương này là gì?
+  -- khong tao truy van (NEEDS_CONTEXT)
+
+[042] L.O.2.5 học về gì?
+  SELECT text FROM learning_outcomes WHERE id='LO2.5'
+
+[043] Nội dung này nằm ở chương nào?
+  -- khong tao truy van (NEEDS_CONTEXT)
+
+[044] NLP có những phần chính nào?
+  SELECT main_parts FROM course_info WHERE course_id='CO3085'
+
+[045] Chương nào học về Features và Augmented Grammar?
+  SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'FEATURES' ORDER BY match_tier DESC
+
+[046] Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  SELECT text FROM regulations WHERE key='LLM_RAG'
+
+[047] Midterm kéo dài bao lâu?
+  SELECT midterm FROM course_info.exam_format
+
+[048] Final kéo dài bao lâu?
+  SELECT final FROM course_info.exam_format
+
+[049] Hôm nay ở TP.HCM có mưa không?
+  -- khong tao truy van (UNKNOWN)
+
+[050] Ai là tổng thống của Pháp?
+  -- khong tao truy van (UNKNOWN)
+
+[051] Hãy giải bài tập xác suất này giúp tôi.
+  -- khong tao truy van (UNKNOWN)

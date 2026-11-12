@@ -1,0 +1,442 @@
+[001] Q: Môn NLP có bao nhiêu tín chỉ?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q1  score=13.046
+       Hỏi: Môn NLP có bao nhiêu tín chỉ? Đáp: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+
+[002] Q: Tuần 5 học những nội dung gì?
+  gate: GET_SCHEDULE
+  retrieved:
+    #1 schedule:WEEK_05  score=17.124
+       Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: featur...
+
+[003] Q: Phần CFG và Parsing nằm ở tuần nào?
+  gate: GET_SCHEDULE
+  retrieved:
+    #1 topic:CH03  score=25.166
+       Chương 3 (CH03): Grammar and Parsing. Phần Syntactic Processing. Từ khóa: CFG, parsing, PCFG, dependency grammar. Tóm tắt: The chapter introduces context-free g...
+    #2 schedule:WEEK_03  score=16.928
+       Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; t...
+
+[004] Q: Bài tập lớn có những yêu cầu gì?
+  gate: GET_ASSIGNMENT
+  retrieved:
+    #1 regulation:external_libraries  score=14.805
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #2 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[005] Q: Deadline của bài tập lớn là khi nào?
+  gate: GET_DEADLINE
+  retrieved:
+    #1 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #2 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #3 regulation:attendance  score=6.1
+       Quy định attendance: Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+    #4 course_info:general  score=5.609
+       Thông tin môn học. Mã môn CO3085. Tên Xử lý Ngôn ngữ Tự nhiên (Natural Language Processing). Học kỳ HK261. Số tín chỉ credits: 3. ECTS: 6. Loại: Specialty / Gra...
+
+[006] Q: Deadline bài tập lớn là khi nào?
+  gate: GET_DEADLINE
+  retrieved:
+    #1 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #2 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #3 regulation:attendance  score=6.1
+       Quy định attendance: Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+    #4 course_info:general  score=5.609
+       Thông tin môn học. Mã môn CO3085. Tên Xử lý Ngôn ngữ Tự nhiên (Natural Language Processing). Học kỳ HK261. Số tín chỉ credits: 3. ECTS: 6. Loại: Specialty / Gra...
+
+[007] Q: Tài liệu nào nói về CFG?
+  gate: GET_RESOURCE
+  retrieved:
+    #1 topic:CH03  score=19.36
+       Chương 3 (CH03): Grammar and Parsing. Phần Syntactic Processing. Từ khóa: CFG, parsing, PCFG, dependency grammar. Tóm tắt: The chapter introduces context-free g...
+    #2 faq:Q3  score=13.0
+       Hỏi: Chương nào học về CFG? Đáp: CFG được trình bày trong Chương 3, Grammar and Parsing.
+
+[008] Q: Bài tập lớn có được sử dụng công cụ AI không?
+  gate: GET_RULE
+  retrieved:
+    #1 regulation:external_libraries  score=16.649
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #2 regulation:AI_usage  score=12.871
+       Quy định AI_usage: Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+    #3 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[009] Q: Tôi cần hoàn thành những bài tập nào?
+  gate: UNKNOWN
+  retrieved:
+    #1 course_info:assessment  score=10.019
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #2 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #3 regulation:attendance  score=6.1
+       Quy định attendance: Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+
+[010] Q: Tuần 5 học những gì?
+  gate: GET_SCHEDULE
+  retrieved:
+    #1 schedule:WEEK_05  score=14.094
+       Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: featur...
+
+[011] Q: Tài liệu của phần này ở đâu?
+  gate: CONTEXT_DEPENDENT
+  retrieved:
+    #1 regulation:OUT_OF_SCOPE  score=2.444
+       Quy định OUT_OF_SCOPE: Hệ thống Course Assistant chỉ chịu trách nhiệm trong phạm vi dữ liệu môn học. Với câu hỏi ngoài phạm vi hoặc không có dữ liệu, hệ thống p...
+    #2 resource:REFERENCE 5  score=2.013
+       Tài liệu REFERENCE 5: Natural Language Understanding and World Knowledge. Tác giả: . Năm . Mục đích: world knowledge and inference.
+    #3 regulation:LLM_RAG  score=1.96
+       Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+    #4 resource:REFERENCE 4  score=1.941
+       Tài liệu REFERENCE 4: An Introduction to Machine Translation. Tác giả: W. John Hutchins. Năm 1992. Mục đích: machine translation background.
+
+[012] Q: CO3085 có mấy tín chỉ?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q1  score=15.225
+       Hỏi: Môn NLP có bao nhiêu tín chỉ? Đáp: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+
+[013] Q: Môn học gồm những phần nào?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q2  score=7.684
+       Hỏi: NLP có những phần chính nào? Đáp: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới.
+
+[014] Q: Tuần 3 học gì?
+  gate: GET_SCHEDULE
+  retrieved:
+    #1 schedule:WEEK_03  score=12.864
+       Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; t...
+
+[015] Q: Chương 4 học vào tuần nào?
+  gate: GET_SCHEDULE
+  retrieved:
+    #1 topic:CH04  score=10.109
+       Chương 4 (CH04): Features and Augmented Grammar. Phần Syntactic Processing. Từ khóa: feature, augmented grammar, lexicon, unification. Tóm tắt: The chapter exte...
+    #2 schedule:WEEK_04  score=7.168
+       Tuần 4 week 4. Phần Syntactic Processing. Chương 4. Nội dung: feature systems; augmented grammars; feature systems for English; lexicon; grammar using feature s...
+    #3 schedule:WEEK_05  score=5.578
+       Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: featur...
+
+[016] Q: Chương nào nói về CFG?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH03  score=19.888
+       Chương 3 (CH03): Grammar and Parsing. Phần Syntactic Processing. Từ khóa: CFG, parsing, PCFG, dependency grammar. Tóm tắt: The chapter introduces context-free g...
+    #2 faq:Q3  score=14.5
+       Hỏi: Chương nào học về CFG? Đáp: CFG được trình bày trong Chương 3, Grammar and Parsing.
+
+[017] Q: PCFG được học ở đâu?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH03  score=19.869
+       Chương 3 (CH03): Grammar and Parsing. Phần Syntactic Processing. Từ khóa: CFG, parsing, PCFG, dependency grammar. Tóm tắt: The chapter introduces context-free g...
+    #2 topic:CH06  score=16.703
+       Chương 6 (CH06): Ambiguity Resolution - Statistical Methods. Phần Syntactic Processing. Từ khóa: probability, POS tagging, lexical probability, PCFG, best-first...
+    #3 faq:Q4  score=11.68
+       Hỏi: Chương nào học về PCFG? Đáp: PCFG được trình bày trong Chương 3 và tiếp tục được sử dụng trong Chương 6 về các phương pháp thống kê.
+    #4 schedule:WEEK_03  score=11.33
+       Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; t...
+
+[018] Q: Chương nào nói về semantic grammar?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH10  score=15.091
+       Chương 10 (CH10): Other Strategies for Semantic Interpretation. Phần Semantic Interpretation. Từ khóa: grammatical relations, semantic grammar, template matchin...
+    #2 faq:Q6  score=12.446
+       Hỏi: Chương nào học về semantic grammar? Đáp: Chương 10, Other Strategies for Semantic Interpretation.
+    #3 schedule:WEEK_10  score=11.314
+       Tuần 10 week 10. Phần Semantic Interpretation. Chương 8. Nội dung: semantic interpretation and compositionality; grammar and lexicon with semantic interpretatio...
+    #4 topic:CH08  score=9.628
+       Chương 8 (CH08): Linking Syntax and Semantics. Phần Semantic Interpretation. Từ khóa: compositionality, semantic interpretation, semantic role. Tóm tắt: The cha...
+
+[019] Q: L.O.2.5 là gì?
+  gate: GET_LO
+  retrieved:
+    #1 lo:LO2.5  score=13.737
+       Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+
+[020] Q: L.O.4.2 liên quan đến nội dung nào?
+  gate: GET_LO
+  retrieved:
+    #1 faq:Q9  score=22.788
+       Hỏi: L.O.4.2 liên quan đến nội dung gì? Đáp: L.O.4.2 liên quan đến ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+    #2 lo:LO4.2  score=13.958
+       Chuẩn đầu ra L.O.4.2 (LO4.2): Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+
+[021] Q: Bài tập lớn yêu cầu xây dựng những gì?
+  gate: GET_ASSIGNMENT
+  retrieved:
+    #1 regulation:external_libraries  score=14.805
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #2 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[022] Q: Phần I của bài tập lớn là gì?
+  gate: GET_ASSIGNMENT
+  retrieved:
+    #1 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #2 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #3 regulation:attendance  score=6.1
+       Quy định attendance: Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+    #4 course_info:general  score=5.609
+       Thông tin môn học. Mã môn CO3085. Tên Xử lý Ngôn ngữ Tự nhiên (Natural Language Processing). Học kỳ HK261. Số tín chỉ credits: 3. ECTS: 6. Loại: Specialty / Gra...
+
+[023] Q: Bài tập lớn có phần hỏi đáp không?
+  gate: GET_ASSIGNMENT
+  retrieved:
+    #1 topic:CH11  score=15.384
+       Chương 11 (CH11): Knowledge Representation and Reasoning. Phần Context and World Knowledge. Từ khóa: knowledge representation, reasoning, frame, QA. Tóm tắt: Th...
+    #2 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #3 schedule:WEEK_13  score=8.145
+       Tuần 13 week 13. Phần Context and World Knowledge. Chương 11. Nội dung: knowledge representation; frames; natural language quantification; time and aspectual cl...
+
+[024] Q: Có được dùng LLM/RAG không?
+  gate: GET_RULE
+  retrieved:
+    #1 regulation:LLM_RAG  score=15.025
+       Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+
+[025] Q: Quy định về sử dụng AI là gì?
+  gate: GET_RULE
+  retrieved:
+    #1 regulation:AI_usage  score=19.686
+       Quy định AI_usage: Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+    #2 regulation:source_code  score=11.05
+       Quy định source_code: Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng.
+    #3 regulation:external_libraries  score=11.05
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+
+[026] Q: Midterm bao nhiêu phút?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q14  score=10.507
+       Hỏi: Midterm kéo dài bao lâu? Đáp: Theo đề cương, midterm có thời lượng 60 phút.
+    #2 course_info:assessment  score=7.507
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[027] Q: Final bao nhiêu phút?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q15  score=9.927
+       Hỏi: Final kéo dài bao lâu? Đáp: Theo đề cương, final có thời lượng 90 phút.
+    #2 course_info:assessment  score=7.067
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[028] Q: Tài liệu tham khảo về statistical NLP là gì?
+  gate: GET_RESOURCE
+  retrieved:
+    #1 resource:REFERENCE 1  score=10.783
+       Tài liệu REFERENCE 1: Foundation of Statistical Natural Language Processing. Tác giả: Christopher D. Manning; Hinrich Schütze. Năm 2001. Mục đích: statistical N...
+    #2 resource:TEXTBOOK 2  score=9.988
+       Tài liệu TEXTBOOK 2: Introduction to Natural Language Processing. Tác giả: Jacob Eisenstein. Năm 2019. Mục đích: NLP foundations and statistical methods.
+    #3 resource:REFERENCE 3  score=6.73
+       Tài liệu REFERENCE 3: Speech and Language Processing. Tác giả: Daniel Jurafsky; James H. Martin. Năm 2019. Mục đích: broad NLP reference.
+    #4 resource:TEXTBOOK 3  score=6.615
+       Tài liệu TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên. Tác giả: Phan Thị Tươi. Năm 2012. Mục đích: Vietnamese NLP reference.
+
+[029] Q: Tài liệu nào liên quan đến Python NLP?
+  gate: GET_RESOURCE
+  retrieved:
+    #1 resource:REFERENCE 2  score=12.285
+       Tài liệu REFERENCE 2: Natural Language Processing with Python. Tác giả: Steven Bird; Ewan Klein; Edward Loper. Năm 2009. Mục đích: practical NLP with Python.
+    #2 resource:TEXTBOOK 2  score=6.848
+       Tài liệu TEXTBOOK 2: Introduction to Natural Language Processing. Tác giả: Jacob Eisenstein. Năm 2019. Mục đích: NLP foundations and statistical methods.
+    #3 resource:REFERENCE 3  score=6.73
+       Tài liệu REFERENCE 3: Speech and Language Processing. Tác giả: Daniel Jurafsky; James H. Martin. Năm 2019. Mục đích: broad NLP reference.
+    #4 resource:TEXTBOOK 3  score=6.615
+       Tài liệu TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên. Tác giả: Phan Thị Tươi. Năm 2012. Mục đích: Vietnamese NLP reference.
+
+[030] Q: Chương 12 nói về gì?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH12  score=10.312
+       Chương 12 (CH12): Discourse Context and Reference. Phần Context and World Knowledge. Từ khóa: discourse context, reference, anaphora, pronoun, centering. Tóm tắ...
+
+[031] Q: Chương nào học về reference?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH12  score=15.052
+       Chương 12 (CH12): Discourse Context and Reference. Phần Context and World Knowledge. Từ khóa: discourse context, reference, anaphora, pronoun, centering. Tóm tắ...
+    #2 schedule:WEEK_14  score=7.794
+       Tuần 14 week 14. Phần Context and World Knowledge. Chương 12. Nội dung: local discourse context; discourse entities; anaphora; pronouns and centering; definite ...
+
+[032] Q: Chương nào học về question answering?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH11  score=22.733
+       Chương 11 (CH11): Knowledge Representation and Reasoning. Phần Context and World Knowledge. Từ khóa: knowledge representation, reasoning, frame, QA. Tóm tắt: Th...
+    #2 schedule:WEEK_13  score=15.159
+       Tuần 13 week 13. Phần Context and World Knowledge. Chương 11. Nội dung: knowledge representation; frames; natural language quantification; time and aspectual cl...
+
+[033] Q: Chương nào học về selectional restriction?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH09  score=27.71
+       Chương 9 (CH09): Ambiguity Resolution. Phần Semantic Interpretation. Từ khóa: selectional restriction, semantic network, WSD. Tóm tắt: The chapter covers knowle...
+
+[034] Q: Chương 10 có những phương pháp gì?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH10  score=10.871
+       Chương 10 (CH10): Other Strategies for Semantic Interpretation. Phần Semantic Interpretation. Từ khóa: grammatical relations, semantic grammar, template matchin...
+    #2 lo:LO2.4  score=7.069
+       Chuẩn đầu ra L.O.2.4 (LO2.4): Kiến thức tạo văn phạm cho ngôn ngữ tự nhiên và phương pháp parsing.
+
+[035] Q: Chương 11 có liên quan đến hỏi đáp không?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH11  score=17.405
+       Chương 11 (CH11): Knowledge Representation and Reasoning. Phần Context and World Knowledge. Từ khóa: knowledge representation, reasoning, frame, QA. Tóm tắt: Th...
+    #2 schedule:WEEK_13  score=11.147
+       Tuần 13 week 13. Phần Context and World Knowledge. Chương 11. Nội dung: knowledge representation; frames; natural language quantification; time and aspectual cl...
+
+[036] Q: Chương 4 nói về gì?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH04  score=10.109
+       Chương 4 (CH04): Features and Augmented Grammar. Phần Syntactic Processing. Từ khóa: feature, augmented grammar, lexicon, unification. Tóm tắt: The chapter exte...
+    #2 schedule:WEEK_04  score=5.459
+       Tuần 4 week 4. Phần Syntactic Processing. Chương 4. Nội dung: feature systems; augmented grammars; feature systems for English; lexicon; grammar using feature s...
+
+[037] Q: Nó có liên quan đến parsing không?
+  gate: CONTEXT_DEPENDENT
+  retrieved:
+    #1 topic:CH03  score=10.22
+       Chương 3 (CH03): Grammar and Parsing. Phần Syntactic Processing. Từ khóa: CFG, parsing, PCFG, dependency grammar. Tóm tắt: The chapter introduces context-free g...
+    #2 schedule:WEEK_03  score=5.86
+       Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; t...
+    #3 faq:Q9  score=5.633
+       Hỏi: L.O.4.2 liên quan đến nội dung gì? Đáp: L.O.4.2 liên quan đến ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+    #4 faq:Q10  score=5.44
+       Hỏi: L.O.2.5 liên quan đến nội dung gì? Đáp: L.O.2.5 liên quan đến lý thuyết xác suất và việc giải quyết nhập nhằng từ ở mức câu.
+
+[038] Q: Chương 11 có hỏi đáp không?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH11  score=17.405
+       Chương 11 (CH11): Knowledge Representation and Reasoning. Phần Context and World Knowledge. Từ khóa: knowledge representation, reasoning, frame, QA. Tóm tắt: Th...
+    #2 schedule:WEEK_13  score=11.147
+       Tuần 13 week 13. Phần Context and World Knowledge. Chương 11. Nội dung: knowledge representation; frames; natural language quantification; time and aspectual cl...
+
+[039] Q: Bài tập lớn có phần parser không?
+  gate: GET_ASSIGNMENT
+  retrieved:
+    #1 course_info:assessment  score=9.271
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #2 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+    #3 regulation:attendance  score=6.1
+       Quy định attendance: Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+    #4 course_info:general  score=5.609
+       Thông tin môn học. Mã môn CO3085. Tên Xử lý Ngôn ngữ Tự nhiên (Natural Language Processing). Học kỳ HK261. Số tín chỉ credits: 3. ECTS: 6. Loại: Specialty / Gra...
+
+[040] Q: Phần này cần xuất file gì?
+  gate: CONTEXT_DEPENDENT
+  retrieved:
+    #1 course_info:assessment  score=3.5
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+
+[041] Q: Tài liệu của chương này là gì?
+  gate: CONTEXT_DEPENDENT
+  retrieved:
+    #1 regulation:OUT_OF_SCOPE  score=2.444
+       Quy định OUT_OF_SCOPE: Hệ thống Course Assistant chỉ chịu trách nhiệm trong phạm vi dữ liệu môn học. Với câu hỏi ngoài phạm vi hoặc không có dữ liệu, hệ thống p...
+    #2 resource:REFERENCE 5  score=2.013
+       Tài liệu REFERENCE 5: Natural Language Understanding and World Knowledge. Tác giả: . Năm . Mục đích: world knowledge and inference.
+    #3 regulation:LLM_RAG  score=1.96
+       Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+    #4 resource:REFERENCE 4  score=1.941
+       Tài liệu REFERENCE 4: An Introduction to Machine Translation. Tác giả: W. John Hutchins. Năm 1992. Mục đích: machine translation background.
+
+[042] Q: L.O.2.5 học về gì?
+  gate: GET_LO
+  retrieved:
+    #1 lo:LO2.5  score=13.737
+       Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+
+[043] Q: Nội dung này nằm ở chương nào?
+  gate: CONTEXT_DEPENDENT
+  retrieved:
+    #1 schedule:WEEK_11  score=4.233
+       Tuần 11 week 11. Phần Semantic Interpretation. Chương 9. Nội dung: selectional restrictions; semantic filtering; semantic networks; statistical word sense disam...
+    #2 schedule:WEEK_06  score=4.161
+       Tuần 6 week 6. Phần Syntactic Processing. Chương 5. Nội dung: auxiliary verbs and verb phrases; movement phenomena; handling questions in CFG; relative clauses.
+    #3 schedule:WEEK_02  score=4.092
+       Tuần 2 week 2. Phần Syntactic Processing. Chương 2. Nội dung: words; simple noun phrases; verb phrases; simple sentences; adjective phrases; adverbial phrases.
+    #4 schedule:WEEK_05  score=3.959
+       Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: featur...
+
+[044] Q: NLP có những phần chính nào?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q2  score=8.163
+       Hỏi: NLP có những phần chính nào? Đáp: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới.
+    #2 course_info:description  score=4.304
+       Mô tả môn học: Môn học cung cấp các khái niệm, lý thuyết và kỹ thuật nền tảng của xử lý ngôn ngữ tự nhiên. Nội dung được tổ chức thành ba phần chính: (1) Xử lý ...
+
+[045] Q: Chương nào học về Features và Augmented Grammar?
+  gate: GET_TOPIC
+  retrieved:
+    #1 topic:CH04  score=27.839
+       Chương 4 (CH04): Features and Augmented Grammar. Phần Syntactic Processing. Từ khóa: feature, augmented grammar, lexicon, unification. Tóm tắt: The chapter exte...
+    #2 faq:Q5  score=26.116
+       Hỏi: Chương nào học về Features và Augmented Grammar? Đáp: Chương 4.
+    #3 schedule:WEEK_04  score=16.736
+       Tuần 4 week 4. Phần Syntactic Processing. Chương 4. Nội dung: feature systems; augmented grammars; feature systems for English; lexicon; grammar using feature s...
+
+[046] Q: Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  gate: GET_RULE
+  retrieved:
+    #1 faq:Q12  score=31.918
+       Hỏi: Bài tập lớn có thể sử dụng LLM hoặc RAG không? Đáp: Có thể sử dụng như một phần mở rộng nếu được cho phép, nhưng LLM/RAG không thay thế các yêu cầu NLP cốt...
+    #2 regulation:LLM_RAG  score=19.525
+       Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+
+[047] Q: Midterm kéo dài bao lâu?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q14  score=19.605
+       Hỏi: Midterm kéo dài bao lâu? Đáp: Theo đề cương, midterm có thời lượng 60 phút.
+
+[048] Q: Final kéo dài bao lâu?
+  gate: GET_COURSE_INFO
+  retrieved:
+    #1 faq:Q15  score=19.025
+       Hỏi: Final kéo dài bao lâu? Đáp: Theo đề cương, final có thời lượng 90 phút.
+
+[049] Q: Hôm nay ở TP.HCM có mưa không?
+  gate: UNKNOWN
+  retrieved:
+    (khong co)
+
+[050] Q: Ai là tổng thống của Pháp?
+  gate: UNKNOWN
+  retrieved:
+    #1 lo:LO1  score=6.978
+       Chuẩn đầu ra L.O.1 (LO1): Tổng quan về tổ chức hệ thống NLP và các ứng dụng.
+    #2 faq:Q4  score=4.636
+       Hỏi: Chương nào học về PCFG? Đáp: PCFG được trình bày trong Chương 3 và tiếp tục được sử dụng trong Chương 6 về các phương pháp thống kê.
+    #3 lo:LO2  score=3.614
+       Chuẩn đầu ra L.O.2 (LO2): Xử lý cú pháp; xây dựng văn phạm đơn giản và phân tích cú pháp.
+
+[051] Q: Hãy giải bài tập xác suất này giúp tôi.
+  gate: UNKNOWN
+  retrieved:
+    #1 lo:LO2.5  score=11.698
+       Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+    #2 faq:Q10  score=10.351
+       Hỏi: L.O.2.5 liên quan đến nội dung gì? Đáp: L.O.2.5 liên quan đến lý thuyết xác suất và việc giải quyết nhập nhằng từ ở mức câu.
+    #3 course_info:assessment  score=6.519
+       Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-boo...
+    #4 regulation:external_libraries  score=6.214
+       Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.

@@ -1,0 +1,145 @@
+DANH GIA SO BO - Classical NLP (che do 1 luot, khong ngu canh)
+So cau kiem thu: 34
+Intent dung: 34/34 = 100.0%
+Entity chinh dung (khong tinh cau can ngu canh): 31/31 = 100.0%
+Cau sai: 0
+
+
+CHI TIET
+
+Q001 | OK  | Môn NLP có bao nhiêu tín chỉ?
+    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
+    GET_CREDIT(course=CO3085)
+    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+Q002 | OK  | CO3085 có mấy tín chỉ?
+    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
+    GET_CREDIT(course=CO3085)
+    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+Q003 | OK  | Môn học gồm những phần nào?
+    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
+    GET_MAIN_PARTS(course=CO3085)
+    A: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+Q004 | OK  | Tuần 3 học gì?
+    gold: GET_SCHEDULE/WEEK_03  pred: GET_SCHEDULE/WEEK_03
+    GET_WEEK_CONTENT(week=WEEK_03)
+    A: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+Q005 | OK  | Chương 4 học vào tuần nào?
+    gold: GET_SCHEDULE/CH04  pred: GET_SCHEDULE/CH04
+    GET_CHAPTER_WEEKS(chapter=CH04)
+    A: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5.
+Q006 | OK  | Chương nào nói về CFG?
+    gold: GET_TOPIC/CFG  pred: GET_TOPIC/CFG
+    GET_TOPIC_CHAPTER(topic=CFG)
+    A: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+Q007 | OK  | PCFG được học ở đâu?
+    gold: GET_TOPIC/PCFG  pred: GET_TOPIC/PCFG
+    GET_TOPIC_CHAPTER(topic=PCFG)
+    A: PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+Q008 | OK  | Chương nào nói về semantic grammar?
+    gold: GET_TOPIC/SEMANTIC_GRAMMAR  pred: GET_TOPIC/SEMANTIC_GRAMMAR
+    GET_TOPIC_CHAPTER(topic=SEMANTIC_GRAMMAR)
+    A: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+Q009 | OK  | L.O.2.5 là gì?
+    gold: GET_LO/LO2.5  pred: GET_LO/LO2.5
+    GET_LO(lo=LO2.5)
+    A: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+Q010 | OK  | L.O.4.2 liên quan đến nội dung nào?
+    gold: GET_LO/LO4.2  pred: GET_LO/LO4.2
+    GET_LO(lo=LO4.2)
+    A: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+Q011 | OK  | Bài tập lớn yêu cầu xây dựng những gì?
+    gold: GET_ASSIGNMENT/BTL01  pred: GET_ASSIGNMENT/BTL01
+    GET_ASSIGNMENT(assignment=BTL01)
+    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q012 | OK  | Phần I của bài tập lớn là gì?
+    gold: GET_ASSIGNMENT/PART_I  pred: GET_ASSIGNMENT/PART_I
+    GET_ASSIGNMENT_PART(part=PART_I)
+    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q013 | OK  | Bài tập lớn có phần hỏi đáp không?
+    gold: GET_ASSIGNMENT/PART_II  pred: GET_ASSIGNMENT/PART_II
+    CHECK_ASSIGNMENT_PART(part=PART_II)
+    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q014 | OK  | Có được dùng LLM/RAG không?
+    gold: GET_RULE/LLM_RAG  pred: GET_RULE/LLM_RAG
+    GET_RULE(rule=LLM_RAG)
+    A: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+Q015 | OK  | Quy định về sử dụng AI là gì?
+    gold: GET_RULE/AI_USAGE  pred: GET_RULE/AI_USAGE
+    GET_RULE(rule=AI_USAGE)
+    A: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+Q016 | OK  | Midterm bao nhiêu phút?
+    gold: GET_COURSE_INFO/MIDTERM  pred: GET_COURSE_INFO/MIDTERM
+    GET_EXAM_DURATION(exam=MIDTERM)
+    A: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+Q017 | OK  | Final bao nhiêu phút?
+    gold: GET_COURSE_INFO/FINAL  pred: GET_COURSE_INFO/FINAL
+    GET_EXAM_DURATION(exam=FINAL)
+    A: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
+Q018 | OK  | Tài liệu tham khảo về statistical NLP là gì?
+    gold: GET_RESOURCE/STATISTICAL_NLP  pred: GET_RESOURCE/STATISTICAL_NLP
+    GET_RESOURCE(topic=STATISTICAL_NLP)
+    A: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+Q019 | OK  | Tài liệu nào liên quan đến Python NLP?
+    gold: GET_RESOURCE/PYTHON_NLP  pred: GET_RESOURCE/PYTHON_NLP
+    GET_RESOURCE(topic=PYTHON_NLP)
+    A: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+Q020 | OK  | Chương 12 nói về gì?
+    gold: GET_TOPIC/CH12  pred: GET_TOPIC/CH12
+    GET_CHAPTER_CONTENT(chapter=CH12)
+    A: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+Q021 | OK  | Chương nào học về reference?
+    gold: GET_TOPIC/REFERENCE  pred: GET_TOPIC/REFERENCE
+    GET_TOPIC_CHAPTER(topic=REFERENCE)
+    A: reference được trình bày chủ yếu trong Chương 12 (Discourse Context and Reference).
+Q022 | OK  | Chương nào học về question answering?
+    gold: GET_TOPIC/QUESTION_ANSWERING  pred: GET_TOPIC/QUESTION_ANSWERING
+    GET_TOPIC_CHAPTER(topic=QUESTION_ANSWERING)
+    A: question answering được trình bày chủ yếu trong Chương 11 (Knowledge Representation and Reasoning).
+Q023 | OK  | Chương nào học về selectional restriction?
+    gold: GET_TOPIC/SELECTIONAL_RESTRICTION  pred: GET_TOPIC/SELECTIONAL_RESTRICTION
+    GET_TOPIC_CHAPTER(topic=SELECTIONAL_RESTRICTION)
+    A: selectional restriction được trình bày chủ yếu trong Chương 9 (Ambiguity Resolution).
+Q024 | OK  | Chương 10 có những phương pháp gì?
+    gold: GET_TOPIC/CH10  pred: GET_TOPIC/CH10
+    GET_CHAPTER_CONTENT(chapter=CH10)
+    A: Chương 10 (Other Strategies for Semantic Interpretation), phần Semantic Interpretation. Tóm tắt: Alternative approaches to semantic interpretation include grammatical relations, semantic grammars, template matching and semantically driven parsing. Các mục: 10.1 Grammatical relations; 10.2 Semantic grammars; 10.3 Template matching; 10.4 Semantically driven parsing techniques.
+Q025 | OK  | Chương 11 có liên quan đến hỏi đáp không?
+    gold: GET_TOPIC/CH11  pred: GET_TOPIC/CH11
+    CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+    A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+Q026 | OK  | Hôm nay ở TP.HCM có mưa không?
+    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
+    UNKNOWN(reason=OUT_OF_SCOPE)
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q027 | OK  | Ai là tổng thống của Pháp?
+    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
+    UNKNOWN(reason=OUT_OF_SCOPE)
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q028 | OK  | Hãy giải bài tập xác suất này giúp tôi.
+    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
+    UNKNOWN(reason=OUT_OF_SCOPE)
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q029 | OK  | Chương 4 nói về gì?
+    gold: GET_TOPIC/CH04  pred: GET_TOPIC/CH04
+    GET_CHAPTER_CONTENT(chapter=CH04)
+    A: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+Q030 | OK  | Nó có liên quan đến parsing không?
+    gold: CONTEXT_DEPENDENT/CH04  pred: CONTEXT_DEPENDENT/-
+    NEEDS_CONTEXT(expr="nó")
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+Q031 | OK  | Chương 11 có hỏi đáp không?
+    gold: GET_TOPIC/CH11  pred: GET_TOPIC/CH11
+    CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+    A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+Q032 | OK  | Còn chương sau?
+    gold: CONTEXT_DEPENDENT/CH12  pred: CONTEXT_DEPENDENT/-
+    NEEDS_CONTEXT(expr="còn")
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+Q033 | OK  | Bài tập lớn có phần parser không?
+    gold: GET_ASSIGNMENT/PART_I  pred: GET_ASSIGNMENT/PART_I
+    CHECK_ASSIGNMENT_PART(part=PART_I)
+    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q034 | OK  | Phần này cần xuất file gì?
+    gold: CONTEXT_DEPENDENT/PART_I  pred: CONTEXT_DEPENDENT/-
+    NEEDS_CONTEXT(expr="phần này")
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).

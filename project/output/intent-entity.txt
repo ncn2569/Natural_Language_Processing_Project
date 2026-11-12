@@ -1,0 +1,458 @@
+[001] Môn NLP có bao nhiêu tín chỉ?
+  intent   : GET_COURSE_INFO
+  entities : COURSE=CO3085, COURSE=CO3085
+  primary  : CO3085
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[002] Tuần 5 học những nội dung gì?
+  intent   : GET_SCHEDULE
+  entities : WEEK=WEEK_05
+  primary  : WEEK_05
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tuan/lich
+
+[003] Phần CFG và Parsing nằm ở tuần nào?
+  intent   : GET_SCHEDULE
+  entities : TOPIC=CFG, TOPIC=PARSING
+  primary  : CFG
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tuan/lich
+
+[004] Bài tập lớn có những yêu cầu gì?
+  intent   : GET_ASSIGNMENT
+  entities : ASSIGN=BTL01
+  primary  : BTL01
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
+
+[005] Deadline của bài tập lớn là khi nào?
+  intent   : GET_DEADLINE
+  entities : ASSIGN=BTL01
+  primary  : BTL01
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue deadline/han nop
+
+[006] Deadline bài tập lớn là khi nào?
+  intent   : GET_DEADLINE
+  entities : ASSIGN=BTL01
+  primary  : BTL01
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue deadline/han nop
+
+[007] Tài liệu nào nói về CFG?
+  intent   : GET_RESOURCE
+  entities : TOPIC=CFG
+  primary  : CFG
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tai lieu
+
+[008] Bài tập lớn có được sử dụng công cụ AI không?
+  intent   : GET_RULE
+  entities : ASSIGN=BTL01, RULE=AI_USAGE
+  primary  : AI_USAGE
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue quy dinh / entity RULE
+
+[009] Tôi cần hoàn thành những bài tập nào?
+  intent   : UNKNOWN
+  entities : -
+  primary  : OUT_OF_SCOPE
+  yes/no   : False
+  parse    : OK
+  source   : rules
+  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+
+[010] Tuần 5 học những gì?
+  intent   : GET_SCHEDULE
+  entities : WEEK=WEEK_05
+  primary  : WEEK_05
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tuan/lich
+
+[011] Tài liệu của phần này ở đâu?
+  intent   : CONTEXT_DEPENDENT
+  entities : -
+  primary  : -
+  yes/no   : False
+  parse    : OK
+  source   : rules(tree=GET_RESOURCE khac)
+  note     : intent: co dai tu/tham chieu, khong co entity chinh
+
+[012] CO3085 có mấy tín chỉ?
+  intent   : GET_COURSE_INFO
+  entities : COURSE=CO3085
+  primary  : CO3085
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[013] Môn học gồm những phần nào?
+  intent   : GET_COURSE_INFO
+  entities : COURSE=CO3085
+  primary  : CO3085
+  yes/no   : False
+  parse    : OK
+  source   : rules
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[014] Tuần 3 học gì?
+  intent   : GET_SCHEDULE
+  entities : WEEK=WEEK_03
+  primary  : WEEK_03
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tuan/lich
+
+[015] Chương 4 học vào tuần nào?
+  intent   : GET_SCHEDULE
+  entities : CHAPTER=CH04
+  primary  : CH04
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tuan/lich
+
+[016] Chương nào nói về CFG?
+  intent   : GET_TOPIC
+  entities : TOPIC=CFG
+  primary  : CFG
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[017] PCFG được học ở đâu?
+  intent   : GET_TOPIC
+  entities : TOPIC=PCFG
+  primary  : PCFG
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[018] Chương nào nói về semantic grammar?
+  intent   : GET_TOPIC
+  entities : TOPIC=SEMANTIC_GRAMMAR
+  primary  : SEMANTIC_GRAMMAR
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[019] L.O.2.5 là gì?
+  intent   : GET_LO
+  entities : LO=LO2.5
+  primary  : LO2.5
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity LO / cue chuan dau ra
+
+[020] L.O.4.2 liên quan đến nội dung nào?
+  intent   : GET_LO
+  entities : LO=LO4.2
+  primary  : LO4.2
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity LO / cue chuan dau ra
+
+[021] Bài tập lớn yêu cầu xây dựng những gì?
+  intent   : GET_ASSIGNMENT
+  entities : ASSIGN=BTL01
+  primary  : BTL01
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
+
+[022] Phần I của bài tập lớn là gì?
+  intent   : GET_ASSIGNMENT
+  entities : PARTREF=I, ASSIGN=BTL01
+  primary  : PART_I
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
+
+[023] Bài tập lớn có phần hỏi đáp không?
+  intent   : GET_ASSIGNMENT
+  entities : ASSIGN=BTL01, TOPIC=QUESTION_ANSWERING
+  primary  : PART_II
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
+
+[024] Có được dùng LLM/RAG không?
+  intent   : GET_RULE
+  entities : RULE=LLM_RAG
+  primary  : LLM_RAG
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue quy dinh / entity RULE
+
+[025] Quy định về sử dụng AI là gì?
+  intent   : GET_RULE
+  entities : RULE=AI_USAGE
+  primary  : AI_USAGE
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue quy dinh / entity RULE
+
+[026] Midterm bao nhiêu phút?
+  intent   : GET_COURSE_INFO
+  entities : EXAM=MIDTERM
+  primary  : MIDTERM
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[027] Final bao nhiêu phút?
+  intent   : GET_COURSE_INFO
+  entities : EXAM=FINAL
+  primary  : FINAL
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[028] Tài liệu tham khảo về statistical NLP là gì?
+  intent   : GET_RESOURCE
+  entities : RESOURCE_TOPIC=STATISTICAL_NLP
+  primary  : STATISTICAL_NLP
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tai lieu
+
+[029] Tài liệu nào liên quan đến Python NLP?
+  intent   : GET_RESOURCE
+  entities : RESOURCE_TOPIC=PYTHON_NLP
+  primary  : PYTHON_NLP
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue tai lieu
+
+[030] Chương 12 nói về gì?
+  intent   : GET_TOPIC
+  entities : CHAPTER=CH12
+  primary  : CH12
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[031] Chương nào học về reference?
+  intent   : GET_TOPIC
+  entities : TOPIC=REFERENCE
+  primary  : REFERENCE
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[032] Chương nào học về question answering?
+  intent   : GET_TOPIC
+  entities : TOPIC=QUESTION_ANSWERING
+  primary  : QUESTION_ANSWERING
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[033] Chương nào học về selectional restriction?
+  intent   : GET_TOPIC
+  entities : TOPIC=SELECTIONAL_RESTRICTION
+  primary  : SELECTIONAL_RESTRICTION
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[034] Chương 10 có những phương pháp gì?
+  intent   : GET_TOPIC
+  entities : CHAPTER=CH10
+  primary  : CH10
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[035] Chương 11 có liên quan đến hỏi đáp không?
+  intent   : GET_TOPIC
+  entities : CHAPTER=CH11, TOPIC=QUESTION_ANSWERING
+  primary  : CH11
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[036] Chương 4 nói về gì?
+  intent   : GET_TOPIC
+  entities : CHAPTER=CH04
+  primary  : CH04
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[037] Nó có liên quan đến parsing không?
+  intent   : CONTEXT_DEPENDENT
+  entities : TOPIC=PARSING
+  primary  : -
+  yes/no   : True
+  parse    : OK
+  source   : rules(tree=GET_TOPIC khac)
+  note     : intent: co dai tu/tham chieu, khong co entity chinh
+
+[038] Chương 11 có hỏi đáp không?
+  intent   : GET_TOPIC
+  entities : CHAPTER=CH11, TOPIC=QUESTION_ANSWERING
+  primary  : CH11
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[039] Bài tập lớn có phần parser không?
+  intent   : GET_ASSIGNMENT
+  entities : ASSIGN=BTL01
+  primary  : PART_I
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
+
+[040] Phần này cần xuất file gì?
+  intent   : CONTEXT_DEPENDENT
+  entities : -
+  primary  : -
+  yes/no   : False
+  parse    : OK
+  source   : rules
+  note     : intent: co dai tu/tham chieu, khong co entity chinh
+
+[041] Tài liệu của chương này là gì?
+  intent   : CONTEXT_DEPENDENT
+  entities : -
+  primary  : -
+  yes/no   : False
+  parse    : OK
+  source   : rules(tree=GET_RESOURCE khac)
+  note     : intent: co dai tu/tham chieu, khong co entity chinh
+
+[042] L.O.2.5 học về gì?
+  intent   : GET_LO
+  entities : LO=LO2.5
+  primary  : LO2.5
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: entity LO / cue chuan dau ra
+
+[043] Nội dung này nằm ở chương nào?
+  intent   : CONTEXT_DEPENDENT
+  entities : -
+  primary  : -
+  yes/no   : False
+  parse    : OK
+  source   : rules(tree=GET_TOPIC khac)
+  note     : intent: co dai tu/tham chieu, khong co entity chinh
+
+[044] NLP có những phần chính nào?
+  intent   : GET_COURSE_INFO
+  entities : COURSE=CO3085
+  primary  : CO3085
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[045] Chương nào học về Features và Augmented Grammar?
+  intent   : GET_TOPIC
+  entities : TOPIC=FEATURES, TOPIC=AUGMENTED_GRAMMAR
+  primary  : FEATURES
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue chuong/chu de
+
+[046] Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  intent   : GET_RULE
+  entities : ASSIGN=BTL01, RULE=LLM_RAG, RULE=LLM_RAG
+  primary  : LLM_RAG
+  yes/no   : True
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue quy dinh / entity RULE
+
+[047] Midterm kéo dài bao lâu?
+  intent   : GET_COURSE_INFO
+  entities : EXAM=MIDTERM
+  primary  : MIDTERM
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[048] Final kéo dài bao lâu?
+  intent   : GET_COURSE_INFO
+  entities : EXAM=FINAL
+  primary  : FINAL
+  yes/no   : False
+  parse    : OK
+  source   : rules+tree(agree)
+  note     : intent: cue thong tin mon hoc / ky thi
+
+[049] Hôm nay ở TP.HCM có mưa không?
+  intent   : UNKNOWN
+  entities : -
+  primary  : OUT_OF_SCOPE
+  yes/no   : True
+  parse    : REJECTED
+  source   : rules(parser tu choi cau)
+  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+
+[050] Ai là tổng thống của Pháp?
+  intent   : UNKNOWN
+  entities : -
+  primary  : OUT_OF_SCOPE
+  yes/no   : False
+  parse    : REJECTED
+  source   : rules(parser tu choi cau)
+  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+
+[051] Hãy giải bài tập xác suất này giúp tôi.
+  intent   : UNKNOWN
+  entities : -
+  primary  : OUT_OF_SCOPE
+  yes/no   : False
+  parse    : REJECTED
+  source   : rules(parser tu choi cau)
+  note     : intent: khong co tu khoa/entity thuoc mien mon hoc

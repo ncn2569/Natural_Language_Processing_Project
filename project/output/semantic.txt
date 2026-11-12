@@ -1,0 +1,152 @@
+[001] Môn NLP có bao nhiêu tín chỉ?
+  GET_CREDIT(course=CO3085)
+
+[002] Tuần 5 học những nội dung gì?
+  GET_WEEK_CONTENT(week=WEEK_05)
+
+[003] Phần CFG và Parsing nằm ở tuần nào?
+  GET_TOPIC_WEEKS(topic=CFG)
+
+[004] Bài tập lớn có những yêu cầu gì?
+  GET_ASSIGNMENT(assignment=BTL01)
+
+[005] Deadline của bài tập lớn là khi nào?
+  GET_DEADLINE(assignment=BTL01)
+
+[006] Deadline bài tập lớn là khi nào?
+  GET_DEADLINE(assignment=BTL01)
+
+[007] Tài liệu nào nói về CFG?
+  GET_RESOURCE(topic=CFG)
+
+[008] Bài tập lớn có được sử dụng công cụ AI không?
+  GET_RULE(rule=AI_USAGE)
+
+[009] Tôi cần hoàn thành những bài tập nào?
+  UNKNOWN(reason=OUT_OF_SCOPE)
+
+[010] Tuần 5 học những gì?
+  GET_WEEK_CONTENT(week=WEEK_05)
+
+[011] Tài liệu của phần này ở đâu?
+  NEEDS_CONTEXT(expr="phần này")
+
+[012] CO3085 có mấy tín chỉ?
+  GET_CREDIT(course=CO3085)
+
+[013] Môn học gồm những phần nào?
+  GET_MAIN_PARTS(course=CO3085)
+
+[014] Tuần 3 học gì?
+  GET_WEEK_CONTENT(week=WEEK_03)
+
+[015] Chương 4 học vào tuần nào?
+  GET_CHAPTER_WEEKS(chapter=CH04)
+
+[016] Chương nào nói về CFG?
+  GET_TOPIC_CHAPTER(topic=CFG)
+
+[017] PCFG được học ở đâu?
+  GET_TOPIC_CHAPTER(topic=PCFG)
+
+[018] Chương nào nói về semantic grammar?
+  GET_TOPIC_CHAPTER(topic=SEMANTIC_GRAMMAR)
+
+[019] L.O.2.5 là gì?
+  GET_LO(lo=LO2.5)
+
+[020] L.O.4.2 liên quan đến nội dung nào?
+  GET_LO(lo=LO4.2)
+
+[021] Bài tập lớn yêu cầu xây dựng những gì?
+  GET_ASSIGNMENT(assignment=BTL01)
+
+[022] Phần I của bài tập lớn là gì?
+  GET_ASSIGNMENT_PART(part=PART_I)
+
+[023] Bài tập lớn có phần hỏi đáp không?
+  CHECK_ASSIGNMENT_PART(part=PART_II)
+
+[024] Có được dùng LLM/RAG không?
+  GET_RULE(rule=LLM_RAG)
+
+[025] Quy định về sử dụng AI là gì?
+  GET_RULE(rule=AI_USAGE)
+
+[026] Midterm bao nhiêu phút?
+  GET_EXAM_DURATION(exam=MIDTERM)
+
+[027] Final bao nhiêu phút?
+  GET_EXAM_DURATION(exam=FINAL)
+
+[028] Tài liệu tham khảo về statistical NLP là gì?
+  GET_RESOURCE(topic=STATISTICAL_NLP)
+
+[029] Tài liệu nào liên quan đến Python NLP?
+  GET_RESOURCE(topic=PYTHON_NLP)
+
+[030] Chương 12 nói về gì?
+  GET_CHAPTER_CONTENT(chapter=CH12)
+
+[031] Chương nào học về reference?
+  GET_TOPIC_CHAPTER(topic=REFERENCE)
+
+[032] Chương nào học về question answering?
+  GET_TOPIC_CHAPTER(topic=QUESTION_ANSWERING)
+
+[033] Chương nào học về selectional restriction?
+  GET_TOPIC_CHAPTER(topic=SELECTIONAL_RESTRICTION)
+
+[034] Chương 10 có những phương pháp gì?
+  GET_CHAPTER_CONTENT(chapter=CH10)
+
+[035] Chương 11 có liên quan đến hỏi đáp không?
+  CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+
+[036] Chương 4 nói về gì?
+  GET_CHAPTER_CONTENT(chapter=CH04)
+
+[037] Nó có liên quan đến parsing không?
+  NEEDS_CONTEXT(expr="nó")
+
+[038] Chương 11 có hỏi đáp không?
+  CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+
+[039] Bài tập lớn có phần parser không?
+  CHECK_ASSIGNMENT_PART(part=PART_I)
+
+[040] Phần này cần xuất file gì?
+  NEEDS_CONTEXT(expr="phần này")
+
+[041] Tài liệu của chương này là gì?
+  NEEDS_CONTEXT(expr="chương này")
+
+[042] L.O.2.5 học về gì?
+  GET_LO(lo=LO2.5)
+
+[043] Nội dung này nằm ở chương nào?
+  NEEDS_CONTEXT(expr="nội dung này")
+
+[044] NLP có những phần chính nào?
+  GET_MAIN_PARTS(course=CO3085)
+
+[045] Chương nào học về Features và Augmented Grammar?
+  GET_TOPIC_CHAPTER(topic=FEATURES)
+
+[046] Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  GET_RULE(rule=LLM_RAG)
+
+[047] Midterm kéo dài bao lâu?
+  GET_EXAM_DURATION(exam=MIDTERM)
+
+[048] Final kéo dài bao lâu?
+  GET_EXAM_DURATION(exam=FINAL)
+
+[049] Hôm nay ở TP.HCM có mưa không?
+  UNKNOWN(reason=OUT_OF_SCOPE)
+
+[050] Ai là tổng thống của Pháp?
+  UNKNOWN(reason=OUT_OF_SCOPE)
+
+[051] Hãy giải bài tập xác suất này giúp tôi.
+  UNKNOWN(reason=OUT_OF_SCOPE)

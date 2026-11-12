@@ -1,0 +1,51 @@
+Môn NLP có bao nhiêu tín chỉ?
+Tuần 5 học những nội dung gì?
+Phần CFG và Parsing nằm ở tuần nào?
+Bài tập lớn có những yêu cầu gì?
+Deadline của bài tập lớn là khi nào?
+Deadline bài tập lớn là khi nào?
+Tài liệu nào nói về CFG?
+Bài tập lớn có được sử dụng công cụ AI không?
+Tôi cần hoàn thành những bài tập nào?
+Tuần 5 học những gì?
+Tài liệu của phần này ở đâu?
+CO3085 có mấy tín chỉ?
+Môn học gồm những phần nào?
+Tuần 3 học gì?
+Chương 4 học vào tuần nào?
+Chương nào nói về CFG?
+PCFG được học ở đâu?
+Chương nào nói về semantic grammar?
+L.O.2.5 là gì?
+L.O.4.2 liên quan đến nội dung nào?
+Bài tập lớn yêu cầu xây dựng những gì?
+Phần I của bài tập lớn là gì?
+Bài tập lớn có phần hỏi đáp không?
+Có được dùng LLM/RAG không?
+Quy định về sử dụng AI là gì?
+Midterm bao nhiêu phút?
+Final bao nhiêu phút?
+Tài liệu tham khảo về statistical NLP là gì?
+Tài liệu nào liên quan đến Python NLP?
+Chương 12 nói về gì?
+Chương nào học về reference?
+Chương nào học về question answering?
+Chương nào học về selectional restriction?
+Chương 10 có những phương pháp gì?
+Chương 11 có liên quan đến hỏi đáp không?
+Chương 4 nói về gì?
+Nó có liên quan đến parsing không?
+Chương 11 có hỏi đáp không?
+Bài tập lớn có phần parser không?
+Phần này cần xuất file gì?
+Tài liệu của chương này là gì?
+L.O.2.5 học về gì?
+Nội dung này nằm ở chương nào?
+NLP có những phần chính nào?
+Chương nào học về Features và Augmented Grammar?
+Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+Midterm kéo dài bao lâu?
+Final kéo dài bao lâu?
+Hôm nay ở TP.HCM có mưa không?
+Ai là tổng thống của Pháp?
+Hãy giải bài tập xác suất này giúp tôi.
