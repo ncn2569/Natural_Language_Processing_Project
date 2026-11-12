@@ -1,0 +1,254 @@
+[001] Q: Môn NLP có bao nhiêu tín chỉ?
+  A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ. [faq:Q1]
+  mode: extractive
+  sources: faq:Q1
+
+[002] Q: Tuần 5 học những nội dung gì?
+  A: Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. [schedule:WEEK_05]
+  mode: extractive
+  sources: schedule:WEEK_05
+
+[003] Q: Phần CFG và Parsing nằm ở tuần nào?
+  A: Từ khóa: CFG, parsing, PCFG, dependency grammar. Chương 3 (CH03): Grammar and Parsing. [topic:CH03]
+  mode: extractive
+  sources: topic:CH03
+
+[004] Q: Bài tập lớn có những yêu cầu gì?
+  A: Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [regulation:external_libraries]
+  mode: extractive
+  sources: regulation:external_libraries
+
+[005] Q: Deadline của bài tập lớn là khi nào?
+  A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+  mode: extractive
+  sources: course_info:assessment
+
+[006] Q: Deadline bài tập lớn là khi nào?
+  A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+  mode: extractive
+  sources: course_info:assessment
+
+[007] Q: Tài liệu nào nói về CFG?
+  A: Từ khóa: CFG, parsing, PCFG, dependency grammar. It also introduces probabilistic CFG and dependency grammar. [topic:CH03]
+  mode: extractive
+  sources: topic:CH03
+
+[008] Q: Bài tập lớn có được sử dụng công cụ AI không?
+  A: Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [regulation:external_libraries]
+  mode: extractive
+  sources: regulation:external_libraries
+
+[009] Q: Tôi cần hoàn thành những bài tập nào?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  mode: gate:out-of-scope
+  sources: -
+
+[010] Q: Tuần 5 học những gì?
+  A: Tuần 5 week 5. Phần Syntactic Processing. Chương 4. Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. [schedule:WEEK_05]
+  mode: extractive
+  sources: schedule:WEEK_05
+
+[011] Q: Tài liệu của phần này ở đâu?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  mode: gate:needs-context
+  sources: -
+
+[012] Q: CO3085 có mấy tín chỉ?
+  A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ. [faq:Q1]
+  mode: extractive
+  sources: faq:Q1
+
+[013] Q: Môn học gồm những phần nào?
+  A: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới. [faq:Q2]
+  mode: extractive
+  sources: faq:Q2
+
+[014] Q: Tuần 3 học gì?
+  A: Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. [schedule:WEEK_03]
+  mode: extractive
+  sources: schedule:WEEK_03
+
+[015] Q: Chương 4 học vào tuần nào?
+  A: Chương 4 (CH04): Features and Augmented Grammar. [topic:CH04]
+  mode: extractive
+  sources: topic:CH04
+
+[016] Q: Chương nào nói về CFG?
+  A: Chương 3 (CH03): Grammar and Parsing. Từ khóa: CFG, parsing, PCFG, dependency grammar. [topic:CH03]
+  mode: extractive
+  sources: topic:CH03
+
+[017] Q: PCFG được học ở đâu?
+  A: Từ khóa: CFG, parsing, PCFG, dependency grammar. [topic:CH03]
+  mode: extractive
+  sources: topic:CH03
+
+[018] Q: Chương nào nói về semantic grammar?
+  A: Chương 10 (CH10): Other Strategies for Semantic Interpretation. Từ khóa: grammatical relations, semantic grammar, template matching. [topic:CH10]
+  mode: extractive
+  sources: topic:CH10
+
+[019] Q: L.O.2.5 là gì?
+  A: Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu. [lo:LO2.5]
+  mode: extractive
+  sources: lo:LO2.5
+
+[020] Q: L.O.4.2 liên quan đến nội dung nào?
+  A: L.O.4.2 liên quan đến ngữ cảnh diễn ngôn cục bộ và sự tham chiếu. [faq:Q9]
+  mode: extractive
+  sources: faq:Q9
+
+[021] Q: Bài tập lớn yêu cầu xây dựng những gì?
+  A: Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [regulation:external_libraries]
+  mode: extractive
+  sources: regulation:external_libraries
+
+[022] Q: Phần I của bài tập lớn là gì?
+  A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+  mode: extractive
+  sources: course_info:assessment
+
+[023] Q: Bài tập lớn có phần hỏi đáp không?
+  A: Phần Context and World Knowledge. [topic:CH11]
+  mode: extractive
+  sources: topic:CH11
+
+[024] Q: Có được dùng LLM/RAG không?
+  A: Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá. [regulation:LLM_RAG]
+  mode: extractive
+  sources: regulation:LLM_RAG
+
+[025] Q: Quy định về sử dụng AI là gì?
+  A: Quy định AI_usage: Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [regulation:AI_usage]
+  mode: extractive
+  sources: regulation:AI_usage
+
+[026] Q: Midterm bao nhiêu phút?
+  A: Theo đề cương, midterm có thời lượng 60 phút. [faq:Q14]
+  mode: extractive
+  sources: faq:Q14
+
+[027] Q: Final bao nhiêu phút?
+  A: Theo đề cương, final có thời lượng 90 phút. [faq:Q15]
+  mode: extractive
+  sources: faq:Q15
+
+[028] Q: Tài liệu tham khảo về statistical NLP là gì?
+  A: Tài liệu REFERENCE 1: Foundation of Statistical Natural Language Processing. Tác giả: Christopher D. Manning; Hinrich Schütze. Năm 2001. Mục đích: statistical NLP. [resource:REFERENCE 1]
+  mode: extractive
+  sources: resource:REFERENCE 1
+
+[029] Q: Tài liệu nào liên quan đến Python NLP?
+  A: Tài liệu REFERENCE 2: Natural Language Processing with Python. Tác giả: Steven Bird; Ewan Klein; Edward Loper. Năm 2009. Mục đích: practical NLP with Python. [resource:REFERENCE 2]
+  mode: extractive
+  sources: resource:REFERENCE 2
+
+[030] Q: Chương 12 nói về gì?
+  A: Chương 12 (CH12): Discourse Context and Reference. [topic:CH12]
+  mode: extractive
+  sources: topic:CH12
+
+[031] Q: Chương nào học về reference?
+  A: Chương 12 (CH12): Discourse Context and Reference. Từ khóa: discourse context, reference, anaphora, pronoun, centering. [topic:CH12]
+  mode: extractive
+  sources: topic:CH12
+
+[032] Q: Chương nào học về question answering?
+  A: Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. 11.5 Procedural semantics and question answering [topic:CH11]
+  mode: extractive
+  sources: topic:CH11
+
+[033] Q: Chương nào học về selectional restriction?
+  A: Chương 9 (CH09): Ambiguity Resolution. Phần Semantic Interpretation. Từ khóa: selectional restriction, semantic network, WSD. Tóm tắt: The chapter covers knowledge-based and statistical methods for semantic ambiguity resolution. Các mục: 9.1 Selectional restriction; 9.2 Semantic filtering using selectional restriction; 9.3 Semantic networks; 9.4 Statistical word sense disambiguation [topic:CH09]
+  mode: extractive
+  sources: topic:CH09
+
+[034] Q: Chương 10 có những phương pháp gì?
+  A: Chương 10 (CH10): Other Strategies for Semantic Interpretation. [topic:CH10]
+  mode: extractive
+  sources: topic:CH10
+
+[035] Q: Chương 11 có liên quan đến hỏi đáp không?
+  A: Chương 11 (CH11): Knowledge Representation and Reasoning. [topic:CH11]
+  mode: extractive
+  sources: topic:CH11
+
+[036] Q: Chương 4 nói về gì?
+  A: Chương 4 (CH04): Features and Augmented Grammar. [topic:CH04]
+  mode: extractive
+  sources: topic:CH04
+
+[037] Q: Nó có liên quan đến parsing không?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  mode: gate:needs-context
+  sources: -
+
+[038] Q: Chương 11 có hỏi đáp không?
+  A: Chương 11 (CH11): Knowledge Representation and Reasoning. [topic:CH11]
+  mode: extractive
+  sources: topic:CH11
+
+[039] Q: Bài tập lớn có phần parser không?
+  A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+  mode: extractive
+  sources: course_info:assessment
+
+[040] Q: Phần này cần xuất file gì?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  mode: gate:needs-context
+  sources: -
+
+[041] Q: Tài liệu của chương này là gì?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  mode: gate:needs-context
+  sources: -
+
+[042] Q: L.O.2.5 học về gì?
+  A: Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu. [lo:LO2.5]
+  mode: extractive
+  sources: lo:LO2.5
+
+[043] Q: Nội dung này nằm ở chương nào?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  mode: gate:needs-context
+  sources: -
+
+[044] Q: NLP có những phần chính nào?
+  A: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới. [faq:Q2]
+  mode: extractive
+  sources: faq:Q2
+
+[045] Q: Chương nào học về Features và Augmented Grammar?
+  A: Chương 4 (CH04): Features and Augmented Grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. [topic:CH04]
+  mode: extractive
+  sources: topic:CH04
+
+[046] Q: Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  A: Có thể sử dụng như một phần mở rộng nếu được cho phép, nhưng LLM/RAG không thay thế các yêu cầu NLP cốt lõi. [faq:Q12]
+  mode: extractive
+  sources: faq:Q12
+
+[047] Q: Midterm kéo dài bao lâu?
+  A: Theo đề cương, midterm có thời lượng 60 phút. [faq:Q14]
+  mode: extractive
+  sources: faq:Q14
+
+[048] Q: Final kéo dài bao lâu?
+  A: Theo đề cương, final có thời lượng 90 phút. [faq:Q15]
+  mode: extractive
+  sources: faq:Q15
+
+[049] Q: Hôm nay ở TP.HCM có mưa không?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  mode: gate:out-of-scope
+  sources: -
+
+[050] Q: Ai là tổng thống của Pháp?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  mode: gate:out-of-scope
+  sources: -
+
+[051] Q: Hãy giải bài tập xác suất này giúp tôi.
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  mode: gate:out-of-scope
+  sources: -

@@ -1,0 +1,170 @@
+DANH GIA RAG (che do trich xuat khong LLM; voi LLM thi cau chu thay doi nhung retrieval giu nguyen)
+Tong cau kiem thu: 34 (co dap an trong KB: 28, ngoai pham vi: 3, can ngu canh: 3)
+Retrieval hit@1: 23/28 = 82.1%
+Retrieval hit@3: 24/28 = 85.7%
+Tu choi dung cau ngoai pham vi: 3/3
+Nhan dien cau can ngu canh: 3/3
+Cau tra loi co nguon trich dan: 28/28
+
+RETRIEVAL TRUOT Q011 | Bài tập lớn yêu cầu xây dựng những gì? | BTL01 | ['regulation:external_libraries', 'course_info:assessment']
+RETRIEVAL TRUOT Q012 | Phần I của bài tập lớn là gì? | PART_I | ['course_info:assessment', 'regulation:external_libraries', 'regulation:attendance']
+RETRIEVAL TRUOT Q013 | Bài tập lớn có phần hỏi đáp không? | PART_II | ['topic:CH11', 'course_info:assessment', 'schedule:WEEK_13']
+RETRIEVAL TRUOT Q033 | Bài tập lớn có phần parser không? | PART_I | ['course_info:assessment', 'regulation:external_libraries', 'regulation:attendance']
+
+CAU KHONG CO TRONG KB (phai thong bao khong tim thay, khong bia):
+  Q: Giảng viên của môn NLP là ai?
+     mode=gate:not-in-kb(instructor) | top=['regulation:academic_integrity', 'regulation:source_code']
+     A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Q: Chương 13 nói về gì?
+     mode=gate:not-in-kb(CH13) | top=['schedule:WEEK_13']
+     A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Q: Tuần 20 học gì?
+     mode=gate:not-in-kb(WEEK_20) | top=['course_info:general', 'regulation:academic_integrity']
+     A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Q: Học phí môn NLP là bao nhiêu?
+     mode=extractive | top=['faq:Q2', 'course_info:general']
+     A: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới. [faq:Q2]
+
+KIEM TRA CHONG HALLUCINATION (thu nghiem):
+  Cau tra loi gia dinh cua LLM: "Midterm kéo dài 45 phút."
+  So lieu khong co trong ngu canh: ['45'] -> BI CHAN, thay bang thong bao khong tim thay
+  Han che: chi bat duoc loi so lieu; LLM van co the bia ten/khai niem khong co so -> can doi chieu nguon.
+
+CHI TIET
+
+Q001 | OK  | Môn NLP có bao nhiêu tín chỉ?
+    top: ['faq:Q1']
+    mode: extractive
+    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ. [faq:Q1]
+Q002 | OK  | CO3085 có mấy tín chỉ?
+    top: ['faq:Q1']
+    mode: extractive
+    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ. [faq:Q1]
+Q003 | OK  | Môn học gồm những phần nào?
+    top: ['faq:Q2']
+    mode: extractive
+    A: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa; và Ngữ cảnh và tri thức thế giới. [faq:Q2]
+Q004 | OK  | Tuần 3 học gì?
+    top: ['schedule:WEEK_03']
+    mode: extractive
+    A: Tuần 3 week 3. Phần Syntactic Processing. Chương 3. Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. [schedule:WEEK_03]
+Q005 | OK  | Chương 4 học vào tuần nào?
+    top: ['topic:CH04', 'schedule:WEEK_04', 'schedule:WEEK_05']
+    mode: extractive
+    A: Chương 4 (CH04): Features and Augmented Grammar. [topic:CH04]
+Q006 | OK  | Chương nào nói về CFG?
+    top: ['topic:CH03', 'faq:Q3']
+    mode: extractive
+    A: Chương 3 (CH03): Grammar and Parsing. Từ khóa: CFG, parsing, PCFG, dependency grammar. [topic:CH03]
+Q007 | OK  | PCFG được học ở đâu?
+    top: ['topic:CH03', 'topic:CH06', 'faq:Q4']
+    mode: extractive
+    A: Từ khóa: CFG, parsing, PCFG, dependency grammar. [topic:CH03]
+Q008 | OK  | Chương nào nói về semantic grammar?
+    top: ['topic:CH10', 'faq:Q6', 'schedule:WEEK_10']
+    mode: extractive
+    A: Chương 10 (CH10): Other Strategies for Semantic Interpretation. Từ khóa: grammatical relations, semantic grammar, template matching. [topic:CH10]
+Q009 | OK  | L.O.2.5 là gì?
+    top: ['lo:LO2.5']
+    mode: extractive
+    A: Chuẩn đầu ra L.O.2.5 (LO2.5): Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu. [lo:LO2.5]
+Q010 | OK  | L.O.4.2 liên quan đến nội dung nào?
+    top: ['faq:Q9', 'lo:LO4.2']
+    mode: extractive
+    A: L.O.4.2 liên quan đến ngữ cảnh diễn ngôn cục bộ và sự tham chiếu. [faq:Q9]
+Q011 | ERR | Bài tập lớn yêu cầu xây dựng những gì?
+    top: ['regulation:external_libraries', 'course_info:assessment']
+    mode: extractive
+    A: Quy định external_libraries: Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [regulation:external_libraries]
+Q012 | ERR | Phần I của bài tập lớn là gì?
+    top: ['course_info:assessment', 'regulation:external_libraries', 'regulation:attendance']
+    mode: extractive
+    A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+Q013 | ERR | Bài tập lớn có phần hỏi đáp không?
+    top: ['topic:CH11', 'course_info:assessment', 'schedule:WEEK_13']
+    mode: extractive
+    A: Phần Context and World Knowledge. [topic:CH11]
+Q014 | OK  | Có được dùng LLM/RAG không?
+    top: ['regulation:LLM_RAG']
+    mode: extractive
+    A: Quy định LLM_RAG: LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá. [regulation:LLM_RAG]
+Q015 | OK  | Quy định về sử dụng AI là gì?
+    top: ['regulation:AI_usage', 'regulation:source_code', 'regulation:external_libraries']
+    mode: extractive
+    A: Quy định AI_usage: Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [regulation:AI_usage]
+Q016 | OK  | Midterm bao nhiêu phút?
+    top: ['faq:Q14', 'course_info:assessment']
+    mode: extractive
+    A: Theo đề cương, midterm có thời lượng 60 phút. [faq:Q14]
+Q017 | OK  | Final bao nhiêu phút?
+    top: ['faq:Q15', 'course_info:assessment']
+    mode: extractive
+    A: Theo đề cương, final có thời lượng 90 phút. [faq:Q15]
+Q018 | OK  | Tài liệu tham khảo về statistical NLP là gì?
+    top: ['resource:REFERENCE 1', 'resource:TEXTBOOK 2', 'resource:REFERENCE 3']
+    mode: extractive
+    A: Tài liệu REFERENCE 1: Foundation of Statistical Natural Language Processing. Tác giả: Christopher D. Manning; Hinrich Schütze. Năm 2001. Mục đích: statistical NLP. [resource:REFERENCE 1]
+Q019 | OK  | Tài liệu nào liên quan đến Python NLP?
+    top: ['resource:REFERENCE 2', 'resource:TEXTBOOK 2', 'resource:REFERENCE 3']
+    mode: extractive
+    A: Tài liệu REFERENCE 2: Natural Language Processing with Python. Tác giả: Steven Bird; Ewan Klein; Edward Loper. Năm 2009. Mục đích: practical NLP with Python. [resource:REFERENCE 2]
+Q020 | OK  | Chương 12 nói về gì?
+    top: ['topic:CH12']
+    mode: extractive
+    A: Chương 12 (CH12): Discourse Context and Reference. [topic:CH12]
+Q021 | OK  | Chương nào học về reference?
+    top: ['topic:CH12', 'schedule:WEEK_14']
+    mode: extractive
+    A: Chương 12 (CH12): Discourse Context and Reference. Từ khóa: discourse context, reference, anaphora, pronoun, centering. [topic:CH12]
+Q022 | OK  | Chương nào học về question answering?
+    top: ['topic:CH11', 'schedule:WEEK_13']
+    mode: extractive
+    A: Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. 11.5 Procedural semantics and question answering [topic:CH11]
+Q023 | OK  | Chương nào học về selectional restriction?
+    top: ['topic:CH09']
+    mode: extractive
+    A: Chương 9 (CH09): Ambiguity Resolution. Phần Semantic Interpretation. Từ khóa: selectional restriction, semantic network, WSD. Tóm tắt: The chapter covers knowledge-based and statistical methods for semantic ambiguity resolution. Các mục: 9.1 Selectional restriction; 9.2 Semantic filtering using selectional restriction; 9.3 Semantic networks; 9.4 Statistical word sense disambiguation [topic:CH09]
+Q024 | OK  | Chương 10 có những phương pháp gì?
+    top: ['topic:CH10', 'lo:LO2.4']
+    mode: extractive
+    A: Chương 10 (CH10): Other Strategies for Semantic Interpretation. [topic:CH10]
+Q025 | OK  | Chương 11 có liên quan đến hỏi đáp không?
+    top: ['topic:CH11', 'schedule:WEEK_13']
+    mode: extractive
+    A: Chương 11 (CH11): Knowledge Representation and Reasoning. [topic:CH11]
+Q026 | OK  | Hôm nay ở TP.HCM có mưa không?
+    top: []
+    mode: gate:out-of-scope
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q027 | OK  | Ai là tổng thống của Pháp?
+    top: ['lo:LO1', 'faq:Q4', 'lo:LO2']
+    mode: gate:out-of-scope
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q028 | OK  | Hãy giải bài tập xác suất này giúp tôi.
+    top: ['lo:LO2.5', 'faq:Q10', 'course_info:assessment']
+    mode: gate:out-of-scope
+    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+Q029 | OK  | Chương 4 nói về gì?
+    top: ['topic:CH04', 'schedule:WEEK_04']
+    mode: extractive
+    A: Chương 4 (CH04): Features and Augmented Grammar. [topic:CH04]
+Q030 | OK  | Nó có liên quan đến parsing không?
+    top: ['topic:CH03', 'schedule:WEEK_03', 'faq:Q9']
+    mode: gate:needs-context
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+Q031 | OK  | Chương 11 có hỏi đáp không?
+    top: ['topic:CH11', 'schedule:WEEK_13']
+    mode: extractive
+    A: Chương 11 (CH11): Knowledge Representation and Reasoning. [topic:CH11]
+Q032 | OK  | Còn chương sau?
+    top: ['faq:Q7', 'faq:Q5', 'faq:Q8']
+    mode: gate:needs-context
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+Q033 | ERR | Bài tập lớn có phần parser không?
+    top: ['course_info:assessment', 'regulation:external_libraries', 'regulation:attendance']
+    mode: extractive
+    A: Đánh giá và thi. Chuyên cần và bài tập 15 percent; bài tập lớn 15 percent; giữa kỳ midterm 30 percent; cuối kỳ final 40 percent. Hình thức thi: midterm open-book, written, 60 minutes; final open-book, written, 90 minutes. [course_info:assessment]
+Q034 | OK  | Phần này cần xuất file gì?
+    top: ['course_info:assessment']
+    mode: gate:needs-context
+    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).

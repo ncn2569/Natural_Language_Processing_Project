@@ -1,0 +1,254 @@
+[001] Môn NLP có bao nhiêu tín chỉ?
+  A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  sources: course_info.txt:credits
+  found: True
+
+[002] Tuần 5 học những nội dung gì?
+  A: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  sources: schedule.txt:WEEK 05
+  found: True
+
+[003] Phần CFG và Parsing nằm ở tuần nào?
+  A: CFG nằm ở Chương 3 (Grammar and Parsing), học vào tuần 3.
+  sources: schedule.txt:WEEK 03
+  found: True
+
+[004] Bài tập lớn có những yêu cầu gì?
+  A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: -
+  found: False
+
+[005] Deadline của bài tập lớn là khi nào?
+  A: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  sources: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+  found: True
+
+[006] Deadline bài tập lớn là khi nào?
+  A: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  sources: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+  found: True
+
+[007] Tài liệu nào nói về CFG?
+  A: Dữ liệu không gắn tài liệu theo từng chủ đề (CFG); danh sách tài liệu chung của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  sources: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+  found: True
+
+[008] Bài tập lớn có được sử dụng công cụ AI không?
+  A: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  sources: regulations.txt:AI_usage
+  found: True
+
+[009] Tôi cần hoàn thành những bài tập nào?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: regulations.txt:OUT_OF_SCOPE
+  found: False
+
+[010] Tuần 5 học những gì?
+  A: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  sources: schedule.txt:WEEK 05
+  found: True
+
+[011] Tài liệu của phần này ở đâu?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  sources: -
+  found: False
+
+[012] CO3085 có mấy tín chỉ?
+  A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  sources: course_info.txt:credits
+  found: True
+
+[013] Môn học gồm những phần nào?
+  A: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  sources: course_info.txt:main_parts
+  found: True
+
+[014] Tuần 3 học gì?
+  A: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+  sources: schedule.txt:WEEK 03
+  found: True
+
+[015] Chương 4 học vào tuần nào?
+  A: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5.
+  sources: schedule.txt:WEEK 04, schedule.txt:WEEK 05
+  found: True
+
+[016] Chương nào nói về CFG?
+  A: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  sources: topics.txt:CH03, topics.txt:CH05, topics.txt:CH06
+  found: True
+
+[017] PCFG được học ở đâu?
+  A: PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  sources: topics.txt:CH03, topics.txt:CH06
+  found: True
+
+[018] Chương nào nói về semantic grammar?
+  A: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+  sources: topics.txt:CH10
+  found: True
+
+[019] L.O.2.5 là gì?
+  A: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  sources: course_info.txt:detailed_learning_outcomes
+  found: True
+
+[020] L.O.4.2 liên quan đến nội dung nào?
+  A: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  sources: course_info.txt:detailed_learning_outcomes
+  found: True
+
+[021] Bài tập lớn yêu cầu xây dựng những gì?
+  A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: -
+  found: False
+
+[022] Phần I của bài tập lớn là gì?
+  A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: -
+  found: False
+
+[023] Bài tập lớn có phần hỏi đáp không?
+  A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: -
+  found: False
+
+[024] Có được dùng LLM/RAG không?
+  A: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  sources: regulations.txt:LLM_RAG
+  found: True
+
+[025] Quy định về sử dụng AI là gì?
+  A: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  sources: regulations.txt:AI_usage
+  found: True
+
+[026] Midterm bao nhiêu phút?
+  A: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  sources: course_info.txt:exam_format
+  found: True
+
+[027] Final bao nhiêu phút?
+  A: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
+  sources: course_info.txt:exam_format
+  found: True
+
+[028] Tài liệu tham khảo về statistical NLP là gì?
+  A: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+  sources: resources.txt:TEXTBOOK 2, resources.txt:REFERENCE 1
+  found: True
+
+[029] Tài liệu nào liên quan đến Python NLP?
+  A: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  sources: resources.txt:REFERENCE 2
+  found: True
+
+[030] Chương 12 nói về gì?
+  A: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+  sources: topics.txt:CH12
+  found: True
+
+[031] Chương nào học về reference?
+  A: reference được trình bày chủ yếu trong Chương 12 (Discourse Context and Reference).
+  sources: topics.txt:CH12
+  found: True
+
+[032] Chương nào học về question answering?
+  A: question answering được trình bày chủ yếu trong Chương 11 (Knowledge Representation and Reasoning).
+  sources: topics.txt:CH11
+  found: True
+
+[033] Chương nào học về selectional restriction?
+  A: selectional restriction được trình bày chủ yếu trong Chương 9 (Ambiguity Resolution).
+  sources: topics.txt:CH09
+  found: True
+
+[034] Chương 10 có những phương pháp gì?
+  A: Chương 10 (Other Strategies for Semantic Interpretation), phần Semantic Interpretation. Tóm tắt: Alternative approaches to semantic interpretation include grammatical relations, semantic grammars, template matching and semantically driven parsing. Các mục: 10.1 Grammatical relations; 10.2 Semantic grammars; 10.3 Template matching; 10.4 Semantically driven parsing techniques.
+  sources: topics.txt:CH10
+  found: True
+
+[035] Chương 11 có liên quan đến hỏi đáp không?
+  A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  sources: topics.txt:CH11
+  found: True
+
+[036] Chương 4 nói về gì?
+  A: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  sources: topics.txt:CH04
+  found: True
+
+[037] Nó có liên quan đến parsing không?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  sources: -
+  found: False
+
+[038] Chương 11 có hỏi đáp không?
+  A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  sources: topics.txt:CH11
+  found: True
+
+[039] Bài tập lớn có phần parser không?
+  A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: -
+  found: False
+
+[040] Phần này cần xuất file gì?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  sources: -
+  found: False
+
+[041] Tài liệu của chương này là gì?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  sources: -
+  found: False
+
+[042] L.O.2.5 học về gì?
+  A: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  sources: course_info.txt:detailed_learning_outcomes
+  found: True
+
+[043] Nội dung này nằm ở chương nào?
+  A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  sources: -
+  found: False
+
+[044] NLP có những phần chính nào?
+  A: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  sources: course_info.txt:main_parts
+  found: True
+
+[045] Chương nào học về Features và Augmented Grammar?
+  A: features được trình bày chủ yếu trong Chương 4 (Features and Augmented Grammar).
+  sources: topics.txt:CH04
+  found: True
+
+[046] Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  A: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  sources: regulations.txt:LLM_RAG
+  found: True
+
+[047] Midterm kéo dài bao lâu?
+  A: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  sources: course_info.txt:exam_format
+  found: True
+
+[048] Final kéo dài bao lâu?
+  A: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
+  sources: course_info.txt:exam_format
+  found: True
+
+[049] Hôm nay ở TP.HCM có mưa không?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: regulations.txt:OUT_OF_SCOPE
+  found: False
+
+[050] Ai là tổng thống của Pháp?
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: regulations.txt:OUT_OF_SCOPE
+  found: False
+
+[051] Hãy giải bài tập xác suất này giúp tôi.
+  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  sources: regulations.txt:OUT_OF_SCOPE
+  found: False

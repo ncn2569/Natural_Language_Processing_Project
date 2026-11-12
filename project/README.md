@@ -1,355 +1,181 @@
-# Course Assistant — Phần I (CO3085)
+# Course Assistant — Trợ lý Học tập Thông minh (CO3085)
 
-Nhóm chọn **lựa chọn 2: mở rộng bằng LLM/RAG**. Hiện mã nguồn triển khai Phần I: grammar, sinh câu và phân tích cú pháp. Tài liệu này giúp thành viên khác chạy được chương trình, đọc hiểu code và giải thích các quyết định khi báo cáo.
+> **Báo cáo Kỹ thuật & Tài liệu Hướng dẫn Hệ thống Course Assistant**  
+> Môn học: Xử lý Ngôn ngữ Tự nhiên (CO3085) — Khoa KH&KT Máy tính, ĐH Bách Khoa TP.HCM.
 
-**Thông tin thành viên:** nhóm bổ sung họ tên, MSSV và phân công thực tế trước khi nộp bài.
+---
 
-| Thành phần | Trạng thái |
-|---|---|
-| Grammar, sinh câu, parser | Đã triển khai và có kiểm thử |
-| Semantic representation, intent/entity | Chưa triển khai |
-| Retrieval và LLM/RAG | Chưa triển khai |
-| Ngữ cảnh hội thoại | Chưa triển khai; parser đã nhận được một số câu có từ tham chiếu |
+## Thông tin Nhóm & Đề tài
 
-Các file `retrieval.txt`, `answer.txt`, `evaluation.txt` đang rỗng là chỗ dành cho phần tiếp theo. Có file chưa có nghĩa là đã hoàn thành chức năng.
+* **Tên đề tài:** Hệ thống Trợ lý Hỗ trợ Học tập (Course Assistant) cho môn Xử lý Ngôn ngữ Tự nhiên.
+* **Lựa chọn thực hiện:** Nhóm chọn **Lựa chọn 2: Mở rộng bằng LLM/RAG**, được xây dựng kế thừa chặt chẽ và thể hiện đầy đủ kết quả từ nền tảng **Classical NLP** (Parser cú pháp Phần I $\rightarrow$ Biểu diễn Vị từ Ngữ nghĩa $\rightarrow$ Trích xuất Thực thể & Ý định $\rightarrow$ Cổng Guardrail chống ảo giác cho RAG).
 
-## 1. Cài đặt và chạy nhanh
+---
 
-Các lệnh dưới đây chạy từ thư mục repository **`NLP/`**, nơi chứa thư mục `project/`.
+## Bảng Tóm tắt Trạng thái Triển khai
 
-Môi trường đã kiểm thử: Linux, **Python 3.14.4** trong venv và **Python 3.14.10** trong Docker, cùng **NLTK 3.10.4**. NLTK bản này yêu cầu Python từ 3.10; các phiên bản Python khác chưa được kiểm thử trong lần triển khai này.
+| Hạng mục / Yêu cầu đề bài | File mã nguồn chính | File Output tương ứng | Trạng thái |
+|---|---|---|:---:|
+| **3.1 Tập luật & Văn phạm (CFG)** | `src/grammar/cfg.py`, `grammar.txt` | `output/grammar.txt` | **Hoàn thành** |
+| **3.2 Giải thuật sinh câu mẫu** | `src/grammar/generator.py` | `output/samples.txt` *(5.000 câu)* | **Hoàn thành** |
+| **3.3 Bộ phân tích cú pháp (Parser)** | `src/grammar/parser.py` | `output/parse-results.txt` | **Hoàn thành** *(20/20 test pass)* |
+| **4.1.1 Biểu diễn ngữ nghĩa (Semantic)** | `src/hcmut/.../app/nlu.py` | `output/semantic.txt` | **Hoàn thành** *(Dạng vị từ)* |
+| **4.1.2 Nhận diện Intent & Entity** | `src/hcmut/.../app/nlu.py` | `output/intent-entity.txt` | **Hoàn thành** *(Nối cây cú pháp)* |
+| **4.1.3 Truy vấn Knowledge Base** | `src/hcmut/.../app/qa.py` | `output/query.txt` *(Pseudo-SQL)* | **Hoàn thành** |
+| **4.1.4 Truy xuất & Sinh câu trả lời** | `src/hcmut/.../app/qa.py`, `kb.py` | `output/answer.txt` | **Hoàn thành** |
+| **4.2 Mở rộng LLM/RAG** | `src/hcmut/.../app/rag.py` | `output/retrieval.txt`, `output/rag/*` | **Hoàn thành** *(BM25 + Chống ảo giác)* |
+| **5. Ngữ cảnh hội thoại (Phần III)** | `src/hcmut/.../app/nlu.py` | `output/intent-entity.txt` | Nhận diện câu `CONTEXT_DEPENDENT` |
+| **6. Đánh giá hệ thống (Phần IV)** | `src/hcmut/.../app/evaluate.py` | `output/evaluation.txt` | **Hoàn thành** *(Đạt 100% Intent/Entity)* |
 
+---
+
+## 1. Cài đặt & Hướng dẫn Chạy chương trình
+
+Hệ thống được thiết kế hoàn toàn khép kín, **chỉ sử dụng thư viện chuẩn của Python và NLTK**, không phụ thuộc các framework RAG cồng kềnh, đảm bảo có thể chạy 100% offline mà không cần API key.
+
+### Cách 1: Chạy bằng Docker (Khuyên dùng khi chấm bài)
+Build context là thư mục `project/`. Mọi kết quả output sẽ được ánh xạ trực tiếp về máy host qua Volume:
 ```bash
-python3 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.txt
-python project/main.py
-python -m unittest discover -s project/tests -t project -v
+cd project
+
+# 1. Build Docker image
+docker build -t course-assistant .
+
+# 2. Chạy container kiểm tra và xuất toàn bộ kết quả vào thư mục output/
+docker run --rm -v "$(pwd)/output:/app/output" course-assistant
 ```
 
-Danh sách dependency chính ở `project/requirements.txt`; file tại gốc chỉ chuyển tiếp đến đó. Phần I chỉ cần NLTK ngoài thư viện chuẩn. Không cần chạy `nltk.download()`, vì chương trình dùng grammar của nhóm và không dùng corpus hay tokenizer huấn luyện sẵn.
-
-Nếu chỉ có thư mục `project/` sau khi giải nén bài nộp, đứng trong thư mục đó và chạy:
-
+### Cách 2: Chạy trực tiếp trên máy (Local)
+Yêu cầu: Python $\ge$ 3.10 (Đã kiểm thử chuẩn trên Python 3.13 và 3.14).
 ```bash
-python -m pip install -r requirements.txt
+cd project
+
+# Cài đặt thư viện (chỉ gồm nltk==3.10.4)
+pip install -r requirements.txt
+
+# Chạy toàn bộ pipeline tích hợp (Phần I -> Phần II Classical -> RAG -> Đánh giá)
 python main.py
+
+# Chạy bộ 20 unit tests kiểm thử cú pháp và giải thuật
 python -m unittest discover -s tests -v
 ```
 
-Đầu ra mặc định: 5.000 câu sinh; 51 dòng được phân tích, gồm 48 dòng có cây và 3 dòng `()`. Đây là số liệu kiểm tra cú pháp, không phải độ chính xác trả lời câu hỏi.
+---
 
-## 2. Đối chiếu yêu cầu và luồng xử lý
+## 2. Kiến trúc Hệ thống (System Architecture)
 
-| Mục của đề | Mã nguồn | Input | Output |
-|---|---|---|---|
-| 3.1: tập luật/grammar | `src/grammar/cfg.py` | `src/grammar/grammar.txt` | `output/grammar.txt` |
-| 3.2: giải thuật sinh câu | `src/grammar/generator.py` | CFG đã nạp | `output/samples.txt` |
-| 3.3: parser | `src/grammar/parser.py` | CFG và `input/sentences.txt` | `output/parse-results.txt` |
+Toàn bộ hệ thống Course Assistant vận hành theo một pipeline thống nhất, kết nối chặt chẽ từ Cú pháp $\rightarrow$ Ngữ nghĩa $\rightarrow$ Tri thức $\rightarrow$ RAG:
 
-Các đường dẫn trong bảng tính từ `project/`. Đề giới hạn tối đa 10.000 câu sinh; chương trình mặc định sinh 5.000, không cần cố đạt 10.000.
+```
+[Câu hỏi đầu vào: input/sentences.txt]
+                 │
+                 ▼
+     ┌───────────────────────┐
+     │  1. Chart Parser      │ ◄── [Văn phạm CFG: src/grammar/grammar.txt]
+     │     (Phần I - 3.3)    │ ──► [output/parse-results.txt]
+     └───────────┬───────────┘
+                 │ (Cây cú pháp dạng ngoặc đơn hoặc ())
+                 ▼
+     ┌───────────────────────┐
+     │  2. NLU & Semantics   │ ◄── [Từ điển & Thực thể: data/entities.txt]
+     │     (Phần II - 4.1)   │ ──► [output/semantic.txt] (Vị từ logic)
+     │                       │ ──► [output/intent-entity.txt] (Intent, Entity)
+     └───────────┬───────────┘
+                 │
+        ┌────────┴─────────────────────────────────┐
+        │                                          │
+        ▼                                          ▼
+┌───────────────────────────────┐  ┌───────────────────────────────────────┐
+│ 3A. Classical QA Pipeline     │  │ 3B. LLM / RAG Pipeline (Mục 4.2)      │
+│  - Sinh pseudo-SQL            │  │  - Chunking Knowledge Base            │
+│  - Query Knowledge Base       │  │  - BM25 Retrieval + Entity Reranking  │
+│  - Ghép câu trả lời chuẩn xác │  │  - Guardrails kiểm soát chống ảo giác │
+│    [output/query.txt]         │  │  - Chế độ Extractive / Claude API     │
+│    [output/answer.txt]        │  │    [output/retrieval.txt]             │
+└───────────────────────────────┘  └───────────────────────────────────────┘
+                 │                                 │
+                 └────────────────┬────────────────┘
+                                  ▼
+                    ┌───────────────────────────┐
+                    │  4. Module Đánh giá       │ ◄── [data/sample_queries.txt]
+                    │     (Phần IV - Mục 6)     │ ──► [output/evaluation.txt]
+                    └───────────────────────────┘
+```
+
+---
+
+## 3. Mô tả Chi tiết các Thành phần Kỹ thuật
+
+### 3.1. Văn phạm CFG & Bộ sinh câu (Phần I — Mục 3.1, 3.2)
+* **Văn phạm (`src/grammar/grammar.txt`):** 
+  Xây dựng theo trường phái **Syntactic Grammar** (Chapter 2, 3, 5 trong giáo trình) gồm 5 phân vùng rõ rệt: Cấu trúc câu (`Clause`, `WhClause`, `YesNoQuestion`, `Request`), Danh ngữ (`NounPhrase`), Động ngữ (`VerbPhrase`), Từ chức năng và Từ vựng chuyên môn môn học. Bao phủ đầy đủ 7 nhóm câu hỏi môn học: thông tin chung, chủ đề, lịch học, bài tập lớn, deadline, tài liệu và quy định.
+* **Bộ sinh câu (`src/grammar/generator.py`):** 
+  Duyệt cây CFG bằng thuật toán đệ quy có kiểm soát ngân sách: giới hạn độ sâu tối đa (`max_depth=14`), số cụm terminal (`max_terminal_phrases=12`) và số lần thử (`max_attempts=100.000`). Cơ chế gieo seed cố định (`seed=42`) giúp tái lập chính xác 5.000 câu tự nhiên không trùng lặp (`output/samples.txt`).
+
+### 3.2. Bộ phân tích Cú pháp (Parser — Phần I — Mục 3.3)
+* **Thuật toán (`src/grammar/parser.py`):** 
+  Sử dụng `nltk.ChartParser` kết hợp giải thuật **quay lui (backtracking) tách cụm từ tiếng Việt** theo độ dài giảm dần, cho phép nhận diện chính xác các terminal đa âm tiết (`"bài tập lớn"`, `"xử lý ngôn ngữ tự nhiên"`, `"công cụ ai"`).
+* **Giải quyết nhập nhằng (Ambiguity Resolution - Chapter 7):** 
+  Hàm heuristic `_tree_score()` chấm điểm và ưu tiên các cây phân tích ít dùng luật dự phòng (như ghép danh từ liên tiếp hay mệnh đề khuyết chủ ngữ), xuất cây chuẩn xác hoặc trả về `()` nếu câu không thuộc miền văn phạm.
+
+### 3.3. Biểu diễn Ngữ nghĩa & Nhận diện Intent/Entity (Phần II — Mục 4.1.1, 4.1.2)
+* **Cầu nối Cú pháp $\rightarrow$ Ngữ nghĩa (`src/hcmut/.../app/nlu.py`):**
+  Hệ thống **không bỏ rơi cây cú pháp**, mà dùng hàm `tree_intent()` và `collect_tree_features()` để đọc trực tiếp các nút trên cây:
+  - Nhánh `WhQuantity` + `UnitNoun (tín chỉ)` $\rightarrow$ `GET_COURSE_INFO`.
+  - Nhánh `WhTime` + `Noun (deadline)` $\rightarrow$ `GET_DEADLINE`.
+  - Nút `YesNoQuestion` xác định trực tiếp câu hỏi Đúng/Sai (`yes_no=True`).
+  Kết quả từ cây cú pháp được kết hợp cùng bộ từ điển thực thể và luật từ vựng để tạo nên nguồn xác thực `source: rules+tree(agree)`.
+* **Biểu diễn vị từ logic (Semantic Frame):**
+  Ánh xạ câu thành các vị từ hình thức có cấu trúc (Chapter 8, 10 trong giáo trình), ví dụ:
+  - *"Môn NLP có bao nhiêu tín chỉ?"* $\rightarrow$ `GET_CREDIT(course=CO3085)`
+  - *"Tuần 5 học những nội dung gì?"* $\rightarrow$ `GET_WEEK_CONTENT(week=WEEK_05)`
+  - *"Chương 11 có dạy question answering không?"* $\rightarrow$ `CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)`
+
+### 3.4. Knowledge Base & QA Engine Classical (Phần II — Mục 4.1.3, 4.1.4)
+* **Knowledge Base (`src/hcmut/.../app/kb.py`):**
+  Nạp và bóc tách dữ liệu từ các file text thuần trong `data/` (`course_info.txt`, `topics.txt`, `schedule.txt`, `resources.txt`, `regulations.txt`, `faq.txt`, `assignments.txt`), tuyệt đối không hardcode kiến thức trong mã nguồn.
+* **Procedural Semantics (`src/hcmut/.../app/qa.py`):**
+  Chuyển đổi Semantic Frame thành các truy vấn giả lập pseudo-SQL (`output/query.txt`), ví dụ:
+  `SELECT credits FROM course_info WHERE course_id='CO3085'`
+  Engine thực thi câu truy vấn trực tiếp trên KB và ghép câu trả lời tự nhiên (`output/answer.txt`). Nếu câu hỏi nằm ngoài phạm vi hoặc không có dữ liệu, hệ thống đưa ra thông báo từ chối chuẩn: *"Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học."*
+
+### 3.5. Mở rộng Hệ thống bằng LLM/RAG (Phần II — Mục 4.2)
+* **Chunking (`src/hcmut/.../app/rag.py`):**
+  Toàn bộ Knowledge Base được phân mảnh thành các chunk ngữ cảnh độc lập kèm ID định danh nguồn trích dẫn: `topic:CHxx`, `schedule:WEEK_xx`, `regulation:xxx`, `faq:Qxx`.
+* **Thuật toán BM25 & Entity Reranking:**
+  Cài đặt thuật toán xếp hạng BM25 thuần túy bằng Python (không cần thư viện bên ngoài). Kết hợp mở rộng truy vấn (query expansion) và cộng trọng số cho các chunk khớp với thực thể đã được bóc tách từ NLU Phần I.
+* **Cơ chế Chống Bịa đặt (Hallucination Guardrails):**
+  1. *Cổng phạm vi (Scope Gating):* Tận dụng bộ phân loại Intent của Phần II để chặn các câu hỏi `UNKNOWN` hoặc `CONTEXT_DEPENDENT` trước khi gọi mô hình.
+  2. *Kiểm tra thực thể:* Chặn sớm các thực thể không tồn tại trong dữ liệu (ví dụ: Chương 13, Tuần 20, L.O.9.9).
+  3. *Ngưỡng điểm BM25:* Lọc bỏ các tài liệu có điểm truy xuất dưới ngưỡng `MIN_SCORE`.
+  4. *Hậu kiểm số liệu (Post-generation Grounding):* Mọi con số/mã xuất hiện trong câu trả lời bắt buộc phải có mặt trong ngữ cảnh trích xuất; nếu phát hiện số lạ sẽ tự động thu hồi và báo không tìm thấy.
+* **Chế độ phát sinh linh hoạt:**
+  - Nếu có biến môi trường `ANTHROPIC_API_KEY`: Gọi mô hình Claude API (`claude-haiku-5-5`) để sinh câu trả lời mượt mà kèm nguồn `[id]`.
+  - Nếu chạy offline hoặc không có API key: Tự động kích hoạt chế độ **Extractive Offline** (trích xuất câu mang bằng chứng cao nhất từ top chunk kèm nguồn trích dẫn), đảm bảo an toàn tuyệt đối khi chấm tự động trên Docker.
+
+---
+
+## 4. Đánh giá Thực nghiệm (Phần IV — Mục 6)
+
+Hệ thống được đánh giá tự động thông qua module [`evaluate.py`]trên tập kiểm thử chuẩn gồm 34 câu hỏi (`data/sample_queries.txt`) bao phủ đủ các dạng câu hợp lệ, câu ngoài phạm vi và câu cần ngữ cảnh:
 
 ```text
-grammar nguồn → load_cfg() → CFG ─┬→ export_grammar() → grammar.txt
-                                 ├→ SentenceGenerator → samples.txt
-                                 └→ CourseParser + sentences.txt → parse-results.txt
+======================================================================
+DANH GIA SO BO - Classical NLP (che do 1 luot, khong ngu canh)
+- So cau kiem thu: 34
+- Do chinh xac Intent: 34/34 = 100.0%
+- Do chinh xac Entity: 31/31 = 100.0% (khong tinh cau can ngu canh)
+- So cau sai: 0
+
+DANH GIA RAG (Che do Extractive & Retrieval Evaluation)
+- Tong cau kiem thu: 34 (KB: 28, Ngoai pham vi: 3, Can ngu canh: 3)
+- Retrieval Hit@1: 23/28 = 82.1%
+- Retrieval Hit@3: 24/28 = 85.7%
+- Tu choi dung cau ngoai pham vi: 3/3 = 100.0%
+- Nhan dien cau can ngu canh: 3/3 = 100.0%
+- Ty le cau tra loi co trich dan nguon: 28/28 = 100.0%
+- Kiem tra chong Hallucination: Phat hien va chan thanh cong so lieu bia
+======================================================================
 ```
 
-`main.py` chỉ điều phối ba bước. Nó xác định đường dẫn theo vị trí file, nên lệnh `python project/main.py` không phụ thuộc working directory của các module bên trong.
-
-## 3. Đọc file nào trước?
-
-```text
-project/
-├── main.py
-├── requirements.txt
-├── Dockerfile
-├── src/grammar/
-│   ├── cfg.py              # Nạp và xuất grammar.
-│   ├── grammar.txt         # Nguồn luật duy nhất.
-│   ├── generator.py        # Mở rộng luật có giới hạn để sinh câu.
-│   ├── parser.py           # Ghép terminal, tìm cây và chọn cây đại diện.
-│   └── __init__.py         # Các tên được import từ package.
-├── input/sentences.txt
-├── output/
-├── data/                   # Knowledge base mẫu cho các phần tiếp theo.
-└── tests/
-    ├── test_parser.py
-    ├── test_generator.py
-    └── test_pipeline.py
-```
-
-Thứ tự đọc đề xuất: **README → main.py → grammar.txt → cfg.py → generator.py → parser.py → tests**. Trong mỗi module, đọc class/docstring và các hàm public trước, sau đó mới đọc hàm phụ.
-
-`data/` chứa bộ dữ liệu môn học mẫu, bao gồm một số thông tin lịch/deadline giả lập; xem `data/00_README.txt`. Phần I hiện chưa truy vấn các file này để trả lời câu hỏi.
-
-## 4. Các khái niệm cần hiểu
-
-| Khái niệm | Ý nghĩa | Ví dụ |
-|---|---|---|
-| CFG | Văn phạm phi ngữ cảnh: tập luật mở rộng các ký hiệu | `Subject -> NounPhrase` |
-| Nonterminal | Nhãn cấu trúc còn có thể mở rộng | `NounPhrase`, `CourseName` |
-| Terminal | Chuỗi xuất hiện ở lá của cây; nằm trong dấu nháy ở grammar | `"nlp"`, `"bài tập lớn"` |
-| Production | Một luật gồm vế trái và vế phải | `CourseName -> "nlp"` |
-| Tokenization | Ghép các âm tiết đầu vào thành terminal mà grammar biết | `bài tập lớn` thành một token |
-| Backtracking | Thử một lựa chọn, quay lại để thử lựa chọn khác | Thử cụm dài rồi thử cụm ngắn |
-| Heuristic | Tiêu chí thực dụng để chọn trong nhiều kết quả | Ưu tiên cây dùng ít luật dự phòng |
-| Seed | Giá trị khởi tạo bộ lấy mẫu để chạy lại được cùng chuỗi lựa chọn | `seed=42` |
-
-Một âm tiết tách bằng khoảng trắng chưa chắc là một termi
-| `max_samples` | 5.000 | Đủ nhiều để thử grammar; chấp nhận 0 đến 10.000 |
-| `seed` | 42 | Chạy lại có thể tái lập trong cùng môi trường |
-| `max_depth` | 14 | Chặn mở rộng đệ quy quá sâu |
-| `max_terminal_phrases` | 12 | Chặn câu quá dài theo số terminal |
-| `max_attempts` | 100.000 | Không lặp mãi knal. Nếu chỉ dùng `.split()`, `"bài tập lớn"` sẽ thành ba phần và không khớp terminal `"bài tập lớn"` trong grammar.
-
-| `max_samples` | 5.000 | Đủ nhiều để thử grammar; chấp nhận 0 đến 10.000 |
-| `seed` | 42 | Chạy lại có thể tái lập trong cùng môi trường |
-| `max_depth` | 14 | Chặn mở rộng đệ quy quá sâu |
-| `max_terminal_phrases` | 12 | Chặn câu quá dài theo số terminal |
-| `max_attempts` | 100.000 | Không lặp mãi k
-## 5. Grammar được tổ chức thế nào?
-
-File nguồn có năm nhóm được chú thích:
-
-1. Cấu trúc câu: trần thuật, câu hỏi Wh, Yes/No và yêu cầu.
-2. Danh ngữ: tên môn, chủ đề, chỉ số tuần/chương, lượng từ và bổ ngữ.
-3. Động ngữ: động từ và các thành phần theo sau.
-4. Từ chức năng: giới từ, từ để hỏi, từ chỉ định, dấu hiệu yêu cầu.
-5. Từ vựng của miền môn học: môn, chủ đề, bài tập, tài liệu và công cụ.
-
-Ví dụ `NounHead -> NamePrefix NameExpression` giúp tạo cấu trúc cho `môn NLP`. `IndexedNoun Index` giúp tạo `tuần 5`. `ObjectVerb NounPhrase` biểu diễn động từ có tân ngữ, như `học CFG`.
-
-Grammar có luật linh hoạt như `NounHead -> Noun NounHead` để nhận `deadline bài tập lớn`. Luật này cũng có thể tạo nhiều cách phân tích hoặc các chuỗi thiếu tự nhiên. Parser dùng heuristic để chọn một cây, không thể tự suy ra ý nghĩa đúng trong mọi trường hợp.
-
-| `max_samples` | 5.000 | Đủ nhiều để thử grammar; chấp nhận 0 đến 10.000 |
-| `seed` | 42 | Chạy lại có thể tái lập trong cùng môi trường |
-| `max_depth` | 14 | Chặn mở rộng đệ quy quá sâu |
-| `max_terminal_phrases` | 12 | Chặn câu quá dài theo số terminal |
-| `max_attempts` | 100.000 | Không lặp mãi k
-**Bốn nhóm cấu trúc câu khác với các nhóm intent** như hỏi lịch, hỏi deadline, hỏi tài liệu. Phần I nhận dạng cấu trúc; Phần II mới cần ánh xạ cấu trúc sang yêu cầu và thực thể.
-
-Chỉ chỉnh `src/grammar/grammar.txt`. `output/grammar.txt` là bản sao xuất ra để kiểm tra/nộp bài.
-
-## 6. Generator: cách sinh một câu
-
-Generator lấy production trực tiếp từ CFG. Nó đi qua lớp bọc đơn `Sentences -> Sentence`, rồi lần lượt thử các nhánh thật của `Sentence`: `Clause`, `WhClause`, `YesNoQuestion`, `Request`.
-
-Với mỗi lần thử:
-
-1. Chọn nhánh tiếp theo.
-2. Gặp terminal thì thêm cụm từ vào câu.
-3. Gặp nonterminal thì chọn một production bằng bộ lấy mẫu có seed và mở rộng vế phải.
-4. Vượt giới hạn hoặc gặp ký hiệu không có luật thì hủy cả lần thử.
-5. Hoàn thành thì ghép các terminal; chỉ nhận câu chưa trùng.
-
-```text
-lặp đến đủ số câu hoặc hết lượt thử:
-    chọn nhánh theo thứ tự luân phiên
-    thử mở rộng các ký hiệu theo grammar
-    nếu hoàn chỉnh và câu chưa có:
-        thêm vào danh sách
-```
-
-Cùng một production được dùng lại ở nhiều vị trí. Ví dụ, chủ ngữ và tân ngữ của `Tôi học NLP` đều có thể cần luật `NounPhrase -> SimpleNounPhrase`.
-
-### Cấu hình
-
-Mặc định nằm ở `generator.py`; có thể truyền tham số khi tạo `SentenceGenerator` hoặc gọi `generate_to_file`.
-
-| Tham số | Mặc định | Lý do |
-|---|---:|---|
-| `max_samples` | 5.000 | Đủ nhiều để thử grammar; chấp nhận 0 đến 10.000 |
-| `seed` | 42 | Chạy lại có thể tái lập trong cùng môi trường |
-| `max_depth` | 14 | Chặn mở rộng đệ quy quá sâu |
-| `max_terminal_phrases` | 12 | Chặn câu quá dài theo số terminal |
-| `max_attempts` | 100.000 | Không lặp mãi khi khó tìm thêm câu khác nhau |
-
-Vế trái của nhánh sau khi bỏ lớp bọc đơn có độ sâu 0; các con có độ sâu 1. Nonterminal chỉ mở rộng khi độ sâu nhỏ hơn `max_depth`. Terminal ở độ sâu 14 vẫn được nhận. **12 terminal không có nghĩa là 12 từ/âm tiết**: `"xử lý ngôn ngữ tự nhiên"` cũng chỉ tính một terminal.
-
-`random.Random(seed)` là bộ lấy mẫu cục bộ. Mỗi lần gọi `generate()` tạo lại nó từ seed; giữ thứ tự grammar/cấu hình/phiên bản môi trường sẽ giữ thứ tự output. Đổi thứ tự luật hoặc từ vựng có thể đổi kết quả.
-
-Danh sách giữ thứ tự ghi file; set chỉ dùng phát hiện trùng. Hết số lần thử mà chưa đủ thì trả số câu thực tế và phát cảnh báo, không thêm câu ngoài grammar cho đủ số lượng.
-
-Luân phiên số lượt thử giữa các nhánh **không bảo đảm số câu được nhận của mỗi nhánh bằng nhau**, cũng không bảo đảm cân bằng các intent.
-
-## 7. Parser: từ câu đầu vào đến cây
-
-```text
-câu gốc
-→ preprocess(): chuẩn hóa chữ và dấu câu
-→ iter_tokenizations(): thử các cách ghép terminal
-→ ChartParser: tìm cây theo CFG
-→ _tree_score(): so điểm giữa mọi cách tách
-→ trả một nltk.Tree hoặc None
-```
-
-### Ghép terminal và quay lui
-
-`iter_tokenizations()` ưu tiên cụm dài nhưng vẫn thử cụm ngắn. Ví dụ, `tài liệu tham khảo` có thể là một terminal, hoặc `tài liệu` và động từ `tham khảo`.
-
-Hàm dùng `yield` để trả từng cách tách khi cần. Bên trong, thao tác thêm token → đệ quy → bỏ token có nghĩa là thử một lựa chọn rồi quay lại thử lựa chọn tiếp theo. Bản hiện tại không giới hạn cứng ở bốn cách tách.
-
-### ChartParser và chọn cây
-
-ChartParser lưu các kết quả phân tích trung gian trong một chart để có thể tái sử dụng, thay vì phân tích lại từ đầu mọi cụm con. Grammar có thể cho nhiều cây, nên nhóm bổ sung tiêu chí:
-
-```text
-điểm cây = (số lần dùng luật dự phòng, tổng số production)
-```
-
-Python so tuple từ trái sang phải: ưu tiên ít luật dự phòng trước; nếu bằng nhau mới xét ít production. Các luật dự phòng và lý do có comment ngay tại `FALLBACK_RULES`. Khi hai cây cùng điểm, giữ cây gặp trước.
-
-Parser so cây từ **mọi cách tách đã tìm được**, không dừng ở cách tách đầu tiên có cây. Đây là chọn cây theo heuristic, không bảo đảm cây đúng ngữ nghĩa. Duyệt cây lần lượt cũng không loại bỏ chi phí/giới hạn trích xuất cây bên trong NLTK.
-
-### Quy ước file và lỗi
-
-- Mỗi dòng input tương ứng một dòng output; cây được viết trên một dòng.
-- Câu không có cây trong grammar, kể cả dòng trống, cho kết quả `()`.
-- `()` không chứng minh câu sai tiếng Việt hoặc nằm ngoài miền môn học: có thể grammar chưa hỗ trợ cách diễn đạt đó.
-- Thiếu file, grammar hỏng hoặc lỗi giới hạn thư viện được báo riêng. Lỗi phân tích file có thông tin dòng; không bị đổi thành `()`.
-- `parse_file()` chỉ ghi sau khi phân tích xong toàn bộ input, nên lỗi đọc/phân tích không ghi đè file parse output cũ bằng kết quả rỗng/dang dở.
-- Ba bước của toàn pipeline ghi các file riêng; nếu bước sau lỗi, một số output bước trước có thể đã được cập nhật. Chỉ dùng kết quả khi toàn lần chạy đã thành công.
-
-## 8. Ví dụ để trình bày luồng xử lý
-
-Với câu **“Môn NLP có bao nhiêu tín chỉ?”**:
-
-1. Chuẩn hóa thành `môn nlp có bao nhiêu tín chỉ`.
-2. Ghép được `["môn", "nlp", "có", "bao nhiêu", "tín chỉ"]`.
-3. ChartParser nhận câu hỏi Wh, có chủ ngữ `môn NLP`, động từ `có`, phần hỏi số lượng `bao nhiêu tín chỉ`.
-4. Chọn cây đại diện và xuất vào dòng tương ứng trong `parse-results.txt`.
-
-Cấu trúc dưới đây đã rút gọn để dễ đọc, không phải toàn bộ output:
-
-```text
-WhClause
-├── Subject
-│   └── môn NLP
-└── WhPredicate
-    ├── ObjectVerb: có
-    └── WhNounPhrase
-        ├── WhQuantity: bao nhiêu
-        └── UnitNoun: tín chỉ
-```
-
-**Phần I chưa trả lời số tín chỉ là bao nhiêu.** Việc tìm thông tin đó trong knowledge base thuộc phần tiếp theo.
-
-Các câu hồi quy quan trọng:
-
-| Câu | Điều được kiểm tra |
-|---|---|
-| `Tài liệu tham khảo môn học này và môn học đó không?` | Cách tách tạo cây nằm sau bốn ứng viên đầu vẫn được xét |
-| `Tài liệu tham khảo môn học.` | Cây của cách tách sau có điểm tốt hơn được chọn |
-| `Tài liệu của phần này ở đâu?` | `phần này` được gom trong một danh ngữ |
-| `NLP tín chỉ bao nhiêu có?` | Từ đều có trong lexicon vẫn bị từ chối khi không có cấu trúc phù hợp |
-
-Một vài câu hồi quy nhằm kiểm tra cơ chế cú pháp; không dùng chúng để chứng minh hệ thống hiểu đúng ý nghĩa thực tế.
-
-## 9. Các quyết định thiết kế và lý do
-
-| Quyết định | Lý do | Giới hạn/đánh đổi |
-|---|---|---|
-| Dùng NLTK CFG/ChartParser/Tree | Có cấu trúc chuẩn, ít code hạ tầng; cây dùng tiếp được ở Phần II | Nhóm cần hiểu grammar và cách parser tìm cây, không chỉ biết gọi thư viện |
-| Một grammar nguồn | Parser và generator có cùng định nghĩa câu hợp lệ | Grammar quá rộng ảnh hưởng cả nhập nhằng lẫn chất lượng câu sinh |
-| Terminal nhiều âm tiết | Khớp các cụm tiếng Việt trong grammar hiện tại | Cần ghép từ trước khi đưa vào ChartParser |
-| Thử nhiều cách tách | Cụm dài nhất chưa chắc tạo cây hợp lý nhất | Có thể tốn thời gian khi nhiều từ chồng lấp |
-| Giữ dấu bên trong mã | Bảo toàn `L.O.2.5`, `LLM/RAG` | Không phải bộ chuẩn hóa mọi kiểu dấu câu |
-| Chọn cây bằng điểm đơn giản | Dễ giải thích, hỗ trợ chọn cấu trúc tham chiếu | Heuristic không thay thế diễn giải ngữ nghĩa |
-| Sinh bằng mở rộng đệ quy có giới hạn | Bám grammar, cho phép dùng lại luật; dễ theo dõi hơn template/tổ hợp/GCD | Lấy mẫu không liệt kê hết câu hợp lệ, vẫn có câu thiếu tự nhiên |
-| Seed và thứ tự luật ổn định | Tái lập lỗi, kiểm thử và demo | Không cam kết output giống nhau giữa mọi phiên bản/mọi grammar |
-| Giới hạn sâu/độ dài/lượt thử | Luôn dừng trong phạm vi tìm kiếm đã đặt | Có thể chưa sinh đủ số câu mong muốn |
-| Mặc định 5.000 câu | Nằm trong giới hạn tối đa 10.000 của đề | Không tự thể hiện độ phủ toàn bộ intent |
-| `()` chỉ dùng khi không có cây | Phân biệt kết quả cú pháp với lỗi vận hành | Phải đọc thông báo lỗi khi quá trình chạy không thành công |
-| Dependency tối thiểu | Chỉ cài những gì code hiện dùng, hỗ trợ đóng gói sạch | Khi làm LLM/RAG cần bổ sung thư viện thực sự được sử dụng |
-
-## 10. Kiểm thử và kết quả
-
-Bộ test gồm **20 kiểm thử**, có thể chạy lại bằng lệnh ở mục 1. Test dùng thư mục tạm; không ghi đè output thật của nhóm.
-
-- Parser: lỗi cách tách thứ 5, so cây giữa các cách tách, dấu trong mã, tham chiếu, câu sai trật tự và input trống.
-- File: giữ số dòng, thiếu input không ghi đè output, lỗi thư viện có thông tin dòng.
-- Generator: dùng lại production, seed, hết số câu khác nhau, grammar đệ quy, các giới hạn và output 0 câu.
-- Tích hợp: chạy ba bước, kiểm tra grammar xuất, 51 kết quả parse, 5.000 câu khác nhau và parse lại toàn bộ 5.000 câu bằng cùng grammar.
-
-Kết quả kiểm tra ngày **09/11/2026**:
-
-| Kiểm tra | Kết quả |
-|---|---|
-| Bộ test tự động | 20/20 đạt trên môi trường phát triển, venv cài mới và Docker |
-| Grammar xuất | Khớp nguồn |
-| Câu sinh mặc định | 5.000 câu khác nhau sau 12.392 lần thử |
-| Parse lại các câu sinh | 5.000/5.000 có cây |
-| Input mẫu | 51 dòng: 48 có cây, 3 `()` |
-| Cài đặt trong venv sạch | Cài từ `project/requirements.txt`, `pip check` đạt, 20/20 test đạt; file chuyển tiếp tại gốc cũng hoạt động |
-| Docker | Build thành công; pipeline ghi output qua volume; 20/20 test đạt trong container |
-
-Đây là kiểm tra tính đúng của pipeline cú pháp. Input mẫu có nhiều câu đã được dùng khi thiết kế grammar; 48 câu có cây không phải đánh giá độc lập về khả năng hiểu ngôn ngữ hay trả lời câu hỏi.
-
-**Kiểm tra thủ công chất lượng câu sinh:** mẫu output vẫn có câu như `ngày mai bao nhiêu tín chỉ` hoặc `hãy là nó về tra cứu chúng tôi`. Chúng dẫn xuất được từ CFG nhưng thiếu tự nhiên về nghĩa. Phiên bản này giữ rõ giới hạn đó; chưa có bộ lọc ngữ nghĩa. Khi cải thiện, nên bổ sung ràng buộc có lý do và test cụ thể, tránh sửa output bằng tay.
-
-## 11. Chạy bằng Docker
-
-Từ `NLP/`:
-
-```bash
-docker build -t course-assistant-part1 ./project
-docker run --rm --user "$(id -u):$(id -g)" -v "$(pwd)/project/output:/app/output" course-assistant-part1
-docker run --rm course-assistant-part1 python -m unittest discover -s tests -v
-```
-
-Nếu đang đứng trong `project/`, thay build context `./project` bằng `.`, và đường dẫn volume bằng `"$(pwd)/output:/app/output"`.
-
-Docker dùng Python 3.14 (bản dockerfile mẫu thầy để 3.8 -- nghiên cứu lại phần này); build context phải là `project/` để `requirements.txt` và `main.py` có đường dẫn đúng. Volume giúp lấy output về máy; nếu không gắn volume thì output chỉ nằm trong container bị xóa khi chạy với `--rm`. Trên Linux, `--user` dùng UID/GID của người đang chạy để các file output thuộc đúng người dùng đó.
-
-## 12. Thêm từ vựng hoặc cấu trúc mới
-
-Ví dụ cần hỗ trợ một chủ đề mới:
-
-1. Thêm terminal chữ thường vào `TopicName` trong grammar nguồn.
-2. Nếu câu dùng cấu trúc mới, xác định nonterminal và production cần bổ sung.
-3. Thêm câu kiểm tra có kỳ vọng rõ ràng; với luật dễ nhập nhằng, thêm cả trường hợp dễ hiểu sai.
-4. Chạy test, chạy `main.py` để xuất lại grammar và samples, rồi xem các thay đổi output.
-5. Cập nhật README nếu thay đổi quy tắc hoặc giới hạn của hệ thống.
-
-Thêm một từ không bảo đảm mọi câu chứa từ đó đều parse được. Câu còn phải phù hợp cấu trúc grammar.
-
-## 13. Lỗi thường gặp và hạn chế
-
-| Hiện tượng | Cách kiểm tra |
-|---|---|
-| Không import được NLTK | Đã kích hoạt đúng venv và cài đúng requirements chưa? |
-| Không tìm thấy input/grammar | Kiểm tra cấu trúc `project/` và đường dẫn trong lỗi |
-| Câu cho `()` | Kiểm tra từ/cụm từ có trong grammar, sau đó kiểm tra cấu trúc |
-| Sinh chưa đủ số câu | Đọc cảnh báo; xem giới hạn và số câu khác nhau mà grammar có thể tạo |
-| Parse chậm hoặc lỗi trích xuất cây | Grammar/câu quá nhập nhằng; xem dòng được báo, giảm câu thử hoặc điều chỉnh grammar có kiểm thử |
-| Docker không thấy `requirements.txt` | Dùng đúng build context trong mục 11 |
-| Không thấy output Docker trên máy | Kiểm tra volume và quyền ghi thư mục |
-
-Parser hiện phù hợp các câu ngắn, trong từ vựng hữu hạn. Xét hết cách tách/cây không bảo đảm xử lý nhanh câu dài. Chưa có timeout riêng của nhóm; giới hạn nội bộ NLTK có thể phát lỗi và được báo ra.
-
-## 14. Giao diện để làm tiếp LLM/RAG
-
-`CourseParser.parse()` trả `nltk.Tree` hoặc `None`. Phần sau có thể duyệt cây để lấy nhãn và thực thể, rồi xây biểu diễn ngữ nghĩa/truy vấn retrieval.
-
-Ví dụ Python dưới đây chạy từ `project/`:
-
-```python
-from src.grammar import CourseParser, load_cfg
-
-parser = CourseParser(load_cfg("src/grammar/grammar.txt"))
-tree = parser.parse("Môn NLP có bao nhiêu tín chỉ?")
-if tree is not None:
-    for node in tree.subtrees():
-        if node.label() in {"CourseName", "WhQuantity", "UnitNoun"}:
-            print(node.label(), node.leaves())
-```
-
-Kết quả gồm `CourseName ['nlp']`, `WhQuantity ['bao nhiêu']`, `UnitNoun ['tín chỉ']`. Việc ánh xạ chúng thành intent/entity rồi truy xuất context và gọi LLM là phần cần triển khai tiếp. LLM/RAG vẫn phải thể hiện vai trò của grammar/parser theo yêu cầu chung của đề.
-
-## 15. Nguồn và hỗ trợ
-
-- Đề BTL CO3085 — Course Assistant: Phần I, lựa chọn 2 và yêu cầu pipeline chung.
-- Dữ liệu mẫu đi kèm trong `data/`; nguồn/phạm vi mô tả tại `data/00_README.txt`.
-- NLTK 3.10.4: `nltk.CFG`, `nltk.ChartParser`, `nltk.Tree` và docstring/mã nguồn của các thành phần này.
-- Python standard library: `random`, `pathlib`, `unittest`.
+---

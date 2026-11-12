@@ -1,10 +1,11 @@
-"""Chạy ba bước Phần I của Course Assistant (CO3085)."""
+"""entry của toàn bộ assignment"""
 
 from __future__ import annotations
 
 from pathlib import Path
 
 from src.grammar import CourseParser, SentenceGenerator, export_grammar, load_cfg
+from src.hcmut.iaslab.nlp.app import evaluate, part2, rag
 
 
 def run_part1(base_dir: Path) -> None:
@@ -38,7 +39,9 @@ def run_part1(base_dir: Path) -> None:
     parse_results = parser.parse_file(input_sentences, parse_results_out)
     tree_count = sum(result != "()" for result in parse_results)
     print(f"Đã xuất grammar: {grammar_out}")
-    print(f"Đã sinh {len(samples)} câu sau {generator.last_attempts} lần thử: {samples_out}")
+    print(
+        f"Đã sinh {len(samples)} câu sau {generator.last_attempts} lần thử: {samples_out}"
+    )
     print(
         f"Đã phân tích {len(parse_results)} dòng: {tree_count} có cây, "
         f"{len(parse_results) - tree_count} không có cây: {parse_results_out}"
@@ -47,7 +50,31 @@ def run_part1(base_dir: Path) -> None:
 
 def main() -> None:
     base_dir = Path(__file__).resolve().parent
+    # 1. Chạy Phần I: Grammar -> Samples -> Parser (parse-results.txt)
     run_part1(base_dir)
+    # 2. Chạy Phần II (Classical NLP): Semantic -> Intent/Entity -> Query -> Answer
+    part2.run(
+        input_dir=str(base_dir / "input"),
+        output_dir=str(base_dir / "output"),
+        kb_dir=str(base_dir / "data"),
+    )
+    # 3. Chạy Phần II (RAG): Retrieval -> Answer
+    rag.run(
+        input_dir=str(base_dir / "input"),
+        output_dir=str(base_dir / "output"),
+        kb_dir=str(base_dir / "data"),
+    )
+    # 4. Chạy Phần IV: Đánh giá hệ thống
+    evaluate.run(
+        output_dir=str(base_dir / "output"),
+        kb_dir=str(base_dir / "data"),
+        queries=str(base_dir / "data" / "sample_queries.txt"),
+    )
+    evaluate.run_rag(
+        output_dir=str(base_dir / "output"),
+        kb_dir=str(base_dir / "data"),
+        queries=str(base_dir / "data" / "sample_queries.txt"),
+    )
 
 
 if __name__ == "__main__":
