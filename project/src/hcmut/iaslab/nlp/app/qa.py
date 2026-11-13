@@ -69,6 +69,8 @@ def build_query(f):
         return q("part_chapters", f"SELECT chapter_id, title FROM topics WHERE part=<{a['part']}>", part=a["part"])
     if p == "GET_LO":
         return q("lo", f"SELECT text FROM learning_outcomes WHERE id='{a['lo']}'", lo=a["lo"])
+    if p == "GET_LO_CHAPTER":
+        return q("lo_chapter", f"SELECT chapter_id, title FROM topics WHERE lo_content MATCH '{a['lo']}'", lo=a["lo"])
     if p == "GET_LO_ALL":
         return q("lo_all", "SELECT id, text FROM learning_outcomes")
     if p == "GET_ASSIGNMENT":
@@ -78,6 +80,8 @@ def build_query(f):
     if p == "GET_DEADLINE":
         return q("deadline", f"SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='{a['assignment']}'")
     if p == "GET_RESOURCE":
+        if "chapter" in a:
+            return q("resource", f"SELECT id, title, author, year, usage FROM resources WHERE chapter='{a['chapter']}'", topic="*", chapter=a["chapter"])
         flt = a.get("topic", "*")
         return q("resource", f"SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '{flt}'", topic=flt)
     if p == "GET_RULE":
@@ -89,6 +93,46 @@ def build_query(f):
 
 # ------------------------------------------------------------------ thuc thi
 SEARCH_RULES = {"RESOURCE": {"STATISTICAL_NLP": r"statistical", "PYTHON_NLP": r"python"}}
+
+LO_VI_EN_GLOSSARY = {
+    "tổng quan": ["introduction", "organization", "overview"],
+    "tổ chức": ["organization"],
+    "cấu trúc": ["organization", "structure"],
+    "ứng dụng": ["applications", "application"],
+    "đánh giá": ["evaluating", "evaluation"],
+    "cú pháp tiếng anh": ["english syntax"],
+    "cú pháp": ["syntax"],
+    "văn phạm gia tố": ["augmented grammar"],
+    "văn phạm ngữ nghĩa": ["semantic grammar"],
+    "quan hệ văn phạm": ["grammatical relations"],
+    "văn phạm cho ngôn ngữ tự nhiên": ["grammar for natural language"],
+    "văn phạm": ["grammar"],
+    "phân tích cú pháp": ["parsing", "parser"],
+    "nét": ["feature", "features"],
+    "ngôn ngữ tự nhiên": ["natural language"],
+    "xác suất": ["probability", "statistical"],
+    "thống kê": ["statistical"],
+    "nhập nhằng ngữ nghĩa": ["semantic ambiguity", "ambiguity resolution"],
+    "nhập nhằng": ["ambiguity", "disambiguation"],
+    "mức câu": ["sentence level"],
+    "dạng luận lý": ["logical form"],
+    "tạo tự động": ["compositionality", "semantic interpretation"],
+    "diễn dịch ngữ nghĩa": ["semantic interpretation"],
+    "câu tự nhiên": ["sentences", "natural language"],
+    "cơ sở tri thức": ["knowledge-based", "knowledge representation"],
+    "biểu diễn tri thức": ["knowledge representation"],
+    "suy diễn": ["reasoning", "inference"],
+    "hỏi đáp": ["question answering", "qa"],
+    "ngữ cảnh diễn ngôn cục bộ": ["local discourse context", "discourse context"],
+    "tham chiếu": ["reference", "anaphora"],
+}
+
+LO_PART_MAP = {
+    "1": "Introduction",
+    "2": "Syntactic Processing",
+    "3": "Semantic Interpretation",
+    "4": "Context and World Knowledge",
+}
 
 
 class Engine:
@@ -289,6 +333,59 @@ class Engine:
         top = {k: v for k, v in self.kb.los.items() if "." not in k}
         return Result("Chuẩn đầu ra: " + " ".join(f"L.O.{k[2:]}: {v}" for k, v in top.items()), ["course_info.txt:learning_outcomes"])
 
+    def _x_lo_chapter(self, f, q):
+        lo = q.params["lo"]
+        lo_text = self.kb.los.get(lo)
+        if not lo_text or not self.kb.chapters:
+            return None
+        lo_low = lo_text.lower()
+        part_name = LO_PART_MAP.get(lo[2:3], "")
+
+        # Top-level LO (vd LO2): tra ve cac chuong trong phan tuong ung.
+        if "." not in lo and part_name:
+            cs = sorted(c for c, ch in self.kb.chapters.items() if ch.get("part") == part_name)
+            if not cs:
+                return None
+            return Result(
+                f"L.O.{lo[2:]} ({lo_text}) bao phủ {self._list(self.ch_label(c) for c in cs)}.",
+                ["course_info.txt:learning_outcomes"] + [f"topics.txt:{c}" for c in cs],
+            )
+
+        # Detailed LO (vd LO2.5): doi chieu tu khoa song ngu + phan mon hoc voi topics.txt.
+        en_terms = []
+        for vi, ens in LO_VI_EN_GLOSSARY.items():
+            if vi in lo_low:
+                en_terms.extend(ens)
+        en_terms.extend(re.findall(r"[a-z]{3,}", lo_low))
+
+        scored = {}
+        for cid, ch in self.kb.chapters.items():
+            score = 4 if part_name and ch.get("part") == part_name else 0
+            title = ch["title_raw"].lower()
+            kws = " ".join(ch["keywords"]).lower()
+            summ = ch["summary"].lower()
+            subs = " ".join(ch["subtopics"]).lower()
+            for term in set(en_terms):
+                rx = re.compile(r"(?<!\w)%s(?!\w)" % re.escape(term), re.I)
+                if rx.search(title):
+                    score += 3
+                if rx.search(kws):
+                    score += 3
+                if rx.search(summ):
+                    score += 2
+                if rx.search(subs):
+                    score += 1
+            scored[cid] = score
+
+        best_score = max(scored.values(), default=0)
+        if best_score <= 0:
+            return None
+        best = sorted(c for c, s in scored.items() if s == best_score)
+        return Result(
+            f"L.O.{lo[2:]} ({lo_text}) thuộc {self._list(self.ch_label(c) for c in best)}, phần {self.kb.chapters[best[0]]['part']}.",
+            ["course_info.txt:detailed_learning_outcomes"] + [f"topics.txt:{c}" for c in best],
+        )
+
     # ----- bai tap lon
     def _x_assignment(self, f, q):
         a = self.kb.assign.get("BTL01")
@@ -315,9 +412,20 @@ class Engine:
     # ----- tai lieu
     def _x_resource(self, f, q):
         topic = q.params["topic"]
+        chapter = q.params.get("chapter")
         rx = SEARCH_RULES["RESOURCE"].get(topic)
         items, note = self.kb.resources, ""
-        if rx:
+        extra_sources = []
+        if chapter:
+            ch = self.kb.chapters.get(chapter)
+            if not ch:
+                return None
+            note = (
+                f"Dữ liệu không gắn tài liệu riêng cho {self.ch_label(chapter)}; "
+                "có thể tham khảo các tài liệu nền tảng trong danh sách môn học: "
+            )
+            extra_sources.append(f"topics.txt:{chapter}")
+        elif rx:
             items = [r for r in items if re.search(rx, r.get("title", "") + " " + r.get("usage", ""), re.I)]
             if not items:
                 return None
@@ -329,7 +437,7 @@ class Engine:
             who = r.get("author") or r.get("authors") or ""
             y = f", {r['year']}" if r.get("year") else ""
             return f"{r['id']}: {r['title']}" + (f" ({who}{y})" if who else (f" ({r['year']})" if r.get("year") else "")) + f" - {r.get('usage', '')}"
-        return Result(note + "; ".join(fmt(r) for r in items) + ".", ["resources.txt:" + r["id"] for r in items])
+        return Result(note + "; ".join(fmt(r) for r in items) + ".", extra_sources + ["resources.txt:" + r["id"] for r in items])
 
     # ----- quy dinh
     def _x_rule(self, f, q):

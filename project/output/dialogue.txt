@@ -1,0 +1,206 @@
+========================================================================
+DIALOGUE 01
+========================================================================
+Tham chiếu kỳ vọng (reference): "chương này" -> CH03
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Tuần 3 học gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Tuần 3 học gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_WEEK_CONTENT(week=WEEK_03)
+    Truy vấn KB       : SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+  Câu trả lời       : A1: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+    Nguồn KB          : schedule.txt:WEEK 03
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Tài liệu của chương này là gì?
+  Ngữ cảnh sử dụng  : center=WEEK_03(WEEK, T1) | history=[WEEK_03(WEEK, T1, user_primary), DEPENDENCY_GRAMMAR(TOPIC, T1, answer), PCFG(TOPIC, T1, answer), CFG(TOPIC, T1, answer), PARSING(TOPIC, T1, answer), CH03(CHAPTER, T1, answer)]
+  Kết quả diễn giải : "chương này" -> CH03 (definite_description, syntax_tree+rules; history:answer(T1))
+    Câu sau diễn giải : Tài liệu của Chương 3 là gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_RESOURCE(chapter=CH03)
+    Truy vấn KB       : SELECT id, title, author, year, usage FROM resources WHERE chapter='CH03'
+  Câu trả lời       : A2: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+    Nguồn KB          : topics.txt:CH03, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+========================================================================
+DIALOGUE 02
+========================================================================
+Tham chiếu kỳ vọng (reference): "Nó" -> CH04
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Chương 4 nói về gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Chương 4 nói về gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_CHAPTER_CONTENT(chapter=CH04)
+    Truy vấn KB       : SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH04'
+  Câu trả lời       : A1: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+    Nguồn KB          : topics.txt:CH04
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Nó có liên quan đến parsing không?
+  Ngữ cảnh sử dụng  : center=CH04(CHAPTER, T1) | history=[CH04(CHAPTER, T1, user_primary), UNIFICATION(TOPIC, T1, answer), PARSING(TOPIC, T1, answer), AUGMENTED_GRAMMAR(TOPIC, T1, answer), FEATURES(TOPIC, T1, answer)]
+  Kết quả diễn giải : "Nó" -> CH04 (anaphora, syntax_tree+rules; center:user_primary(T1))
+    Câu sau diễn giải : Chương 4 có liên quan đến parsing không?
+    Cú pháp & Ngữ nghĩa: parse=OK | CHECK_CHAPTER_COVERS(chapter=CH04, topic=PARSING)
+    Truy vấn KB       : SELECT subtopics FROM topics WHERE chapter_id='CH04' AND subtopics|summary MATCH 'PARSING'
+  Câu trả lời       : A2: Có. Chương 4 (Features and Augmented Grammar) đề cập đến parsing. Mục liên quan: 4.5 Parsing with features. Tóm tắt chương: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar.
+    Nguồn KB          : topics.txt:CH04
+
+========================================================================
+DIALOGUE 03
+========================================================================
+Tham chiếu kỳ vọng (reference): "Phần này" -> PART_I_GRAMMAR_PARSER
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Bài tập lớn có phần parser không?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Bài tập lớn có phần parser không?
+    Cú pháp & Ngữ nghĩa: parse=OK | CHECK_ASSIGNMENT_PART(part=PART_I)
+    Truy vấn KB       : SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Câu trả lời       : A1: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Nguồn KB          : -
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Phần này cần xuất file gì?
+  Ngữ cảnh sử dụng  : center=PART_I(PART, T1) | history=[PART_I(PART, T1, user_primary), BTL01(ASSIGN, T1, user_secondary)]
+  Kết quả diễn giải : "Phần này" -> PART_I (definite_description, syntax_tree+rules; history:user_primary(T1))
+    Câu sau diễn giải : Phần I của bài tập lớn cần xuất file gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_ASSIGNMENT_PART(part=PART_I)
+    Truy vấn KB       : SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Câu trả lời       : A2: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Nguồn KB          : -
+
+========================================================================
+DIALOGUE 04
+========================================================================
+Tham chiếu kỳ vọng (reference): "chương sau" -> CH12
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Chương 11 có hỏi đáp không?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Chương 11 có hỏi đáp không?
+    Cú pháp & Ngữ nghĩa: parse=OK | CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+    Truy vấn KB       : SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Câu trả lời       : A1: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+    Nguồn KB          : topics.txt:CH11
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Còn chương sau?
+  Ngữ cảnh sử dụng  : center=CH11(CHAPTER, T1) | history=[CH11(CHAPTER, T1, user_primary), QUESTION_ANSWERING(TOPIC, T1, user_secondary), KNOWLEDGE_REPRESENTATION(TOPIC, T1, answer)]
+  Kết quả diễn giải : "chương sau" -> CH12 (ordinal_reference, history(CHAPTER=CH11, T1) -> +1); "Còn chương sau?" -> CH12 (ellipsis, ellipsis tu luot T1 (CHECK_CHAPTER_COVERS))
+    Câu sau diễn giải : Chương 12 có question answering không?
+    Cú pháp & Ngữ nghĩa: parse=OK | CHECK_CHAPTER_COVERS(chapter=CH12, topic=QUESTION_ANSWERING)
+    Truy vấn KB       : SELECT subtopics FROM topics WHERE chapter_id='CH12' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Câu trả lời       : A2: Trong dữ liệu, Chương 12 (Discourse Context and Reference) không có mục nào nhắc đến question answering. Nội dung chính của chương này: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+    Nguồn KB          : topics.txt:CH12
+
+========================================================================
+DIALOGUE 05
+========================================================================
+Tham chiếu kỳ vọng (reference): "Nội dung này" -> LO2.5
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: L.O.2.5 học về gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : L.O.2.5 học về gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_LO(lo=LO2.5)
+    Truy vấn KB       : SELECT text FROM learning_outcomes WHERE id='LO2.5'
+  Câu trả lời       : A1: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+    Nguồn KB          : course_info.txt:detailed_learning_outcomes
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Nội dung này nằm ở chương nào?
+  Ngữ cảnh sử dụng  : center=LO2.5(LO, T1) | history=[LO2.5(LO, T1, user_primary)]
+  Kết quả diễn giải : "Nội dung này" -> LO2.5 (definite_description, syntax_tree+rules; history:user_primary(T1))
+    Câu sau diễn giải : L.O.2.5 nằm ở chương nào?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_LO_CHAPTER(lo=LO2.5)
+    Truy vấn KB       : SELECT chapter_id, title FROM topics WHERE lo_content MATCH 'LO2.5'
+  Câu trả lời       : A2: L.O.2.5 (Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.) thuộc Chương 6 (Ambiguity Resolution - Statistical Methods), phần Syntactic Processing.
+    Nguồn KB          : course_info.txt:detailed_learning_outcomes, topics.txt:CH06
+
+========================================================================
+EXTRA 01 - Ví dụ đề bài (Tuần 5 -> phần này)
+========================================================================
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Tuần 5 học những gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Tuần 5 học những gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_WEEK_CONTENT(week=WEEK_05)
+    Truy vấn KB       : SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Câu trả lời       : A1: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+    Nguồn KB          : schedule.txt:WEEK 05
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Tài liệu của phần này ở đâu?
+  Ngữ cảnh sử dụng  : center=WEEK_05(WEEK, T1) | history=[WEEK_05(WEEK, T1, user_primary), PARSING(TOPIC, T1, answer), UNIFICATION(TOPIC, T1, answer), AUGMENTED_GRAMMAR(TOPIC, T1, answer), FEATURES(TOPIC, T1, answer), CH04(CHAPTER, T1, answer)]
+  Kết quả diễn giải : "phần này" -> CH04 (definite_description, syntax_tree+rules; history:answer(T1))
+    Câu sau diễn giải : Tài liệu của Chương 4 ở đâu?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_RESOURCE(chapter=CH04)
+    Truy vấn KB       : SELECT id, title, author, year, usage FROM resources WHERE chapter='CH04'
+  Câu trả lời       : A2: Dữ liệu không gắn tài liệu riêng cho Chương 4 (Features and Augmented Grammar); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+    Nguồn KB          : topics.txt:CH04, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+========================================================================
+EXTRA 02 - Hội thoại 3 lượt với Centering (Cb duy trì qua nhiều lượt)
+========================================================================
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Tuần 3 học gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Tuần 3 học gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_WEEK_CONTENT(week=WEEK_03)
+    Truy vấn KB       : SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+  Câu trả lời       : A1: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+    Nguồn KB          : schedule.txt:WEEK 03
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Tài liệu của chương này là gì?
+  Ngữ cảnh sử dụng  : center=WEEK_03(WEEK, T1) | history=[WEEK_03(WEEK, T1, user_primary), DEPENDENCY_GRAMMAR(TOPIC, T1, answer), PCFG(TOPIC, T1, answer), CFG(TOPIC, T1, answer), PARSING(TOPIC, T1, answer), CH03(CHAPTER, T1, answer)]
+  Kết quả diễn giải : "chương này" -> CH03 (definite_description, syntax_tree+rules; history:answer(T1))
+    Câu sau diễn giải : Tài liệu của Chương 3 là gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_RESOURCE(chapter=CH03)
+    Truy vấn KB       : SELECT id, title, author, year, usage FROM resources WHERE chapter='CH03'
+  Câu trả lời       : A2: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+    Nguồn KB          : topics.txt:CH03, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[Lượt 3]
+  Hội thoại đầu vào : U3: Nó có liên quan đến PCFG không?
+  Ngữ cảnh sử dụng  : center=CH03(CHAPTER, T2) | history=[CH03(CHAPTER, T2, user_primary), PYTHON_NLP(RESOURCE_TOPIC, T2, answer), REFERENCE(TOPIC, T2, answer), STATISTICAL_NLP(RESOURCE_TOPIC, T2, answer), PARSING(TOPIC, T2, answer), CO3085(COURSE, T2, answer)]
+  Kết quả diễn giải : "Nó" -> CH03 (anaphora, syntax_tree+rules; center:user_primary(T2))
+    Câu sau diễn giải : Chương 3 có liên quan đến PCFG không?
+    Cú pháp & Ngữ nghĩa: parse=OK | CHECK_CHAPTER_COVERS(chapter=CH03, topic=PCFG)
+    Truy vấn KB       : SELECT subtopics FROM topics WHERE chapter_id='CH03' AND subtopics|summary MATCH 'PCFG'
+  Câu trả lời       : A3: Có. Chương 3 (Grammar and Parsing) đề cập đến PCFG. Tóm tắt chương: The chapter introduces context-free grammar, sentence structure and parsing methods. It also introduces probabilistic CFG and dependency grammar.
+    Nguồn KB          : topics.txt:CH03
+
+========================================================================
+EXTRA 03 - Kiểm tra an toàn khi thiếu ngữ cảnh / ngoài phạm vi KB
+========================================================================
+
+[Lượt 1]
+  Hội thoại đầu vào : U1: Chương 12 nói về gì?
+  Ngữ cảnh sử dụng  : (rỗng - chưa có ngữ cảnh trước đó)
+  Kết quả diễn giải : Không có tham chiếu ngữ cảnh
+    Câu sau diễn giải : Chương 12 nói về gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_CHAPTER_CONTENT(chapter=CH12)
+    Truy vấn KB       : SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH12'
+  Câu trả lời       : A1: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+    Nguồn KB          : topics.txt:CH12
+
+[Lượt 2]
+  Hội thoại đầu vào : U2: Còn chương sau?
+  Ngữ cảnh sử dụng  : center=CH12(CHAPTER, T1) | history=[CH12(CHAPTER, T1, user_primary), ANAPHORA(TOPIC, T1, answer), CENTERING(TOPIC, T1, answer), LOCAL_DISCOURSE_CONTEXT(TOPIC, T1, answer), REFERENCE(TOPIC, T1, answer)]
+  Kết quả diễn giải : "chương sau" -> CH13 (ordinal_reference, history(CHAPTER=CH12, T1) -> +1); "Còn chương sau?" -> CH13 (ellipsis, ellipsis tu luot T1 (GET_CHAPTER_CONTENT))
+    Câu sau diễn giải : Chương 13 nói về gì?
+    Cú pháp & Ngữ nghĩa: parse=OK | GET_CHAPTER_CONTENT(chapter=CH13)
+    Truy vấn KB       : SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH13'
+  Câu trả lời       : A2: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Nguồn KB          : -

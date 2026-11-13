@@ -355,7 +355,7 @@
   primary  : -
   yes/no   : False
   parse    : OK
-  source   : rules
+  source   : rules(tree=GET_ASSIGNMENT khac)
   note     : intent: co dai tu/tham chieu, khong co entity chinh
 
 [041] Tài liệu của chương này là gì?
