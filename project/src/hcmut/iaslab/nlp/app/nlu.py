@@ -48,7 +48,7 @@ EXTRA_SEARCH = {
 }
 
 PRONOUN_RE = re.compile(
-    r"\bnó\b|\b(?:phần|chương|nội dung|mục|bài|tuần)\s+(?:này|đó|ấy|sau|trước|tiếp theo|tiếp)\b|^\s*còn\b"
+    r"\bnó\b|\b(?:phần|chương|nội dung|mục|bài|tuần|chủ đề|vấn đề|kiến thức)\s+(?:này|đó|ấy|sau|trước|tiếp theo|tiếp)\b|^\s*(?:thế\s+|vậy\s+)?còn\b"
 )
 
 
@@ -169,7 +169,9 @@ def tree_intent(tree):
         or "được phép" in by_label.get("Modal", [])
     ):
         return "GET_RULE"
-    if "AssignmentName" in by_label or "bài tập lớn" in nouns:
+    if "AssignmentName" in by_label or "bài tập lớn" in nouns or (
+        "file" in nouns and "xuất" in verbs
+    ):
         return "GET_ASSIGNMENT"
     if "ExamName" in by_label or nouns & {
         "tín chỉ",
@@ -343,7 +345,7 @@ def classify(text, entities, parse_intent=None):
         return "GET_RESOURCE", "cue tai lieu"
     if has("rule") or "RULE" in types:
         return "GET_RULE", "cue quy dinh / entity RULE"
-    if assign_ctx:
+    if assign_ctx or ("PARTREF" in types and re.search(r"\b(?:file|output|xuất|nộp)\b", t)):
         return "GET_ASSIGNMENT", "entity bai tap lon"
     if "EXAM" in types or has("course"):
         return "GET_COURSE_INFO", "cue thong tin mon hoc / ky thi"
@@ -409,7 +411,8 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
     part_val = None
     if "PARTREF" in by:
         n = by["PARTREF"][0].value
-        part_val = ("PART_" if "ASSIGN" in by else "COURSE_PART_") + n
+        is_assign_part = "ASSIGN" in by or bool(re.search(r"\b(?:file|output|xuất|nộp)\b", t))
+        part_val = ("PART_" if is_assign_part else "COURSE_PART_") + n
         by.setdefault("PART", []).append(
             Entity("PART", part_val, by["PARTREF"][0].text, 0, 0)
         )
@@ -515,7 +518,10 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
             frame.predicate, a["course"] = "GET_TOPIC", "CO3085"
     elif intent == "GET_LO":
         lo = first("LO")
-        frame.predicate, a["lo"] = ("GET_LO", lo) if lo else ("GET_LO_ALL", "ALL")
+        if lo and re.search(r"chương\s+nào|ở\s+chương|thuộc\s+chương", t):
+            frame.predicate, a["lo"] = "GET_LO_CHAPTER", lo
+        else:
+            frame.predicate, a["lo"] = ("GET_LO", lo) if lo else ("GET_LO_ALL", "ALL")
         prim = lo or prim
     elif intent == "GET_ASSIGNMENT":
         if part_val and part_val.startswith("PART_"):
@@ -533,12 +539,16 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
     elif intent == "GET_RESOURCE":
         rt = first("RESOURCE_TOPIC")
         topic = first("TOPIC")
+        ch = first("CHAPTER")
         if rt:
             frame.predicate, a["topic"] = "GET_RESOURCE", rt
             prim = rt
         elif topic:
             frame.predicate, a["topic"] = "GET_RESOURCE", topic
             prim = topic
+        elif ch:
+            frame.predicate, a["chapter"] = "GET_RESOURCE", ch
+            prim = ch
         else:
             frame.predicate, a["scope"] = "GET_RESOURCE", "ALL"
             prim = prim or "ALL"
