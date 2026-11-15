@@ -71,6 +71,7 @@ def main() -> None:
         dialogues_path=str(base_dir / "data" / "dialogues.txt"),
     )
     # 5. Chạy Phần IV: Đánh giá hệ thống
+
     evaluate.run(
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
