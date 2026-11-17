@@ -14,6 +14,98 @@ from src.hcmut.iaslab.nlp.app.qa import NEED_CONTEXT, NOT_FOUND
 PROJECT_DIR = Path(__file__).resolve().parents[1]
 
 
+class AssignmentKnowledgeBaseTests(unittest.TestCase):
+    def test_crlf_and_empty_assignment_text(self):
+        from src.hcmut.iaslab.nlp.app.kb import KnowledgeBase
+
+        kb = KnowledgeBase.__new__(KnowledgeBase)
+        kb.assign = {}
+        kb._load_assign("")
+        self.assertEqual(kb.assign, {})
+        text = (PROJECT_DIR / "data/assignments.txt").read_text(encoding="utf-8")
+        kb._load_assign(text.replace("\n", "\r\n"))
+        self.assertIn("grammar.txt", kb.assign["PART_I"]["outputs"])
+        self.assertIn("phân tích lỗi", kb.assign["PART_IV"]["description"])
+
+    def test_bad_or_duplicate_sections_fail_without_partial_records(self):
+        from src.hcmut.iaslab.nlp.app.kb import KnowledgeBase
+
+        text = (PROJECT_DIR / "data/assignments.txt").read_text(encoding="utf-8")
+        for bad in (
+            text.replace("assignment_id: BTL01", "wrong_id: BTL01"),
+            text.replace("PART II - Semantic Interpretation and QA", "PART I - Duplicate"),
+            text.replace("title: Intelligent Course Assistant", "title: First\ntitle: Second"),
+        ):
+            with self.subTest(header=bad[:35]):
+                kb = KnowledgeBase.__new__(KnowledgeBase)
+                kb.assign = {}
+                with self.assertRaisesRegex(ValueError, "assignments.txt"):
+                    kb._load_assign(bad)
+                self.assertEqual(kb.assign, {})
+
+    def test_loads_real_assignment_sections_without_extension_leaking(self):
+        from src.hcmut.iaslab.nlp.app.kb import KnowledgeBase
+
+        kb = KnowledgeBase(PROJECT_DIR / "data")
+        self.assertEqual(set(kb.assign), {"BTL01", "PART_I", "PART_II", "PART_III", "PART_IV"})
+        self.assertEqual(kb.assign["BTL01"]["title"], "Intelligent Course Assistant")
+        self.assertIn("pipeline NLP", kb.assign["BTL01"]["description"])
+        self.assertIn("xử lý câu không hợp lệ", kb.assign["PART_I"]["description"])
+        self.assertIn("entity extraction", kb.assign["PART_II"]["description"])
+        self.assertIn("ellipsis", kb.assign["PART_III"]["description"])
+        self.assertIn("phân tích lỗi", kb.assign["PART_IV"]["description"])
+        self.assertNotIn("fine-tuning", str(kb.assign["PART_IV"]))
+        self.assertNotIn("LLM/RAG EXTENSION", str(kb.assign))
+
+    def test_classical_answers_all_four_original_assignment_queries(self):
+        from src.hcmut.iaslab.nlp.app.part2 import CourseAssistant
+
+        ca = CourseAssistant(PROJECT_DIR / "data")
+        for query, required in (
+            ("Bài tập lớn yêu cầu xây dựng những gì?", "question answering"),
+            ("Phần I của bài tập lớn là gì?", "xây dựng parser"),
+            ("Bài tập lớn có phần hỏi đáp không?", "answer generation"),
+            ("Bài tập lớn có phần parser không?", "xây dựng parser"),
+        ):
+            with self.subTest(query=query):
+                _, _, result = ca.ask(query)
+                self.assertTrue(result.found)
+                self.assertIn(required, result.answer)
+                self.assertNotEqual(result.answer, NOT_FOUND)
+
+    def test_outputs_are_optional_and_never_invented(self):
+        from src.hcmut.iaslab.nlp.app.part2 import CourseAssistant
+
+        ca = CourseAssistant(PROJECT_DIR / "data")
+        _, _, first = ca.ask("Phần I của bài tập lớn là gì?")
+        for filename in ("grammar.txt", "samples.txt", "parse-results.txt"):
+            self.assertIn(filename, first.answer)
+        for part in ("II", "III", "IV"):
+            with self.subTest(part=part):
+                _, _, result = ca.ask(f"Phần {part} của bài tập lớn là gì?")
+                self.assertTrue(result.found)
+                self.assertNotIn("Output:", result.answer)
+
+    def test_rag_retrieves_assignment_evidence_without_calling_llm(self):
+        from src.hcmut.iaslab.nlp.app.rag import RagAssistant, build_chunks
+        from src.hcmut.iaslab.nlp.app.nlu import build_frame
+
+        rag = RagAssistant(PROJECT_DIR / "data")
+        chunks = {c["id"]: c["text"] for c in build_chunks(rag.kb)}
+        self.assertIn("assignment:PART_IV", chunks)
+        self.assertIn("parse-results.txt", chunks["assignment:PART_I"])
+        for query, expected in (
+            ("Bài tập lớn yêu cầu xây dựng những gì?", "assignment:BTL01"),
+            ("Phần I của bài tập lớn là gì?", "assignment:PART_I"),
+            ("Bài tập lớn có phần hỏi đáp không?", "assignment:PART_II"),
+            ("Bài tập lớn có phần parser không?", "assignment:PART_I"),
+        ):
+            with self.subTest(query=query):
+                frame = build_frame(query, rag.linker)
+                hits = rag.retrieve(query, frame=frame)
+                self.assertIn(expected, [h["id"] for h in hits[:3]])
+
+
 class DialogueContextTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls) -> None:

@@ -399,7 +399,9 @@ class Engine:
         a = self.kb.assign.get(key)
         if not a:
             return None
-        s = f"Phần {key[5:]} của bài tập lớn ({a['name']}): {a['description']} Output: {a['outputs']}."
+        s = f"Phần {key[5:]} của bài tập lớn ({a['name']}): {a['description']}."
+        if a.get("outputs"):
+            s += f" Output: {a['outputs']}."
         return Result(("Có. " if q.params["check"] else "") + s, [f"assignments.txt:{key}"])
 
     def _x_deadline(self, f, q):

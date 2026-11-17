@@ -178,17 +178,49 @@ class KnowledgeBase:
 
     # ---------- assignments ----------
     def _load_assign(self, text):
-        for block in re.split(r"(?m)^(?=(?:ASSIGNMENT|PART) \S+\s*$)", text):
-            m = re.match(r"(ASSIGNMENT|PART) (\S+)[ \t]*(?:\n|\Z)", block)
-            if not m:
-                continue
-            key = m.group(2) if m.group(1) == "ASSIGNMENT" else "PART_" + m.group(2)
-            d = {}
-            for line in block.splitlines()[1:]:
-                mm = re.match(r"^(\w+):\s*(.*)$", line.strip())
-                if mm:
-                    d[mm.group(1)] = mm.group(2)
-            self.assign[key] = d
+        if not text.strip():
+            return
+
+        def fields(block):
+            values, key = {}, None
+            for line in block.splitlines():
+                line = line.strip()
+                if not line or set(line) <= {"-", "="}:
+                    continue
+                match = re.match(r"^(\w+):[ \t]*(.*)$", line)
+                if match:
+                    key, value = match.groups()
+                    if key in values:
+                        raise ValueError(f"assignments.txt: trường bị lặp: {key}")
+                    values[key] = [value] if value else []
+                elif key:
+                    values[key].append(line.removeprefix("- "))
+            return {k: _join(v) if k in {"goal", "description"} else "; ".join(v)
+                    for k, v in values.items()}
+
+        # Phần mở rộng đứng sau Phần IV, không phải nội dung của Phần IV.
+        text = re.split(r"(?m)^LLM/RAG EXTENSION\s*$", text, maxsplit=1)[0]
+        blocks = re.split(r"(?m)^PART (I{1,3}|IV) - ([^\r\n]+)\r?$", text)
+        assignment = fields(blocks[0])
+        assignment_id = assignment.pop("assignment_id", "")
+        assignment["description"] = assignment.pop("goal", "")
+        if not assignment_id or not assignment.get("title") or not assignment["description"] or len(blocks) == 1:
+            raise ValueError("assignments.txt: thiếu assignment_id, title, goal hoặc tiêu đề PART.")
+        records = {assignment_id: assignment}
+        for index in range(1, len(blocks), 3):
+            roman, name, block = blocks[index:index + 3]
+            key = "PART_" + roman
+            part = fields(block)
+            requirement = next((k for k in ("requirements", "minimum_requirements", "optional_or_extension") if k in part), "")
+            description = part.pop(requirement, "")
+            if key in records or not description:
+                raise ValueError(f"assignments.txt: phần bị lặp hoặc thiếu yêu cầu: {key}")
+            outputs = part.pop("suggested_outputs", "")
+            part.update(name=name.strip(), description=description)
+            if outputs:
+                part["outputs"] = outputs
+            records[key] = part
+        self.assign.update(records)
 
     @property
     def has_assignments(self):
