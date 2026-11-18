@@ -1,28 +1,57 @@
-"""Phần I, mục 3.1: nạp grammar nguồn và xuất bản sao dùng để nộp bài."""
+
+"""Phần I: Sinh câu từ Context-Free Grammar."""
 
 from __future__ import annotations
 
-import shutil
+import random
 from pathlib import Path
 
+from nltk.parse.generate import generate
 import nltk
 
 
-def load_cfg(grammar_path: str | Path) -> nltk.CFG:
-    """Đọc file UTF-8 thành CFG; thiếu file hoặc sai cú pháp phải báo lỗi.
+class SentenceGenerator:
+    """Sinh câu dựa trên CFG sử dụng NLTK."""
 
-    Terminal là chuỗi trong dấu nháy; nonterminal là nhãn như NounPhrase.
-    Grammar của dự án dùng terminal chữ thường để khớp bước chuẩn hóa câu.
-    """
-    raw_text = Path(grammar_path).read_text(encoding="utf-8")
-    try:
-        return nltk.CFG.fromstring(raw_text)
-    except ValueError as error:
-        raise ValueError(f"Grammar không hợp lệ tại {grammar_path}: {error}") from error
+    def __init__(
+        self,
+        grammar: nltk.CFG,
+        seed: int = 42,
+        max_depth: int = 10,
+    ) -> None:
+        self.grammar = grammar
+        self.seed = seed
+        self.max_depth = max_depth
+        self.last_attempts = 0
 
+    def generate_to_file(
+        self,
+        output_path: str | Path,
+        n: int = 5000,
+    ) -> list[str]:
+        """Sinh tối đa n câu và ghi vào file."""
 
-def export_grammar(grammar_src: str | Path, grammar_out: str | Path) -> None:
-    """Xuất bản sao; chỉ sửa grammar nguồn, không sửa bản trong output/."""
-    output = Path(grammar_out)
-    output.parent.mkdir(parents=True, exist_ok=True)
-    shutil.copyfile(grammar_src, output)
+        sentences = list(
+            generate(
+                self.grammar,
+                depth=self.max_depth,
+                n=n,
+            )
+        )
+
+        self.last_attempts = len(sentences)
+
+        # Xáo trộn thứ tự câu bằng seed cố định.
+        rng = random.Random(self.seed)
+        rng.shuffle(sentences)
+
+        results = [" ".join(tokens) for tokens in sentences]
+
+        output = Path(output_path)
+        output.parent.mkdir(parents=True, exist_ok=True)
+        output.write_text(
+            "\n".join(results) + ("\n" if results else ""),
+            encoding="utf-8",
+        )
+
+        return results
