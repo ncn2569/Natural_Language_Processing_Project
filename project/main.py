@@ -75,12 +75,12 @@ def main() -> None:
     evaluate.run(
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
-        queries=str(base_dir / "data" / "sample_queries.txt"),
+        queries=str(base_dir / "data" / "evaluation_queries.txt"),
     )
     evaluate.run_rag(
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
-        queries=str(base_dir / "data" / "sample_queries.txt"),
+        queries=str(base_dir / "data" / "evaluation_queries.txt"),
     )
 
 

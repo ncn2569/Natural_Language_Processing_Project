@@ -8,16 +8,20 @@ Chong bia (hallucination):
   - prompt bat buoc chi dung ngu canh va phai noi "khong tim thay" neu thieu;
   - kiem tra hau kiem: so lieu/ma trong cau tra loi phai xuat hien trong ngu canh.
 
-LLM: bien moi truong ANTHROPIC_API_KEY (+ RAG_MODEL, mac dinh claude-haiku-5-5). Khong co key -> che do extractive.
+LLM: GEMINI_API_KEY/GOOGLE_API_KEY trong environment hoac .env o repo root.
 """
 
 import json
 import math
 import os
 import re
+import time
+import urllib.error
 import urllib.request
 from collections import Counter
+from email.utils import parsedate_to_datetime
 from pathlib import Path
+from threading import Lock
 
 from .kb import KnowledgeBase
 from .nlu import EntityLinker, build_frame, norm
@@ -32,6 +36,30 @@ STOP = set(
 TOKEN_RE = re.compile(r"\w+(?:\.\w+)*", re.U)
 TOP_K = 4
 MIN_SCORE = 1.0
+DEFAULT_MODEL = "gemini-3.1-flash-lite"
+DEFAULT_REQUEST_INTERVAL = 10.0
+MAX_RATE_LIMIT_RETRIES = 2
+_request_lock = Lock()
+_next_request_at = 0.0
+ENV_FILE = PROJECT_ROOT.parent / ".env"
+
+
+def get_api_key() -> str | None:
+    """Load API settings without overriding process variables."""
+    if ENV_FILE.is_file():
+        for line in ENV_FILE.read_text(encoding="utf-8-sig").splitlines():
+            match = re.fullmatch(
+                r"\s*(?:export\s+)?"
+                r"(GEMINI_API_KEY|GOOGLE_API_KEY|RAG_MODEL"
+                r"|RAG_REQUEST_INTERVAL_SECONDS)\s*=\s*(.*?)\s*",
+                line,
+            )
+            if match:
+                name, value = match.groups()
+                if len(value) >= 2 and value[0] == value[-1] and value[0] in "\"'":
+                    value = value[1:-1]
+                os.environ.setdefault(name, value)
+    return os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
 
 
 def tokenize(text):
@@ -155,32 +183,106 @@ def build_prompt(question, hits):
     return f"NGỮ CẢNH:\n{ctx}\n\nCÂU HỎI: {question}\n\nTRẢ LỜI:"
 
 
-def call_llm(prompt):
-    key = os.environ.get("ANTHROPIC_API_KEY")
+def _request_interval() -> float:
+    value = os.environ.get(
+        "RAG_REQUEST_INTERVAL_SECONDS", str(DEFAULT_REQUEST_INTERVAL)
+    )
+    try:
+        interval = float(value)
+    except ValueError:
+        return DEFAULT_REQUEST_INTERVAL
+    if math.isfinite(interval) and interval >= 0:
+        return interval
+    return DEFAULT_REQUEST_INTERVAL
+
+
+def _retry_after(value: str) -> float:
+    if value.isascii() and value.isdigit():
+        return float(value)
+    if value:
+        try:
+            retry_at = parsedate_to_datetime(value).timestamp()
+        except (ValueError, TypeError, OverflowError, OSError):
+            return 0.0
+        return max(0.0, retry_at - time.time())
+    return 0.0
+
+
+def _request_llm(request: urllib.request.Request) -> dict:
+    """Serialize API calls and pace generation and judging together."""
+    global _next_request_at
+
+    interval = _request_interval()
+    with _request_lock:
+        for attempt in range(MAX_RATE_LIMIT_RETRIES + 1):
+            wait = _next_request_at - time.monotonic()
+            if wait > 0:
+                time.sleep(wait)
+            cooldown = interval
+            try:
+                with urllib.request.urlopen(request, timeout=30) as response:
+                    return json.load(response)
+            except urllib.error.HTTPError as error:
+                if error.code != 429:
+                    raise
+                headers = error.headers or {}
+                retry_after = _retry_after(headers.get("Retry-After", ""))
+                cooldown = max(interval, 10.0 * 2**attempt, retry_after)
+                if attempt == MAX_RATE_LIMIT_RETRIES:
+                    raise
+                print(f"[RAG] HTTP 429. Thu lai sau {cooldown:g} giay.")
+                error.close()
+            finally:
+                _next_request_at = time.monotonic() + cooldown
+
+
+def call_llm(
+    prompt: str,
+    *,
+    model: str | None = None,
+    system: str | None = SYSTEM,
+) -> str | None:
+    key = get_api_key()
     if not key:
         return None
-    body = json.dumps(
-        {
-            "model": os.environ.get("RAG_MODEL", "claude-haiku-5-5"),
-            "max_tokens": 400,
-            "system": SYSTEM,
-            "messages": [{"role": "user", "content": prompt}],
-        }
-    ).encode()
+    model = model or os.environ.get("RAG_MODEL") or DEFAULT_MODEL
+    if not re.fullmatch(r"[A-Za-z0-9._-]+", model):
+        raise ValueError(
+            "RAG_MODEL phải là tên model Gemini, không phải URL hoặc đường dẫn."
+        )
+    payload = {
+        "contents": [{"role": "user", "parts": [{"text": prompt}]}],
+        "generationConfig": {"maxOutputTokens": 1024},
+    }
+    if system is not None:
+        payload["systemInstruction"] = {"parts": [{"text": system}]}
+    body = json.dumps(payload).encode()
     req = urllib.request.Request(
-        "https://api.anthropic.com/v1/messages",
+        "https://generativelanguage.googleapis.com/v1beta/models/"
+        f"{model}:generateContent",
         data=body,
         headers={
-            "x-api-key": key,
-            "anthropic-version": "2023-06-01",
+            "x-goog-api-key": key,
             "content-type": "application/json",
         },
     )
     try:
-        with urllib.request.urlopen(req, timeout=30) as r:
-            return "".join(b.get("text", "") for b in json.load(r)["content"]).strip()
-    except Exception as e:  # mang loi/het han muc -> roi ve extractive
-        print("[RAG] LLM loi, dung extractive:", e)
+        response = _request_llm(req)
+        candidates = response.get("candidates", [])
+        if not candidates or candidates[0].get("finishReason") != "STOP":
+            print("[RAG] Gemini khong co dap an hoan chinh, dung extractive.")
+            return None
+        parts = candidates[0].get("content", {}).get("parts", [])
+        answer = "".join(p.get("text", "") for p in parts if not p.get("thought")).strip()
+        if not answer:
+            print("[RAG] Gemini tra noi dung rong, dung extractive.")
+        return answer or None
+    except urllib.error.HTTPError as error:
+        print(f"[RAG] Gemini HTTP {error.code}, dung extractive.")
+        return None
+    except (OSError, ValueError, TypeError, AttributeError):
+        # Không in exception hoặc body để tránh lộ key/nội dung request.
+        print("[RAG] Gemini loi ket noi/phan hoi, dung extractive.")
         return None
 
 
@@ -303,7 +405,7 @@ class RagAssistant:
             h for h in hits if hits and h["score"] >= 0.5 * hits[0]["score"]
         ]  # bo chunk qua yeu so voi top-1
 
-    def ask(self, question):
+    def ask(self, question, *, use_llm=True):
         frame = build_frame(
             question, self.linker
         )  # tan dung NLU Phan II de cong pham vi
@@ -341,7 +443,7 @@ class RagAssistant:
                 info, answer=NOT_FOUND, sources=[], mode="gate:low-score", warn=[]
             )
         prompt = build_prompt(question, hits)
-        ans = call_llm(prompt)
+        ans = call_llm(prompt) if use_llm else None
         if ans is not None:
             mode, used = "llm", hits
         else:
@@ -394,5 +496,5 @@ def run(**kwargs):
     (out / "answer.txt").write_text("\n".join(A), encoding="utf-8")
     (Path(out_dir) / "retrieval.txt").write_text("\n".join(R), encoding="utf-8")
     print(
-        f"[II-RAG] {len(qs)} cau -> {out}/retrieval.txt, answer.txt ({'LLM' if os.environ.get('ANTHROPIC_API_KEY') else 'extractive, khong co API key'})"
+        f"[II-RAG] {len(qs)} cau -> {out}/retrieval.txt, answer.txt ({'Gemini requested; xem mode tung cau' if get_api_key() else 'extractive, khong co API key'})"
     )
