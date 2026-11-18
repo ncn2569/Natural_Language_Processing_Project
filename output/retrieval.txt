@@ -1,0 +1,303 @@
+QUESTION: Môn CO3085 có bao nhiêu tín chỉ và ECTS?
+INTENT: GET_COURSE_INFO
+SEARCH_QUERY: Môn CO3085 có bao nhiêu tín chỉ và ECTS?
+
+RETRIEVAL RESULTS
+============================================================
+1. faq.txt | chunk=0 | similarity=0.2214 | ranking_score=0.2546 | intent_score=0.5602 | accepted=True
+COURSE ASSISTANT FAQ
+=====================
+
+Q1:
+question: Môn NLP có bao nhiêu tín chỉ?
+answer: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+
+Q2:
+question: NLP có những phần chính nào?
+answer: Môn học gồm ba phần chính: Xử lý cú pháp; Diễn dịch ngữ nghĩa;
+và Ngữ cảnh và tri thức thế giới.
+
+Q3:
+question: Chương nào học về CFG?
+answer: CFG được trình bày trong Chương 3, Grammar and Parsing.
+
+Q4:
+question: Chương nào học về PCFG?
+answer: PCFG được trình bày trong Chương 3 và tiếp tục được sử dụng trong
+Chương 6 về các phương pháp thống kê.
+
+Q5:
+question: Chương nào học về Features và Augmented Grammar?
+answer: Chương 4.
+
+Q6:
+question: Chương nào học về semantic grammar?
+answer: Chương 10, Other Strategies for Semantic Interpretation.
+
+Q7:
+question: Chương nào học về knowledge representation?
+answer: Chương 11.
+
+Q8:
+question: Chương nào học về local discourse context?
+answer: Chương
+------------------------------------------------------------
+2. course_info.txt | chunk=0 | similarity=0.1545 | ranking_score=0.2085 | intent_score=0.5213 | accepted=True
+COURSE INFORMATION
+==================
+
+course_id: CO3085
+course_name: Xử lý Ngôn ngữ Tự nhiên
+course_name_en: Natural Language Processing
+semester: HK261
+credits: 3
+ects: 6
+course_type: Specialty / Graduation knowledge block
+department: Khoa Khoa học và Kỹ thuật Máy tính
+format: 2 lecture periods per week, 15 weeks
+total_course_hours: 150
+lecture_hours: 30
+major_assignment_hours: 45
+self_study_hours: 60
+
+course_description:
+Môn học cung cấp các khái niệm, lý thuyết và kỹ thuật nền tảng của
+xử lý ngôn ngữ tự nhiên. Nội dung được tổ chức thành ba phần chính:
+(1) Xử lý cú pháp, (2) Diễn dịch ngữ nghĩa, và (3) Ngữ cảnh và tri thức
+thế giới.
+
+Mục tiêu:
+Sinh viên có khả năng phân tích các vấn đề NLP và xây dựng các chương
+trình/hệ thống cơ bản có khả năng hiểu ngôn ngữ tự nhiên trong một miền
+ứng dụng cụ thể.
+
+main_parts:
+Part I - Syntactic Processing
+Part II - Semantic Interpretation
+Part
+------------------------------------------------------------
+3. course_info.txt | chunk=1 | similarity=0.0655 | ranking_score=0.0884 | intent_score=0.2210 | accepted=True
+nhiên trong một miền
+ứng dụng cụ thể.
+
+main_parts:
+Part I - Syntactic Processing
+Part II - Semantic Interpretation
+Part III - Context and World Knowledge
+
+learning_outcomes:
+LO1 - Tổng quan về tổ chức hệ thống NLP và các ứng dụng.
+LO2 - Xử lý cú pháp; xây dựng văn phạm đơn giản và phân tích cú pháp.
+LO3 - Diễn dịch ngữ nghĩa; tạo dạng luận lý và giải quyết nhập nhằng.
+LO4 - Ngữ nghĩa và tri thức thế giới; xây dựng cơ sở tri thức và hệ thống
+     hỏi đáp đơn giản.
+
+detailed_learning_outcomes:
+LO1.1 - Hiểu cấu trúc hệ thống NLP, ứng dụng và cách đánh giá hệ thống
+        hiểu ngôn ngữ tự nhiên.
+LO2.1 - Kiến thức cơ sở về cú pháp tiếng Anh.
+LO2.2 - Kiến thức cơ bản về văn phạm và phân tích cú pháp.
+LO2.3 - Kiến thức về nét và văn phạm gia tố.
+LO2.4 - Kiến thức tạo văn phạm cho ngôn ngữ tự nhiên và phương pháp parsing.
+LO2.5 - Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+LO3.1
+------------------------------------------------------------
+4. faq.txt | chunk=2 | similarity=0.0752 | ranking_score=0.0864 | intent_score=0.1901 | accepted=True
+thì phải làm gì?
+answer: Hệ thống nên thông báo rằng không tìm thấy thông tin trong
+knowledge base thay vì tự tạo thông tin.
+
+Q14:
+question: Midterm kéo dài bao lâu?
+answer: Theo đề cương, midterm có thời lượng 60 phút.
+
+Q15:
+question: Final kéo dài bao lâu?
+answer: Theo đề cương, final có thời lượng 90 phút.
+------------------------------------------------------------
+5. course_info.txt | chunk=2 | similarity=0.0544 | ranking_score=0.0734 | intent_score=0.1835 | accepted=True
+ạm cho ngôn ngữ tự nhiên và phương pháp parsing.
+LO2.5 - Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+LO3.1 - Kiến thức về ngôn ngữ dạng luận lý và tạo dạng luận lý đơn giản.
+LO3.2 - Tạo tự động diễn dịch ngữ nghĩa cho câu tự nhiên.
+LO3.3 - Giải quyết nhập nhằng ngữ nghĩa dựa trên tri thức và thống kê.
+LO3.4 - Diễn dịch ngữ nghĩa bằng quan hệ văn phạm và văn phạm ngữ nghĩa.
+LO4.1 - Biểu diễn tri thức, suy diễn và xây dựng hệ thống hỏi đáp đơn giản.
+LO4.2 - Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+
+assessment:
+class_attention_and_assignments: 15 percent
+major_assignment: 15 percent
+midterm_exam: 30 percent
+final_exam: 40 percent
+
+exam_format:
+midterm: open-book, written, 60 minutes
+final: open-book, written, 90 minutes
+------------------------------------------------------------
+6. faq.txt | chunk=1 | similarity=0.0580 | ranking_score=0.0667 | intent_score=0.1467 | accepted=False
+về knowledge representation?
+answer: Chương 11.
+
+Q8:
+question: Chương nào học về local discourse context?
+answer: Chương 12.
+
+Q9:
+question: L.O.4.2 liên quan đến nội dung gì?
+answer: L.O.4.2 liên quan đến ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+
+Q10:
+question: L.O.2.5 liên quan đến nội dung gì?
+answer: L.O.2.5 liên quan đến lý thuyết xác suất và việc giải quyết nhập
+nhằng từ ở mức câu.
+
+Q11:
+question: L.O.3.3 liên quan đến nội dung gì?
+answer: L.O.3.3 liên quan đến giải quyết nhập nhằng ngữ nghĩa dựa trên
+cơ sở tri thức và thống kê.
+
+Q12:
+question: Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+answer: Có thể sử dụng như một phần mở rộng nếu được cho phép, nhưng
+LLM/RAG không thay thế các yêu cầu NLP cốt lõi.
+
+Q13:
+question: Nếu hệ thống không tìm thấy câu trả lời thì phải làm gì?
+answer: Hệ thống nên thông báo rằng không tìm thấy thông tin trong
+knowledge base thay vì tự tạo thông
+------------------------------------------------------------
+7. regulations.txt | chunk=1 | similarity=0.1216 | ranking_score=0.0791 | intent_score=0.0791 | accepted=False
+libraries:
+Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+
+LLM_RAG:
+LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải
+mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+
+OUT_OF_SCOPE:
+Hệ thống Course Assistant chỉ chịu trách nhiệm trong phạm vi dữ liệu
+môn học. Với câu hỏi ngoài phạm vi hoặc không có dữ liệu, hệ thống phải
+thông báo rằng không tìm thấy thông tin thay vì tự tạo thông tin.
+------------------------------------------------------------
+8. schedule.txt | chunk=0 | similarity=0.0978 | ranking_score=0.0635 | intent_score=0.0635 | accepted=False
+PROPOSED 15-WEEK STUDY PLAN
+============================
+
+Lưu ý: Đây là kế hoạch mẫu được xây dựng từ cấu trúc 12 chương trong
+đề cương CO3085. Nó phục vụ bài tập Course Assistant và không thay thế
+lịch học hành chính chính thức.
+
+WEEK 01
+part: Introduction
+chapter: Chapter 1
+topics:
+- nghiên cứu ngôn ngữ tự nhiên
+- ứng dụng text-based
+- ứng dụng dialog-based
+- đánh giá hệ thống hiểu ngôn ngữ tự nhiên
+- các mức phân tích ngôn ngữ
+- biểu diễn và hiểu ngôn ngữ
+- tổ chức hệ thống NLU
+
+WEEK 02
+part: Syntactic Processing
+chapter: Chapter 2
+topics:
+- words
+- simple noun phrases
+- verb phrases
+- simple sentences
+- adjective phrases
+- adverbial phrases
+
+WEEK 03
+part: Syntactic Processing
+chapter: Chapter 3
+topics:
+- context-free grammar
+- grammar and sentence structure
+- top-down parsing
+- bottom-up chart parsing
+- top-down chart parsing
+- probabilistic context-free grammar
+- dependency grammar
+------------------------------------------------------------
+9. regulations.txt | chunk=0 | similarity=0.0877 | ranking_score=0.0570 | intent_score=0.0570 | accepted=False
+COURSE REGULATIONS - SAMPLE
+===========================
+
+Lưu ý:
+Các quy định chi tiết về deadline, format nộp bài và chính sách lớp học
+trong file này là dữ liệu MẪU phục vụ Course Assistant. Khi triển khai
+thực tế, các thông tin này phải được thay bằng thông tin chính thức.
+
+attendance:
+Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện
+các bài tập được giao.
+
+academic_integrity:
+Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics.
+
+AI_usage:
+Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và
+quá trình thực hiện theo quy định của môn học.
+
+source_code:
+Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng.
+
+assignment_sharing:
+Không được sao chép hoặc chia sẻ bài làm giữa các nhóm.
+
+external_libraries:
+Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+
+LLM_RAG:
+LLM/RAG nếu được sử dụng chỉ
+------------------------------------------------------------
+10. resources.txt | chunk=1 | similarity=0.0466 | ranking_score=0.0489 | intent_score=0.0489 | accepted=False
+teven Bird; Ewan Klein; Edward Loper
+year: 2009
+usage: practical NLP with Python
+
+REFERENCE 3
+title: Speech and Language Processing
+authors: Daniel Jurafsky; James H. Martin
+year: 2019
+usage: broad NLP reference
+
+REFERENCE 4
+title: An Introduction to Machine Translation
+author: W. John Hutchins
+year: 1992
+usage: machine translation background
+
+REFERENCE 5
+title: Natural Language Understanding and World Knowledge
+usage: world knowledge and inference
+
+study_note:
+Sinh viên nên xem thêm các giáo trình văn phạm tiếng Anh và tiếng Việt
+ở bậc đại học để hiểu sâu hơn về cú pháp và có thể vận dụng vào xây dựng
+hệ thống hiểu ngôn ngữ tự nhiên.
+------------------------------------------------------------
+11. assignments.txt | chunk=2 | similarity=0.0693 | ranking_score=0.0450 | intent_score=0.0450 | accepted=False
+- tạo test set
+- đo accuracy hoặc metric phù hợp
+- phân tích lỗi
+- trình bày các trường hợp hệ thống không trả lời đúng
+
+LLM/RAG EXTENSION
+-----------------
+status: optional
+description:
+Sinh viên có thể mở rộng bằng retrieval và/hoặc LLM. Phần này chỉ là
+mở rộng của NLP, không bắt buộc.
+
+not_required:
+- agent
+- multi-agent
+- fine-tuning LLM
+- huấn luyện language model
+- RAG pipeline quy mô lớn
+------------------------------------------------------------

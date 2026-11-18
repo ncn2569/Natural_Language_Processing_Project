@@ -1,0 +1,14 @@
+QUESTION: Môn CO3085 có bao nhiêu tín chỉ và ECTS?
+
+INTENT: GET_COURSE_INFO
+ENTITIES: ['CO3085']
+
+PARSER_STATUS: NOT_PARSED
+GENERATION_STATUS: GEMINI_SUCCESS
+PARSE_TREE:
+()
+
+ANSWER:
+Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ và 6 ECTS.
+
+[Nguồn: course_info.txt]
