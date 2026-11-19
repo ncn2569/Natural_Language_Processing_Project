@@ -230,7 +230,7 @@
   yes/no   : False
   parse    : OK
   source   : rules+tree(agree)
-  note     : intent: cue thong tin mon hoc / ky thi
+  note     : intent: entity ky thi
 
 [027] Final bao nhiêu phút?
   intent   : GET_COURSE_INFO
@@ -239,7 +239,7 @@
   yes/no   : False
   parse    : OK
   source   : rules+tree(agree)
-  note     : intent: cue thong tin mon hoc / ky thi
+  note     : intent: entity ky thi
 
 [028] Tài liệu tham khảo về statistical NLP là gì?
   intent   : GET_RESOURCE
@@ -419,7 +419,7 @@
   yes/no   : False
   parse    : OK
   source   : rules+tree(agree)
-  note     : intent: cue thong tin mon hoc / ky thi
+  note     : intent: entity ky thi
 
 [048] Final kéo dài bao lâu?
   intent   : GET_COURSE_INFO
@@ -428,7 +428,7 @@
   yes/no   : False
   parse    : OK
   source   : rules+tree(agree)
-  note     : intent: cue thong tin mon hoc / ky thi
+  note     : intent: entity ky thi
 
 [049] Hôm nay ở TP.HCM có mưa không?
   intent   : UNKNOWN
@@ -437,7 +437,7 @@
   yes/no   : True
   parse    : REJECTED
   source   : rules(parser tu choi cau)
-  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+  note     : intent: tu khoa/yeu cau ngoai mien mon hoc
 
 [050] Ai là tổng thống của Pháp?
   intent   : UNKNOWN
@@ -446,7 +446,7 @@
   yes/no   : False
   parse    : REJECTED
   source   : rules(parser tu choi cau)
-  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+  note     : intent: tu khoa/yeu cau ngoai mien mon hoc
 
 [051] Hãy giải bài tập xác suất này giúp tôi.
   intent   : UNKNOWN

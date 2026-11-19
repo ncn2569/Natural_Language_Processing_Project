@@ -8,18 +8,23 @@ from src.grammar import CourseParser, SentenceGenerator, export_grammar, load_cf
 from src.hcmut.iaslab.nlp.app import dialogue, evaluate, part2
 
 
-def run_part1(base_dir: Path) -> None:
+def run_part1(
+    base_dir: Path,
+    input_dir: str | Path | None = None,
+    output_dir: str | Path | None = None,
+) -> None:
     """Nạp/xuất grammar (3.1), sinh câu (3.2), phân tích input (3.3).
 
     base_dir là thư mục project/, không phụ thuộc vị trí gọi lệnh Python.
+    Hỗ trợ ghi đè input_dir/output_dir khi chạy qua Docker mount (/nlp/input, /nlp/output).
     """
     grammar_src = base_dir / "src" / "grammar" / "grammar.txt"
-    input_sentences = base_dir / "input" / "sentences.txt"
-    output_dir = base_dir / "output"
+    input_sentences = Path(input_dir or (base_dir / "input")) / "sentences.txt"
+    out_dir = Path(output_dir or (base_dir / "output"))
 
-    grammar_out = output_dir / "grammar.txt"
-    samples_out = output_dir / "samples.txt"
-    parse_results_out = output_dir / "parse-results.txt"
+    grammar_out = out_dir / "grammar.txt"
+    samples_out = out_dir / "samples.txt"
+    parse_results_out = out_dir / "parse-results.txt"
 
     # Kiểm tra input trước khi ghi bất kỳ output nào để lỗi thiếu file rõ ràng.
     for required_path in (grammar_src, input_sentences):
@@ -50,24 +55,26 @@ def run_part1(base_dir: Path) -> None:
 
 def main() -> None:
     base_dir = Path(__file__).resolve().parent
+    in_dir, out_dir = part2.default_dirs()
+    kb_dir = str(base_dir / "data")
     # 1. Chạy Phần I: Grammar -> Samples -> Parser (parse-results.txt)
-    run_part1(base_dir)
+    run_part1(base_dir, input_dir=in_dir, output_dir=out_dir)
     # 2. Chạy Phần II (Classical NLP): Semantic -> Intent/Entity -> Query -> Answer
     part2.run(
-        input_dir=str(base_dir / "input"),
-        output_dir=str(base_dir / "output"),
-        kb_dir=str(base_dir / "data"),
+        input_dir=in_dir,
+        output_dir=out_dir,
+        kb_dir=kb_dir,
     )
     # 3. Chạy Phần III: Xử lý ngữ cảnh hội thoại cục bộ (dialogue.txt)
     dialogue.run(
-        output_dir=str(base_dir / "output"),
-        kb_dir=str(base_dir / "data"),
+        output_dir=out_dir,
+        kb_dir=kb_dir,
         dialogues_path=str(base_dir / "data" / "dialogues.txt"),
     )
     # 4. Chạy Phần IV: Đánh giá hệ thống
     evaluate.run(
-        output_dir=str(base_dir / "output"),
-        kb_dir=str(base_dir / "data"),
+        output_dir=out_dir,
+        kb_dir=kb_dir,
         queries=str(base_dir / "data" / "evaluation_queries.txt"),
     )
 

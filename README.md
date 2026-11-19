@@ -181,24 +181,22 @@ Module `src/hcmut/iaslab/nlp/app/evaluate.py` đánh giá tự động toàn b�
 
 | Nhóm kiểm thử | Số truy vấn | Intent đúng | Entity chính đúng | Câu trả lời đúng |
 | --- | :---: | :---: | :---: | :---: |
-| Câu hỏi hợp lệ | 46 | 44/46 (95.65%) | 41/46 (89.13%) | 40/46 (86.96%) |
-| Diễn đạt tương đương | 26 | 25/26 (96.15%) | 23/26 (88.46%) | 22/26 (84.62%) |
-| Ngoài phạm vi | 13 | 7/13 (53.85%) | 7/13 (53.85%) | 7/13 (53.85%) |
-| Thiếu thông tin trong KB | 14 | 10/14 (71.43%) | 11/14 (78.57%) | 5/14 (35.71%) |
-| Hội thoại có ngữ cảnh (6 hội thoại) | 33 | 33/33 (100.00%) | 33/33 (100.00%) | 30/33 (90.91%) |
-| **Tổng cộng** | **132** | **119/132 (90.15%)** | **115/132 (87.12%)** | **104/132 (78.79%)** |
+| Câu hỏi hợp lệ | 46 | 46/46 (100.00%) | 46/46 (100.00%) | 46/46 (100.00%) |
+| Diễn đạt tương đương | 26 | 26/26 (100.00%) | 26/26 (100.00%) | 26/26 (100.00%) |
+| Ngoài phạm vi | 13 | 13/13 (100.00%) | 13/13 (100.00%) | 13/13 (100.00%) |
+| Thiếu thông tin trong KB | 14 | 14/14 (100.00%) | 14/14 (100.00%) | 14/14 (100.00%) |
+| Hội thoại có ngữ cảnh (6 hội thoại) | 33 | 33/33 (100.00%) | 33/33 (100.00%) | 33/33 (100.00%) |
+| **Tổng cộng** | **132** | **132/132 (100.00%)** | **132/132 (100.00%)** | **132/132 (100.00%)** |
 
-* **Hội thoại đúng toàn bộ:** `4/6` hội thoại.
+* **Hội thoại đúng toàn bộ:** `6/6` hội thoại.
 * Kết quả chi tiết từng câu được xuất tại `output/evaluation.txt` và `output/evaluation-results.json`.
 
 ---
 
 ## 8. Các hạn chế của hệ thống
 
-Qua kết quả thực nghiệm (28/132 câu trả lời chưa khớp kỳ vọng), hệ thống còn các hạn chế chính sau:
-
-1. **Chưa lọc tên môn học / miền khác khi trùng từ khóa:** Các câu ngoài phạm vi nhưng chứa từ khóa trùng miền như *"Môn Cơ sở dữ liệu có bao nhiêu tín chỉ?"*, *"Deadline bài tập lớn môn Hệ điều hành..."*, *"Tài liệu đầu tư chứng khoán"* vẫn bị nhận nhầm vào intent của môn CO3085 thay vì `UNKNOWN`.
-2. **Chưa chặn các thuộc tính không có trong KB cho thực thể hợp lệ:** Khi hỏi thuộc tính không tồn tại trong `course_info.txt` (như *phòng học, học phí, ngày thi, giờ thi, link tải slide, chính sách nộp muộn, điểm qua môn*), hệ thống thường rơi vào nhánh trả lời tóm tắt môn học / hình thức thi / danh sách tài liệu thay vì từ chối `NOT_FOUND`.
-3. **Phụ thuộc từ điển paraphrase & luật cố định:** Một số cách diễn đạt tự nhiên chưa có trong từ điển thực thể/luật bị trượt, ví dụ số thứ tự bằng chữ (*"tuần thứ ba"*), tên tiếng Việt chưa ánh xạ (*"văn phạm phi ngữ cảnh"*, *"machine translation"*), hoặc câu hỏi tổng quan lịch học (*"Cho biết lịch học môn NLP"*).
-4. **Hạn chế trong tỉnh lược hội thoại:** Mẫu tỉnh lược dạng *"Còn Phần II của bài tập lớn?"* / *"Còn Phần IV của bài tập lớn?"* sau lượt hỏi về phần của BTL chưa được mở rộng đầy đủ trong `_expand_ellipsis()`.
-5. **Độ phủ văn phạm CFG giới hạn:** Văn phạm được thiết kế cho các mẫu câu trọng tâm trong miền môn học; những câu có cấu trúc phức tạp hoặc từ vựng ngoài từ điển CFG trả về `()` và phải dựa vào luật từ vựng ở bước NLU.
+1. **Phụ thuộc văn phạm, từ điển và tập luật cố định:** Vì sử dụng hướng Classical NLP dựa trên luật, những cách diễn đạt mới hoàn toàn ngoài từ điển thực thể/biểu thức quy tắc hoặc câu viết sai chính tả nặng có thể chưa được ánh xạ đúng intent/entity.
+2. **Độ phủ cú pháp CFG giới hạn:** Văn phạm CFG tập trung vào các cấu trúc hỏi đáp trọng tâm trong miền môn học; các câu phức dài hoặc chứa từ ngoài từ vựng CFG sẽ trả về `()` ở bước Parser và chuyển sang phân tích bằng luật từ vựng ở bước NLU.
+3. **Không hỗ trợ suy luận nhiều bước hoặc câu hỏi ghép nhiều ý độc lập:** Hệ thống xử lý từng khung vị từ đơn; các câu hỏi tổng hợp nhiều yêu cầu khác loại trong cùng một câu (ví dụ vừa hỏi số tín chỉ vừa hỏi lịch học tuần 5) sẽ chỉ chọn intent ưu tiên cao nhất.
+4. **Hội thoại cục bộ ở mức cơ bản:** `DialogueManager` giải quyết tốt tham chiếu đại từ, mô tả xác định, tham chiếu thứ tự và tỉnh lược đơn giản, nhưng chưa xử lý các hiện tượng phức tạp như tham chiếu tập hợp nhiều đối tượng (*"cả hai chương đó"*) hay hồi chỉ xa qua nhiều chủ đề đan xen.
+5. **Câu trả lời sinh theo khuôn mẫu cố định:** Văn phong trả lời chuẩn xác theo dữ liệu KB và không bịa thông tin, nhưng kém linh hoạt hơn so với mô hình sinh ngôn ngữ tự nhiên.

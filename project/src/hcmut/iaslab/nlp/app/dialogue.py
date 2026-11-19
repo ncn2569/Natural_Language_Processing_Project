@@ -457,8 +457,10 @@ class DialogueManager:
             suffix = "nằm ở chương nào?" if p == "GET_LO_CHAPTER" else "là gì?"
             return f"{target_surface} {suffix}"
         if p == "GET_ASSIGNMENT_PART" and target_entity_type == "PART":
-            return f"{target_surface} cần xuất file gì?"
+            return f"{target_surface} là gì?"
         if p == "CHECK_ASSIGNMENT_PART" and target_entity_type == "PART":
+            return f"{target_surface} là gì?"
+        if target_entity_type == "PART":
             return f"{target_surface} là gì?"
         if target_entity_type == "CHAPTER":
             return f"{target_surface} nói về gì?"
@@ -647,27 +649,39 @@ class DialogueManager:
                 unresolved_flag = True
             else:
                 inner_ents = self.linker.extract(resolved_inner)
-                # Uu tien thuc the chinh trong phan tinh luoc.
-                new_ent = next(
-                    (e for e in inner_ents if e.type not in GENERIC_ENTITY_TYPES),
-                    inner_ents[0] if inner_ents else None,
-                )
-                if new_ent is not None and self.state.last_frame is not None:
+                # Hop nhat PARTREF (+ ASSIGN/ngu canh BTL) thanh thuc the PART cho cau tinh luoc.
+                part_ref = next((e for e in inner_ents if e.type == "PARTREF"), None)
+                if part_ref is not None:
+                    is_assign = any(e.type == "ASSIGN" for e in inner_ents) or (
+                        self.state.last_frame is not None
+                        and self.state.last_frame.intent == "GET_ASSIGNMENT"
+                    )
+                    part_val = ("PART_" if is_assign else "COURSE_PART_") + part_ref.value
+                    new_ent_type, new_ent_val = "PART", part_val
+                else:
+                    # Uu tien thuc the chinh trong phan tinh luoc.
+                    picked = next(
+                        (e for e in inner_ents if e.type not in GENERIC_ENTITY_TYPES),
+                        inner_ents[0] if inner_ents else None,
+                    )
+                    new_ent_type = picked.type if picked is not None else None
+                    new_ent_val = picked.value if picked is not None else None
+                if new_ent_type is not None and self.state.last_frame is not None:
                     expanded = self._expand_ellipsis(
-                        new_ent.type, entity_to_surface(new_ent.type, new_ent.value)
+                        new_ent_type, entity_to_surface(new_ent_type, new_ent_val)
                     )
                     if expanded:
                         if (
                             self.state.last_frame.predicate == "CHECK_CHAPTER_COVERS"
-                            and new_ent.type == "CHAPTER"
+                            and new_ent_type == "CHAPTER"
                         ):
-                            ellipsis_fallback_chapter = new_ent.value
+                            ellipsis_fallback_chapter = new_ent_val
                         resolutions.append(
                             Resolution(
                                 expression=fragment,
                                 ref_kind="ellipsis",
                                 target=self.state.center,
-                                resolved_value=new_ent.value,
+                                resolved_value=new_ent_val,
                                 surface=expanded,
                                 source_note=(
                                     f"ellipsis tu luot T{self.state.turn_count} ({self.state.last_frame.predicate})"

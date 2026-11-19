@@ -32,12 +32,40 @@ ROMAN = {
     "4": "IV",
 }
 
-# Chu de dung de tim tai lieu (khong co trong entities.txt)
+VI_NUMBERS = {
+    "nhất": 1,
+    "một": 1,
+    "hai": 2,
+    "ba": 3,
+    "tư": 4,
+    "bốn": 4,
+    "năm": 5,
+    "sáu": 6,
+    "bảy": 7,
+    "bẩy": 7,
+    "tám": 8,
+    "chín": 9,
+    "mười": 10,
+    "mười một": 11,
+    "mười hai": 12,
+    "mười ba": 13,
+    "mười bốn": 14,
+    "mười tư": 14,
+    "mười lăm": 15,
+    "mười năm": 15,
+}
+VI_NUM_PAT = "|".join(sorted(VI_NUMBERS, key=len, reverse=True))
+
+# Chu de bo sung (tu dong nghia tieng Viet va chu de tim tai lieu)
 EXTRA_TOPICS = {
     "STATISTICAL_NLP": ["statistical nlp", "nlp thống kê", "statistical methods"],
     "PYTHON_NLP": ["python nlp", "nlp with python", "python"],
+    "MACHINE_TRANSLATION": ["machine translation", "dịch máy"],
+    "CFG": ["văn phạm phi ngữ cảnh", "ngữ pháp phi ngữ cảnh"],
     "PARSING": ["parsing"],
+    "FRAME": ["frames", "frame"],
 }
+RESOURCE_TOPIC_NAMES = {"STATISTICAL_NLP", "PYTHON_NLP", "MACHINE_TRANSLATION"}
 # Tu khoa tim trong KB (ngoai ten chuan va ve phai tieng Anh)
 EXTRA_SEARCH = {
     "QUESTION_ANSWERING": ["QA"],
@@ -45,7 +73,26 @@ EXTRA_SEARCH = {
     "WSD": ["WSD"],
     "ANAPHORA": ["anaphora"],
     "REFERENCE": ["reference"],
+    "FRAME": ["frame"],
 }
+
+COURSE_SELF_RE = re.compile(
+    r"co\s*3085|\bnlp\b|xử lý ngôn ngữ tự nhiên|natural language processing"
+)
+# Phat hien ten mon hoc khac (khong phai CO3085/NLP) dung sau "mon"/"hoc phan".
+OTHER_COURSE_RE = re.compile(
+    r"\b(?:môn|học phần)\s+"
+    r"(?!(?:học|này|đó|ấy|nlp|co\s*3085|xử lý ngôn ngữ|natural language|"
+    r"có|thuộc|nào|gì|bao nhiêu|cung cấp|được|gồm|là|ở|khi|của|về|để|nên|"
+    r"phải|cần|thi|hiện tại)\b)[a-zà-ỹ]{2,}"
+)
+# Phat hien yeu cau ngoai mien mon hoc hoac yeu cau bo qua du lieu/sang tac.
+OUT_OF_DOMAIN_RE = re.compile(
+    r"bỏ qua dữ liệu|viết truyện|viết bài thơ|viết thơ|làm thơ|kể chuyện|"
+    r"dịch câu|huấn luyện chatbot|viết mã python|"
+    r"chứng khoán|đầu tư|hoàn thuế|thuế thu nhập|cảm cúm|thuốc điều trị|"
+    r"thời tiết|có mưa|tổng thống|bóng đá|du lịch|bất động sản"
+)
 
 PRONOUN_RE = re.compile(
     r"\bnó\b|\b(?:phần|chương|nội dung|mục|bài|tuần|chủ đề|vấn đề|kiến thức)\s+(?:này|đó|ấy|sau|trước|tiếp theo|tiếp)\b|^\s*(?:thế\s+|vậy\s+)?còn\b"
@@ -209,9 +256,19 @@ class EntityLinker:
             lambda m: "CH%02d" % int(m.group(1)),
         )
         add(
+            rf"\b(?:chương|chapter)\s+(?:thứ\s+)?({VI_NUM_PAT})\b",
+            "CHAPTER",
+            lambda m: "CH%02d" % VI_NUMBERS[m.group(1)],
+        )
+        add(
             r"\b(?:tuần|week)\s*(\d{1,2})\b",
             "WEEK",
             lambda m: "WEEK_%02d" % int(m.group(1)),
+        )
+        add(
+            rf"\b(?:tuần|week)\s+(?:thứ\s+)?({VI_NUM_PAT})\b",
+            "WEEK",
+            lambda m: "WEEK_%02d" % VI_NUMBERS[m.group(1)],
         )
         add(
             r"\bl\.?o\.?\s*(\d)\.(\d)\b",
@@ -233,26 +290,38 @@ class EntityLinker:
             "PARTREF",
             lambda m: ROMAN[m.group(1)],
         )
+        # Ten cac phan cua mon hoc tu entities.txt (PART)
+        part_aliases = {
+            "COURSE_PART_I": {"xử lý cú pháp", "syntactic processing"},
+            "COURSE_PART_II": {"diễn dịch ngữ nghĩa", "semantic interpretation"},
+            "COURSE_PART_III": {"ngữ cảnh và tri thức thế giới", "context and world knowledge"},
+        }
+        for val, aliases in part_aliases.items():
+            self._topic(val, aliases, rtype="COURSE_PART")
         add(
             r"co3085|\bnlp\b|xử lý ngôn ngữ tự nhiên|natural language processing|môn học|\bmôn\b",
             "COURSE",
             lambda m: "CO3085",
         )
         # chu de tu entities.txt (+ extra)
+        seen_topics = set()
         for name, rhs in kb.entities.get("TOPICS", []):
             val = re.sub(r"\W+", "_", name.upper()).strip("_")
+            seen_topics.add(val)
             aliases = {name.lower()}
             for a in re.split(r"\s*/\s*", rhs):
                 if len(a) >= 4:
                     aliases.add(a.lower())
+            if val in EXTRA_TOPICS:
+                aliases.update(EXTRA_TOPICS[val])
             self._topic(val, aliases)
         for val, al in EXTRA_TOPICS.items():
+            if val in seen_topics:
+                continue
             self._topic(
                 val,
                 set(al),
-                rtype="RESOURCE_TOPIC"
-                if val in ("STATISTICAL_NLP", "PYTHON_NLP")
-                else "TOPIC",
+                rtype="RESOURCE_TOPIC" if val in RESOURCE_TOPIC_NAMES else "TOPIC",
             )
         # tim kiem trong KB
         self.search_terms = {}
@@ -302,11 +371,11 @@ class EntityLinker:
 
 # ---------------------------------------------------------------- intent
 CUES = {
-    "deadline": r"deadline|hạn nộp|hạn chót|thời hạn|khi nào (?:phải )?nộp|ngày nộp|nộp trước|mốc|checkpoint",
+    "deadline": r"deadline|hạn nộp|hạn chót|thời hạn|khi nào (?:phải )?nộp|ngày nộp|nộp trước|mốc|checkpoint|(?:ngày|tháng|giờ).*?\bnộp\b|\bnộp\b.*?(?:ngày nào|mấy giờ|khi nào|bao giờ)",
     "instructor": r"giảng viên|giáo viên|\bthầy\b|\bcô giáo\b|ai dạy|người dạy",
-    "resource": r"tài liệu|giáo trình|\bsách\b|tham khảo|textbook",
-    "rule": r"quy định|nội quy|có được|được phép|cho phép|cấm|điểm danh|liêm chính|khai báo|gian lận|sao chép|chia sẻ",
-    "course": r"tín chỉ|\bects\b|môn học gồm|phần nào|những phần|các phần|chính nào|thành phần điểm|trọng số|bao nhiêu phút|mấy phút|thời lượng|bao lâu|\bkhoa\b|học kỳ|học kì",
+    "resource": r"(?<!mở )tài liệu|giáo trình|(?<!chính )\bsách\b|tham khảo|textbook|\bslide\b",
+    "rule": r"quy định|nội quy|chính sách|có được|được phép|cho phép|cấm|điểm danh|tham dự|liêm chính|khai báo|gian lận|sao chép|\bchép\b|chia sẻ|mã nguồn|source code|đạo văn|thư viện|qua môn|điểm tối thiểu|(?:nộp|bài).*?(?:muộn|trễ)",
+    "course": r"tín chỉ|\bects\b|môn học gồm|phần nào|những phần|các phần|chính nào|thành phần điểm|trọng số|bao nhiêu phút|mấy phút|thời lượng|bao lâu|\bkhoa\b|học kỳ|học kì|học phí|phòng học|ở phòng nào|cung cấp|kiến thức gì",
     "schedule": r"\btuần\b|\blịch\b|tiết|thứ mấy|\bweek\b",
     "topic": r"\bchương\b|nói về|học về|nội dung|phương pháp|liên quan đến|được học|học ở đâu|trình bày",
     "lo": r"chuẩn đầu ra|mục tiêu học|learning outcome",
@@ -325,19 +394,26 @@ def classify(text, entities, parse_intent=None):
         "LO",
         "ASSIGN",
         "PARTREF",
+        "COURSE_PART",
         "COURSE",
         "EXAM",
         "RULE",
     }
     if PRONOUN_RE.search(t) and not (types & primary_types):
         return "CONTEXT_DEPENDENT", "co dai tu/tham chieu, khong co entity chinh"
+    if OUT_OF_DOMAIN_RE.search(t):
+        return "UNKNOWN", "tu khoa/yeu cau ngoai mien mon hoc"
+    if OTHER_COURSE_RE.search(t) and not COURSE_SELF_RE.search(t):
+        return "UNKNOWN", "de cap mon hoc khac ngoai CO3085"
     domain = bool(types) or any(has(k) for k in CUES)
     if not domain:
         return "UNKNOWN", "khong co tu khoa/entity thuoc mien mon hoc"
     if "LO" in types or has("lo"):
         return "GET_LO", "entity LO / cue chuan dau ra"
+    if "EXAM" in types:
+        return "GET_COURSE_INFO", "entity ky thi"
     assign_ctx = "ASSIGN" in types
-    if has("deadline"):
+    if has("deadline") and not re.search(r"(?:nộp|bài).*?(?:muộn|trễ)|trừ điểm", t):
         return "GET_DEADLINE", "cue deadline/han nop"
     if has("instructor"):
         return "GET_INSTRUCTOR", "cue giang vien"
@@ -345,13 +421,15 @@ def classify(text, entities, parse_intent=None):
         return "GET_RESOURCE", "cue tai lieu"
     if has("rule") or "RULE" in types:
         return "GET_RULE", "cue quy dinh / entity RULE"
+    if "COURSE_PART" in types and not assign_ctx and "chương" in t:
+        return "GET_TOPIC", "phan mon hoc hoi danh sach chuong"
     if assign_ctx or ("PARTREF" in types and re.search(r"\b(?:file|output|xuất|nộp)\b", t)):
         return "GET_ASSIGNMENT", "entity bai tap lon"
-    if "EXAM" in types or has("course"):
+    if has("course"):
         return "GET_COURSE_INFO", "cue thong tin mon hoc / ky thi"
     if has("schedule") or "WEEK" in types:
         return "GET_SCHEDULE", "cue tuan/lich"
-    if has("topic") or types & {"CHAPTER", "TOPIC", "PARTREF"}:
+    if has("topic") or types & {"CHAPTER", "TOPIC", "PARTREF", "COURSE_PART"}:
         return "GET_TOPIC", "cue chuong/chu de"
     if "COURSE" in types:
         return "GET_COURSE_INFO", "entity mon hoc"
@@ -373,6 +451,8 @@ PRIMARY_ORDER = [
 ]
 
 COURSE_ATTRS = [
+    ("room", r"phòng học|ở phòng nào|\bphòng nào\b|giảng đường|tòa nhà"),
+    ("tuition", r"học phí|lệ phí|tiền học"),
     ("credits", r"tín chỉ"),
     ("ects", r"\bects\b"),
     ("hours", r"số giờ|tổng giờ|bao nhiêu giờ"),
@@ -382,7 +462,7 @@ COURSE_ATTRS = [
     ("department", r"\bkhoa\b"),
     ("semester", r"học kỳ|học kì"),
     ("format", r"hình thức|mấy tiết|tiết"),
-    ("description", r"mô tả|giới thiệu|là gì"),
+    ("description", r"mô tả|giới thiệu|cung cấp.*kiến thức|kiến thức gì|mục tiêu môn|là gì"),
 ]
 ASSIGN_PART_CUES = [
     ("I", r"parser|grammar|văn phạm|cú pháp|sinh câu|phân tích cú pháp"),
@@ -392,10 +472,14 @@ ASSIGN_PART_CUES = [
 ]
 RULE_CUES = [
     ("attendance", r"điểm danh|tham dự|vắng|nghỉ"),
-    ("assignment_sharing", r"sao chép|chia sẻ|copy"),
+    ("assignment_sharing", r"sao chép|chia sẻ|copy|\bchép\b|gửi bài.*nhóm khác"),
     ("external_libraries", r"thư viện"),
     ("academic_integrity", r"liêm chính|gian lận|đạo văn"),
     ("source_code", r"mã nguồn|source code|giải thích code"),
+]
+MISSING_RULE_CUES = [
+    ("LATE_SUBMISSION", r"(?:nộp|bài).*?(?:muộn|trễ)|trừ điểm.*?(?:muộn|trễ)|(?:muộn|trễ).*?trừ điểm"),
+    ("PASSING_GRADE", r"điểm tối thiểu|điểm qua môn|qua môn|điểm đạt|điểm sàn"),
 ]
 
 
@@ -415,6 +499,11 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
         part_val = ("PART_" if is_assign_part else "COURSE_PART_") + n
         by.setdefault("PART", []).append(
             Entity("PART", part_val, by["PARTREF"][0].text, 0, 0)
+        )
+    elif "COURSE_PART" in by and "ASSIGN" not in by:
+        part_val = by["COURSE_PART"][0].value
+        by.setdefault("PART", []).append(
+            Entity("PART", part_val, by["COURSE_PART"][0].text, 0, 0)
         )
     elif "ASSIGN" in by:
         for roman, cue in ASSIGN_PART_CUES:
@@ -469,27 +558,39 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
         course = first("COURSE") or "CO3085"
         attr = next((n for n, rx in COURSE_ATTRS if re.search(rx, t)), "")
         if exam:
-            attr = "exam"
-            frame.predicate, a["exam"] = (
-                "GET_EXAM_DURATION"
-                if re.search(r"phút|bao lâu|thời lượng", t)
-                else "GET_EXAM_FORMAT",
-                exam,
-            )
+            if re.search(
+                r"ngày thi|thi ngày nào|lịch thi|giờ bắt đầu|thi lúc mấy giờ|mấy giờ thi|giờ thi",
+                t,
+            ):
+                attr = "exam_date" if "ngày" in t else "exam_start_time"
+                frame.predicate = "GET_EXAM_SCHEDULE"
+                a["exam"], a["field"] = exam, attr
+            else:
+                attr = "exam"
+                frame.predicate, a["exam"] = (
+                    "GET_EXAM_DURATION"
+                    if re.search(r"phút|bao lâu|thời lượng", t)
+                    else "GET_EXAM_FORMAT",
+                    exam,
+                )
         else:
-            frame.predicate = {
-                "credits": "GET_CREDIT",
-                "ects": "GET_ECTS",
-                "hours": "GET_HOURS",
-                "assessment": "GET_ASSESSMENT",
-                "parts": "GET_MAIN_PARTS",
-                "department": "GET_DEPARTMENT",
-                "semester": "GET_SEMESTER",
-                "format": "GET_FORMAT",
-                "description": "GET_COURSE_DESCRIPTION",
-                "exam": "GET_EXAM_FORMAT",
-            }.get(attr, "GET_COURSE_INFO")
-            a["course"] = course
+            if attr in ("room", "tuition"):
+                frame.predicate = "GET_COURSE_FIELD"
+                a["course"], a["field"] = course, attr
+            else:
+                frame.predicate = {
+                    "credits": "GET_CREDIT",
+                    "ects": "GET_ECTS",
+                    "hours": "GET_HOURS",
+                    "assessment": "GET_ASSESSMENT",
+                    "parts": "GET_MAIN_PARTS",
+                    "department": "GET_DEPARTMENT",
+                    "semester": "GET_SEMESTER",
+                    "format": "GET_FORMAT",
+                    "description": "GET_COURSE_DESCRIPTION",
+                    "exam": "GET_EXAM_FORMAT",
+                }.get(attr, "GET_COURSE_INFO")
+                a["course"] = course
         frame.attr = attr
         prim = exam or course
     elif intent == "GET_SCHEDULE":
@@ -522,7 +623,7 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
             frame.predicate, a["lo"] = "GET_LO_CHAPTER", lo
         else:
             frame.predicate, a["lo"] = ("GET_LO", lo) if lo else ("GET_LO_ALL", "ALL")
-        prim = lo or prim
+        prim = lo or "ALL"
     elif intent == "GET_ASSIGNMENT":
         if part_val and part_val.startswith("PART_"):
             if frame.yes_no:
@@ -540,7 +641,13 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
         rt = first("RESOURCE_TOPIC")
         topic = first("TOPIC")
         ch = first("CHAPTER")
-        if rt:
+        if re.search(
+            r"\blink\b|đường dẫn|\burl\b|tải\s+(?:slide|tài liệu|giáo trình|sách)|download",
+            t,
+        ):
+            frame.predicate, a["scope"] = "GET_RESOURCE_LINK", "ALL"
+            prim = "ALL"
+        elif rt:
             frame.predicate, a["topic"] = "GET_RESOURCE", rt
             prim = rt
         elif topic:
@@ -551,18 +658,26 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
             prim = ch
         else:
             frame.predicate, a["scope"] = "GET_RESOURCE", "ALL"
-            prim = prim or "ALL"
+            prim = "ALL"
     elif intent == "GET_RULE":
-        rule = first("RULE") or next(
-            (
-                n.upper() if n != "AI_usage" else "AI_USAGE"
-                for n, rx in RULE_CUES
-                if re.search(rx, t)
-            ),
+        missing_rule = next(
+            (name for name, rx in MISSING_RULE_CUES if re.search(rx, t)),
             None,
         )
-        frame.predicate, a["rule"] = "GET_RULE", rule or "ALL"
-        prim = rule or prim or "ALL"
+        if missing_rule:
+            frame.predicate, a["rule"] = "GET_RULE", missing_rule
+            prim = "ALL"
+        else:
+            rule = first("RULE") or next(
+                (
+                    n.upper() if n != "AI_usage" else "AI_USAGE"
+                    for n, rx in RULE_CUES
+                    if re.search(rx, t)
+                ),
+                None,
+            )
+            frame.predicate, a["rule"] = "GET_RULE", rule or "ALL"
+            prim = rule or "ALL"
     elif intent == "GET_INSTRUCTOR":
         frame.predicate, a["course"] = "GET_INSTRUCTOR", "CO3085"
         prim = "CO3085"
