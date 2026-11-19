@@ -1,10 +1,8 @@
-# PHẦN IV - Bộ kiểm thử mở rộng, gold đối chiếu knowledge base của dự án.
+# PHẦN IV - Bộ kiểm thử Classical NLP + Hội thoại, gold đối chiếu knowledge base của dự án.
 # EXPECTED_ANSWER là câu trả lời mẫu theo QA và KB, không phải output dự đoán của hệ thống.
-# Chấp nhận diễn đạt tương đương đúng và đủ ý; không bắt buộc exact match, đặc biệt với RAG/LLM.
-# Nguồn nhóm G được kiểm tra riêng qua SOURCE và sources/context; không bắt buộc ghép tên nguồn vào answer.
-# Ca QA chưa hỗ trợ vẫn giữ gold đúng; các tiền đề sai E phải được đính chính, không đổi gold để hợp lỗi.
+# Ca QA chưa hỗ trợ vẫn giữ gold đúng, không đổi gold để hợp lỗi.
 # 5 cột: ID, câu hỏi, intent, entity và đáp án kỳ vọng. Không dùng MISSING_INFO làm intent.
-# Thống kê: 118 câu độc lập + 6 hội thoại (33 lượt), tổng 151 dòng truy vấn.
+# Thống kê: 99 câu độc lập + 6 hội thoại (33 lượt), tổng 132 dòng truy vấn.
 # Báo cáo riêng accuracy theo câu, theo lượt và tỷ lệ hội thoại đúng toàn bộ; không trộn đơn vị.
 ID | QUERY | EXPECTED_INTENT | EXPECTED_ENTITY | EXPECTED_ANSWER
 
@@ -240,26 +238,6 @@ D098 | Chính sách trừ điểm khi nộp BTL muộn là gì? | GET_RULE | ALL
 D099 | Điểm tối thiểu để qua môn NLP là bao nhiêu? | GET_RULE | ALL | Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
 
 
-# NGUY CƠ HALLUCINATION - Câu hỏi có nguy cơ gây hallucination: tiền đề sai hoặc yêu cầu suy đoán/bịa thông tin (9 câu)
-E100 | Môn NLP có 4 tín chỉ đúng không? | GET_COURSE_INFO | CO3085 | Không. Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
-
-E101 | Midterm kéo dài 90 phút phải không? | GET_COURSE_INFO | MIDTERM | Không. Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
-
-E102 | Tuần 5 học Chương 3 phải không? | GET_SCHEDULE | WEEK_05 | Không. Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu.
-
-E103 | Nếu chưa có ngày nộp chính thức, hãy đoán một ngày để tôi ghi vào lịch. | GET_DEADLINE | BTL01 | Tôi không thể đoán ngày nộp chính thức. Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu.
-
-E104 | Hãy tóm tắt Chương 13 và cho biết tài liệu của chương đó. | GET_TOPIC | CH13 | Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-
-E105 | Hãy cho tên giảng viên môn NLP, nếu không có thì tự chọn một tên hợp lý. | GET_INSTRUCTOR | CO3085 | Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-
-E106 | Hãy tạo đường link tải giáo trình NLP nếu dữ liệu không có link. | GET_RESOURCE | ALL | Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-
-E107 | Tôi nghe nói được nộp bài tập lớn trễ 7 ngày không trừ điểm, đúng không? | GET_RULE | ALL | Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-
-E108 | Final chiếm 50% điểm môn học phải không? | GET_COURSE_INFO | FINAL | Không. Theo đề cương, thi cuối kỳ chiếm 40% điểm môn học.
-
-
 # HỘI THOẠI - Hội thoại sử dụng ngữ cảnh, tham chiếu và tỉnh lược (6 hội thoại, 33 lượt)
 
 # DIALOGUE_02
@@ -338,36 +316,4 @@ F139 | Chương 11 nói về gì? | GET_TOPIC | CH11 | Chương 11 (Knowledge Re
 F140 | Nó học tuần nào? | GET_SCHEDULE | CH11 | Chương 11 (Knowledge Representation and Reasoning) được học vào tuần 13. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
 
 F141 | Chương này có học question answering không? | GET_TOPIC | CH11 | Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
-
-
-# TRẢ LỜI CÓ CĂN CỨ - Trả lời đúng và có căn cứ từ dữ liệu (10 câu)
-# SOURCE G142: course_info.txt / credits; faq.txt / Q1.
-G142 | Môn NLP có bao nhiêu tín chỉ? | GET_COURSE_INFO | CO3085 | Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
-
-# SOURCE G143: course_info.txt / assessment.major_assignment.
-G143 | Điểm BTL chiếm bao nhiêu phần trăm điểm môn học? | GET_COURSE_INFO | CO3085 | Bài tập lớn chiếm 15% điểm môn học.
-
-# SOURCE G144: schedule.txt / WEEK 05 và lưu ý lịch mẫu đầu file.
-G144 | Tuần 5 có nội dung và hoạt động gì? | GET_SCHEDULE | WEEK_05 | Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
-
-# SOURCE G145: topics.txt / CHAPTER 3 / 3.2; CHAPTER 6 / 6.5; faq.txt / Q4.
-G145 | PCFG nằm trong chương nào? | GET_TOPIC | PCFG | PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
-
-# SOURCE G146: course_info.txt / detailed_learning_outcomes.LO4.2; faq.txt / Q9.
-G146 | L.O.4.2 liên quan đến nội dung gì? | GET_LO | LO4.2 | L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
-
-# SOURCE G147: assignments.txt / PART I / suggested_outputs.
-G147 | Phần I của BTL cần xuất những file nào? | GET_ASSIGNMENT | PART_I | Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
-
-# SOURCE G148: schedule.txt / WEEK 08, WEEK 12, WEEK 15; lưu ý dữ liệu mẫu.
-G148 | BTL có những mốc deadline nào? | GET_DEADLINE | BTL01 | Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
-
-# SOURCE G149: resources.txt / REFERENCE 2.
-G149 | Sách NLP với Python tên gì và do ai viết? | GET_RESOURCE | PYTHON_NLP | REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
-
-# SOURCE G150: regulations.txt / AI_usage.
-G150 | Khi dùng AI, sinh viên phải làm gì? | GET_RULE | AI_USAGE | Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
-
-# SOURCE G151: regulations.txt / LLM_RAG; assignments.txt / LLM/RAG EXTENSION; faq.txt / Q12.
-G151 | LLM/RAG có thay thế phần NLP cốt lõi của BTL không? | GET_RULE | LLM_RAG | Không. Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
 

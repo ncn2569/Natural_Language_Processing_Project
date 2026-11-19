@@ -296,33 +296,6 @@
   "D099": {
     "group": "Thiếu thông tin"
   },
-  "E100": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E101": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E102": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E103": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E104": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E105": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E106": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E107": {
-    "group": "Nguy cơ hallucination"
-  },
-  "E108": {
-    "group": "Nguy cơ hallucination"
-  },
   "F109": {
     "group": "Hội thoại",
     "dialogue_id": "DIALOGUE_02",
@@ -487,35 +460,5 @@
     "group": "Hội thoại",
     "dialogue_id": "DIALOGUE_10",
     "turn": 5
-  },
-  "G142": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G143": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G144": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G145": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G146": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G147": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G148": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G149": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G150": {
-    "group": "Trả lời có căn cứ"
-  },
-  "G151": {
-    "group": "Trả lời có căn cứ"
   }
 }
