@@ -1,145 +1,1785 @@
-DANH GIA SO BO - Classical NLP (che do 1 luot, khong ngu canh)
-So cau kiem thu: 34
-Intent dung: 34/34 = 100.0%
-Entity chinh dung (khong tinh cau can ngu canh): 31/31 = 100.0%
-Cau sai: 0
+ĐÁNH GIÁ TỔNG QUAN - CLASSICAL QA
+Số truy vấn: 151
+Intent đúng: 135/151 = 89.40%
+Entity chính đúng: 130/151 = 86.09%
+Số câu trả lời đúng: 114/151 = 75.50%
+Số câu trả lời sai: 37/151
+Hội thoại đúng toàn bộ: 4/6
 
+CHI TIẾT THEO TỪNG NHÓM
 
-CHI TIET
+NHÓM Câu hỏi hợp lệ
+Số truy vấn: 46
+Intent đúng: 44/46 = 95.65%
+Entity chính đúng: 41/46 = 89.13%
+Số câu trả lời đúng: 40/46 = 86.96%
+Số câu trả lời sai: 6/46
 
-Q001 | OK  | Môn NLP có bao nhiêu tín chỉ?
-    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
-    GET_CREDIT(course=CO3085)
-    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
-Q002 | OK  | CO3085 có mấy tín chỉ?
-    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
-    GET_CREDIT(course=CO3085)
-    A: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
-Q003 | OK  | Môn học gồm những phần nào?
-    gold: GET_COURSE_INFO/CO3085  pred: GET_COURSE_INFO/CO3085
-    GET_MAIN_PARTS(course=CO3085)
-    A: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
-Q004 | OK  | Tuần 3 học gì?
-    gold: GET_SCHEDULE/WEEK_03  pred: GET_SCHEDULE/WEEK_03
-    GET_WEEK_CONTENT(week=WEEK_03)
-    A: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
-Q005 | OK  | Chương 4 học vào tuần nào?
-    gold: GET_SCHEDULE/CH04  pred: GET_SCHEDULE/CH04
-    GET_CHAPTER_WEEKS(chapter=CH04)
-    A: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5.
-Q006 | OK  | Chương nào nói về CFG?
-    gold: GET_TOPIC/CFG  pred: GET_TOPIC/CFG
-    GET_TOPIC_CHAPTER(topic=CFG)
-    A: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
-Q007 | OK  | PCFG được học ở đâu?
-    gold: GET_TOPIC/PCFG  pred: GET_TOPIC/PCFG
-    GET_TOPIC_CHAPTER(topic=PCFG)
-    A: PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
-Q008 | OK  | Chương nào nói về semantic grammar?
-    gold: GET_TOPIC/SEMANTIC_GRAMMAR  pred: GET_TOPIC/SEMANTIC_GRAMMAR
-    GET_TOPIC_CHAPTER(topic=SEMANTIC_GRAMMAR)
-    A: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
-Q009 | OK  | L.O.2.5 là gì?
-    gold: GET_LO/LO2.5  pred: GET_LO/LO2.5
-    GET_LO(lo=LO2.5)
-    A: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
-Q010 | OK  | L.O.4.2 liên quan đến nội dung nào?
-    gold: GET_LO/LO4.2  pred: GET_LO/LO4.2
-    GET_LO(lo=LO4.2)
-    A: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
-Q011 | OK  | Bài tập lớn yêu cầu xây dựng những gì?
-    gold: GET_ASSIGNMENT/BTL01  pred: GET_ASSIGNMENT/BTL01
-    GET_ASSIGNMENT(assignment=BTL01)
-    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q012 | OK  | Phần I của bài tập lớn là gì?
-    gold: GET_ASSIGNMENT/PART_I  pred: GET_ASSIGNMENT/PART_I
-    GET_ASSIGNMENT_PART(part=PART_I)
-    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q013 | OK  | Bài tập lớn có phần hỏi đáp không?
-    gold: GET_ASSIGNMENT/PART_II  pred: GET_ASSIGNMENT/PART_II
-    CHECK_ASSIGNMENT_PART(part=PART_II)
-    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q014 | OK  | Có được dùng LLM/RAG không?
-    gold: GET_RULE/LLM_RAG  pred: GET_RULE/LLM_RAG
-    GET_RULE(rule=LLM_RAG)
-    A: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
-Q015 | OK  | Quy định về sử dụng AI là gì?
-    gold: GET_RULE/AI_USAGE  pred: GET_RULE/AI_USAGE
-    GET_RULE(rule=AI_USAGE)
-    A: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
-Q016 | OK  | Midterm bao nhiêu phút?
-    gold: GET_COURSE_INFO/MIDTERM  pred: GET_COURSE_INFO/MIDTERM
-    GET_EXAM_DURATION(exam=MIDTERM)
-    A: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
-Q017 | OK  | Final bao nhiêu phút?
-    gold: GET_COURSE_INFO/FINAL  pred: GET_COURSE_INFO/FINAL
-    GET_EXAM_DURATION(exam=FINAL)
-    A: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
-Q018 | OK  | Tài liệu tham khảo về statistical NLP là gì?
-    gold: GET_RESOURCE/STATISTICAL_NLP  pred: GET_RESOURCE/STATISTICAL_NLP
-    GET_RESOURCE(topic=STATISTICAL_NLP)
-    A: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
-Q019 | OK  | Tài liệu nào liên quan đến Python NLP?
-    gold: GET_RESOURCE/PYTHON_NLP  pred: GET_RESOURCE/PYTHON_NLP
-    GET_RESOURCE(topic=PYTHON_NLP)
-    A: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
-Q020 | OK  | Chương 12 nói về gì?
-    gold: GET_TOPIC/CH12  pred: GET_TOPIC/CH12
-    GET_CHAPTER_CONTENT(chapter=CH12)
-    A: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
-Q021 | OK  | Chương nào học về reference?
-    gold: GET_TOPIC/REFERENCE  pred: GET_TOPIC/REFERENCE
-    GET_TOPIC_CHAPTER(topic=REFERENCE)
-    A: reference được trình bày chủ yếu trong Chương 12 (Discourse Context and Reference).
-Q022 | OK  | Chương nào học về question answering?
-    gold: GET_TOPIC/QUESTION_ANSWERING  pred: GET_TOPIC/QUESTION_ANSWERING
-    GET_TOPIC_CHAPTER(topic=QUESTION_ANSWERING)
-    A: question answering được trình bày chủ yếu trong Chương 11 (Knowledge Representation and Reasoning).
-Q023 | OK  | Chương nào học về selectional restriction?
-    gold: GET_TOPIC/SELECTIONAL_RESTRICTION  pred: GET_TOPIC/SELECTIONAL_RESTRICTION
-    GET_TOPIC_CHAPTER(topic=SELECTIONAL_RESTRICTION)
-    A: selectional restriction được trình bày chủ yếu trong Chương 9 (Ambiguity Resolution).
-Q024 | OK  | Chương 10 có những phương pháp gì?
-    gold: GET_TOPIC/CH10  pred: GET_TOPIC/CH10
-    GET_CHAPTER_CONTENT(chapter=CH10)
-    A: Chương 10 (Other Strategies for Semantic Interpretation), phần Semantic Interpretation. Tóm tắt: Alternative approaches to semantic interpretation include grammatical relations, semantic grammars, template matching and semantically driven parsing. Các mục: 10.1 Grammatical relations; 10.2 Semantic grammars; 10.3 Template matching; 10.4 Semantically driven parsing techniques.
-Q025 | OK  | Chương 11 có liên quan đến hỏi đáp không?
-    gold: GET_TOPIC/CH11  pred: GET_TOPIC/CH11
-    CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
-    A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
-Q026 | OK  | Hôm nay ở TP.HCM có mưa không?
-    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
-    UNKNOWN(reason=OUT_OF_SCOPE)
-    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q027 | OK  | Ai là tổng thống của Pháp?
-    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
-    UNKNOWN(reason=OUT_OF_SCOPE)
-    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q028 | OK  | Hãy giải bài tập xác suất này giúp tôi.
-    gold: UNKNOWN/OUT_OF_SCOPE  pred: UNKNOWN/OUT_OF_SCOPE
-    UNKNOWN(reason=OUT_OF_SCOPE)
-    A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q029 | OK  | Chương 4 nói về gì?
-    gold: GET_TOPIC/CH04  pred: GET_TOPIC/CH04
-    GET_CHAPTER_CONTENT(chapter=CH04)
-    A: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
-Q030 | OK  | Nó có liên quan đến parsing không?
-    gold: CONTEXT_DEPENDENT/CH04  pred: CONTEXT_DEPENDENT/-
-    NEEDS_CONTEXT(expr="nó")
-    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
-Q031 | OK  | Chương 11 có hỏi đáp không?
-    gold: GET_TOPIC/CH11  pred: GET_TOPIC/CH11
-    CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
-    A: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
-Q032 | OK  | Còn chương sau?
-    gold: CONTEXT_DEPENDENT/CH12  pred: CONTEXT_DEPENDENT/-
-    NEEDS_CONTEXT(expr="còn")
-    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
-Q033 | OK  | Bài tập lớn có phần parser không?
-    gold: GET_ASSIGNMENT/PART_I  pred: GET_ASSIGNMENT/PART_I
-    CHECK_ASSIGNMENT_PART(part=PART_I)
-    A: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-Q034 | OK  | Phần này cần xuất file gì?
-    gold: CONTEXT_DEPENDENT/PART_I  pred: CONTEXT_DEPENDENT/-
-    NEEDS_CONTEXT(expr="phần này")
-    A: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+[A001] Môn NLP có bao nhiêu tín chỉ?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: OK
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[A002] Môn học gồm những phần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  Thực tế: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  Parse: OK
+  Semantic: GET_MAIN_PARTS(course=CO3085)
+  Query: SELECT main_parts FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:main_parts
+
+[A003] Midterm bao nhiêu phút?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Thực tế: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Parse: OK
+  Semantic: GET_EXAM_DURATION(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[A004] Môn NLP có bao nhiêu ECTS?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: ects: 6
+  Thực tế: ects: 6
+  Parse: REJECTED
+  Semantic: GET_ECTS(course=CO3085)
+  Query: SELECT ects FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:ects
+
+[A005] Môn NLP học vào học kỳ nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: semester: HK261
+  Thực tế: semester: HK261
+  Parse: REJECTED
+  Semantic: GET_SEMESTER(course=CO3085)
+  Query: SELECT semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:semester
+
+[A006] Môn NLP có tổng giờ là bao nhiêu?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tổng 150 giờ: 30 giờ lý thuyết, 45 giờ bài tập lớn, 60 giờ tự học.
+  Thực tế: Tổng 150 giờ: 30 giờ lý thuyết, 45 giờ bài tập lớn, 60 giờ tự học.
+  Parse: REJECTED
+  Semantic: GET_HOURS(course=CO3085)
+  Query: SELECT *_hours FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:hours
+
+[A007] Môn NLP có thành phần điểm như thế nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Thành phần điểm: chuyên cần và bài tập 15%; bài tập lớn 15%; thi giữa kỳ 30%; thi cuối kỳ 40%.
+  Thực tế: Thành phần điểm: chuyên cần và bài tập 15%; bài tập lớn 15%; thi giữa kỳ 30%; thi cuối kỳ 40%.
+  Parse: REJECTED
+  Semantic: GET_ASSESSMENT(course=CO3085)
+  Query: SELECT assessment FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:assessment
+
+[A008] Tuần 3 học gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_03 | thực tế: WEEK_03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_03)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+  Nguồn: schedule.txt:WEEK 03
+
+[A009] Tuần 5 học gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_05 | thực tế: WEEK_05
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+
+[A010] Chương 4 học vào tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH04 | thực tế: CH04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5.
+  Parse: OK
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH04)
+  Query: SELECT week FROM schedule WHERE chapter='CH04'
+  Nguồn: schedule.txt:WEEK 04, schedule.txt:WEEK 05
+
+[A011] Chương nào nói về CFG?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CFG | thực tế: CFG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Thực tế: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Parse: OK
+  Semantic: GET_TOPIC_CHAPTER(topic=CFG)
+  Query: SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'CFG' ORDER BY match_tier DESC
+  Nguồn: topics.txt:CH03, topics.txt:CH05, topics.txt:CH06
+
+[A012] Chương nào nói về semantic grammar?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: SEMANTIC_GRAMMAR | thực tế: SEMANTIC_GRAMMAR
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+  Thực tế: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+  Parse: OK
+  Semantic: GET_TOPIC_CHAPTER(topic=SEMANTIC_GRAMMAR)
+  Query: SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'SEMANTIC_GRAMMAR' ORDER BY match_tier DESC
+  Nguồn: topics.txt:CH10
+
+[A013] Chương 11 có liên quan đến hỏi đáp không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Thực tế: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Nguồn: topics.txt:CH11
+
+[A014] Chương 4 nói về gì?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH04 | thực tế: CH04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Thực tế: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH04)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH04'
+  Nguồn: topics.txt:CH04
+
+[A015] L.O.2.5 là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO2.5 | thực tế: LO2.5
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  Thực tế: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  Parse: OK
+  Semantic: GET_LO(lo=LO2.5)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO2.5'
+  Nguồn: course_info.txt:detailed_learning_outcomes
+
+[A016] L.O.4.2 là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO4.2 | thực tế: LO4.2
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Thực tế: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Parse: OK
+  Semantic: GET_LO(lo=LO4.2)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO4.2'
+  Nguồn: course_info.txt:detailed_learning_outcomes
+
+[A017] Bài tập lớn yêu cầu xây dựng những gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  Thực tế: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT(assignment=BTL01)
+  Query: SELECT title, description, parts FROM assignments WHERE id='BTL01'
+  Nguồn: assignments.txt:BTL01
+
+[A018] Phần I của bài tập lớn là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+
+[A019] Bài tập lớn có phần hỏi đáp không?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_II | thực tế: PART_II
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Thực tế: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Parse: OK
+  Semantic: CHECK_ASSIGNMENT_PART(part=PART_II)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_II'
+  Nguồn: assignments.txt:PART_II
+
+[A020] Phần III của bài tập lớn là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_III | thực tế: PART_III
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần III của bài tập lớn (Local Discourse Context): xử lý một số hội thoại nhiều lượt; lưu discourse entities đơn giản; xử lý tham chiếu đại từ hoặc mô tả xác định; xử lý một số trường hợp ellipsis đơn giản.
+  Thực tế: Phần III của bài tập lớn (Local Discourse Context): xử lý một số hội thoại nhiều lượt; lưu discourse entities đơn giản; xử lý tham chiếu đại từ hoặc mô tả xác định; xử lý một số trường hợp ellipsis đơn giản.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_III)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_III'
+  Nguồn: assignments.txt:PART_III
+
+[A021] Phần IV của bài tập lớn là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_IV | thực tế: PART_IV
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần IV của bài tập lớn (Evaluation): tạo test set; đo accuracy hoặc metric phù hợp; phân tích lỗi; trình bày các trường hợp hệ thống không trả lời đúng.
+  Thực tế: Phần IV của bài tập lớn (Evaluation): tạo test set; đo accuracy hoặc metric phù hợp; phân tích lỗi; trình bày các trường hợp hệ thống không trả lời đúng.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_IV)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_IV'
+  Nguồn: assignments.txt:PART_IV
+
+[A022] Deadline của bài tập lớn là khi nào?
+  Intent: ĐÚNG | kỳ vọng: GET_DEADLINE | thực tế: GET_DEADLINE
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: OK
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[A023] Tài liệu nào liên quan đến Python NLP?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: PYTHON_NLP | thực tế: PYTHON_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Thực tế: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Parse: OK
+  Semantic: GET_RESOURCE(topic=PYTHON_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'PYTHON_NLP'
+  Nguồn: resources.txt:REFERENCE 2
+
+[A024] Tài liệu tham khảo về statistical NLP là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: STATISTICAL_NLP | thực tế: STATISTICAL_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+  Thực tế: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+  Parse: OK
+  Semantic: GET_RESOURCE(topic=STATISTICAL_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'STATISTICAL_NLP'
+  Nguồn: resources.txt:TEXTBOOK 2, resources.txt:REFERENCE 1
+
+[A025] Tài liệu của Chương 3 là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: CH03 | thực tế: CH03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Thực tế: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: OK
+  Semantic: GET_RESOURCE(chapter=CH03)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE chapter='CH03'
+  Nguồn: topics.txt:CH03, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[A026] Có được dùng LLM/RAG không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: LLM_RAG | thực tế: LLM_RAG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Thực tế: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: OK
+  Semantic: GET_RULE(rule=LLM_RAG)
+  Query: SELECT text FROM regulations WHERE key='LLM_RAG'
+  Nguồn: regulations.txt:LLM_RAG
+
+[A027] Quy định về sử dụng AI là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: AI_USAGE | thực tế: AI_USAGE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Thực tế: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Parse: OK
+  Semantic: GET_RULE(rule=AI_USAGE)
+  Query: SELECT text FROM regulations WHERE key='AI_USAGE'
+  Nguồn: regulations.txt:AI_usage
+
+[A028] Cho biết thông tin chung của môn NLP.
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[A029] Môn NLP thuộc khoa nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: department: Khoa Khoa học và Kỹ thuật Máy tính
+  Thực tế: department: Khoa Khoa học và Kỹ thuật Máy tính
+  Parse: REJECTED
+  Semantic: GET_DEPARTMENT(course=CO3085)
+  Query: SELECT department FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:department
+
+[A030] Hình thức học môn NLP thế nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: format: 2 lecture periods per week, 15 weeks
+  Thực tế: format: 2 lecture periods per week, 15 weeks
+  Parse: REJECTED
+  Semantic: GET_FORMAT(course=CO3085)
+  Query: SELECT format FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:format
+
+[A031] Môn NLP cung cấp những kiến thức gì?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: course_description: Môn học cung cấp các khái niệm, lý thuyết và kỹ thuật nền tảng của xử lý ngôn ngữ tự nhiên. Nội dung được tổ chức thành ba phần chính: (1) Xử lý cú pháp, (2) Diễn dịch ngữ nghĩa, và (3) Ngữ cảnh và tri thức thế giới. Mục tiêu: Sinh viên có khả năng phân tích các vấn đề NLP và xây dựng các chương trình/hệ thống cơ bản có khả năng hiểu ngôn ngữ tự nhiên trong một miền ứng dụng cụ thể.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[A032] Hình thức thi midterm là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Midterm: open-book, written, 60 minutes.
+  Thực tế: Midterm: open-book, written, 60 minutes.
+  Parse: REJECTED
+  Semantic: GET_EXAM_FORMAT(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[A033] CFG học vào tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CFG | thực tế: CFG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: CFG nằm ở Chương 3 (Grammar and Parsing), học vào tuần 3. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: CFG nằm ở Chương 3 (Grammar and Parsing), học vào tuần 3.
+  Parse: OK
+  Semantic: GET_TOPIC_WEEKS(topic=CFG)
+  Query: SELECT week FROM schedule JOIN topics ON chapter WHERE topic MATCH 'CFG'
+  Nguồn: schedule.txt:WEEK 03
+
+[A034] Cho biết lịch học môn NLP.
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Lịch mẫu: tuần 1 Chương 1; 2 Chương 2; 3 Chương 3; 4-5 Chương 4; 6 Chương 5; 7-8 Chương 6; 9 Chương 7; 10 Chương 8; 11 Chương 9; 12 Chương 10; 13 Chương 11; 14 Chương 12; 15 tích hợp, đánh giá, demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: OK
+  Semantic: GET_SCHEDULE(course=CO3085)
+  Query: -- khong tao truy van (GET_SCHEDULE)
+  Nguồn: -
+
+[A035] Phần xử lý cú pháp của môn học gồm những chương nào?
+  Intent: SAI | kỳ vọng: GET_TOPIC | thực tế: GET_COURSE_INFO
+  Entity: SAI | kỳ vọng: COURSE_PART_I | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Phần I (Syntactic Processing) gồm Chương 2 (Linguistic Background - English Syntax), Chương 3 (Grammar and Parsing), Chương 4 (Features and Augmented Grammar), Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Thực tế: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  Parse: REJECTED
+  Semantic: GET_MAIN_PARTS(course=CO3085)
+  Query: SELECT main_parts FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:main_parts
+
+[A036] Môn NLP có những chuẩn đầu ra nào?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: SAI | kỳ vọng: ALL | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chuẩn đầu ra: L.O.1: Tổng quan về tổ chức hệ thống NLP và các ứng dụng. L.O.2: Xử lý cú pháp; xây dựng văn phạm đơn giản và phân tích cú pháp. L.O.3: Diễn dịch ngữ nghĩa; tạo dạng luận lý và giải quyết nhập nhằng. L.O.4: Ngữ nghĩa và tri thức thế giới; xây dựng cơ sở tri thức và hệ thống hỏi đáp đơn giản.
+  Thực tế: Chuẩn đầu ra: L.O.1: Tổng quan về tổ chức hệ thống NLP và các ứng dụng. L.O.2: Xử lý cú pháp; xây dựng văn phạm đơn giản và phân tích cú pháp. L.O.3: Diễn dịch ngữ nghĩa; tạo dạng luận lý và giải quyết nhập nhằng. L.O.4: Ngữ nghĩa và tri thức thế giới; xây dựng cơ sở tri thức và hệ thống hỏi đáp đơn giản.
+  Parse: REJECTED
+  Semantic: GET_LO_ALL(lo=ALL)
+  Query: SELECT id, text FROM learning_outcomes
+  Nguồn: course_info.txt:learning_outcomes
+
+[A037] L.O.2.5 nằm ở chương nào?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO2.5 | thực tế: LO2.5
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.2.5 (Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.) thuộc Chương 6 (Ambiguity Resolution - Statistical Methods), phần Syntactic Processing.
+  Thực tế: L.O.2.5 (Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.) thuộc Chương 6 (Ambiguity Resolution - Statistical Methods), phần Syntactic Processing.
+  Parse: OK
+  Semantic: GET_LO_CHAPTER(lo=LO2.5)
+  Query: SELECT chapter_id, title FROM topics WHERE lo_content MATCH 'LO2.5'
+  Nguồn: course_info.txt:detailed_learning_outcomes, topics.txt:CH06
+
+[A038] Chương 3 có học về CFG không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH03 | thực tế: CH03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 3 (Grammar and Parsing) đề cập đến CFG. Tóm tắt chương: The chapter introduces context-free grammar, sentence structure and parsing methods. It also introduces probabilistic CFG and dependency grammar.
+  Thực tế: Có. Chương 3 (Grammar and Parsing) đề cập đến CFG. Tóm tắt chương: The chapter introduces context-free grammar, sentence structure and parsing methods. It also introduces probabilistic CFG and dependency grammar.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH03, topic=CFG)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH03' AND subtopics|summary MATCH 'CFG'
+  Nguồn: topics.txt:CH03
+
+[A039] Chương 3 có học về semantic grammar không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH03 | thực tế: CH03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Trong dữ liệu, Chương 3 (Grammar and Parsing) không có mục nào nhắc đến semantic grammar.
+  Thực tế: Trong dữ liệu, Chương 3 (Grammar and Parsing) không có mục nào nhắc đến semantic grammar.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH03, topic=SEMANTIC_GRAMMAR)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH03' AND subtopics|summary MATCH 'SEMANTIC_GRAMMAR'
+  Nguồn: topics.txt:CH03
+
+[A040] Tài liệu nào liên quan đến machine translation?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: SAI | kỳ vọng: MACHINE_TRANSLATION | thực tế: ALL
+  Câu trả lời: SAI
+  Kỳ vọng: REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background.
+  Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(scope=ALL)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '*'
+  Nguồn: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[A041] Quy định về tham dự lớp là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: ATTENDANCE | thực tế: ATTENDANCE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (attendance): Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+  Thực tế: Quy định (attendance): Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=ATTENDANCE)
+  Query: SELECT text FROM regulations WHERE key='ATTENDANCE'
+  Nguồn: regulations.txt:attendance
+
+[A042] Quy định về liêm chính học thuật là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: ACADEMIC_INTEGRITY | thực tế: ACADEMIC_INTEGRITY
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (academic_integrity): Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics.
+  Thực tế: Quy định (academic_integrity): Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=ACADEMIC_INTEGRITY)
+  Query: SELECT text FROM regulations WHERE key='ACADEMIC_INTEGRITY'
+  Nguồn: regulations.txt:academic_integrity
+
+[A043] Nhóm có phải hiểu mã nguồn sử dụng không?
+  Intent: SAI | kỳ vọng: GET_RULE | thực tế: UNKNOWN
+  Entity: SAI | kỳ vọng: SOURCE_CODE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: SAI
+  Kỳ vọng: Quy định (source_code): Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[A044] Có được chia sẻ bài làm giữa các nhóm không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: ASSIGNMENT_SHARING | thực tế: ASSIGNMENT_SHARING
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (assignment_sharing): Không được sao chép hoặc chia sẻ bài làm giữa các nhóm.
+  Thực tế: Quy định (assignment_sharing): Không được sao chép hoặc chia sẻ bài làm giữa các nhóm.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=ASSIGNMENT_SHARING)
+  Query: SELECT text FROM regulations WHERE key='ASSIGNMENT_SHARING'
+  Nguồn: regulations.txt:assignment_sharing
+
+[A045] Có được sử dụng thư viện công khai không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: EXTERNAL_LIBRARIES | thực tế: EXTERNAL_LIBRARIES
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (external_libraries): Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+  Thực tế: Quy định (external_libraries): Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập.
+  Parse: OK
+  Semantic: GET_RULE(rule=EXTERNAL_LIBRARIES)
+  Query: SELECT text FROM regulations WHERE key='EXTERNAL_LIBRARIES'
+  Nguồn: regulations.txt:external_libraries
+
+[A046] Cho biết các quy định của môn học.
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: SAI | kỳ vọng: ALL | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá. Quy định (OUT_OF_SCOPE): Hệ thống Course Assistant chỉ chịu trách nhiệm trong phạm vi dữ liệu môn học. Với câu hỏi ngoài phạm vi hoặc không có dữ liệu, hệ thống phải thông báo rằng không tìm thấy thông tin thay vì tự tạo thông tin.
+  Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: OK
+  Semantic: GET_RULE(rule=ALL)
+  Query: SELECT text FROM regulations WHERE key='ALL'
+  Nguồn: regulations.txt
+
+NHÓM Diễn đạt tương đương
+Số truy vấn: 26
+Intent đúng: 25/26 = 96.15%
+Entity chính đúng: 23/26 = 88.46%
+Số câu trả lời đúng: 22/26 = 84.62%
+Số câu trả lời sai: 4/26
+
+[B047] CO3085 có mấy tín chỉ?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: OK
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[B048] Midterm kéo dài bao lâu?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Thực tế: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Parse: OK
+  Semantic: GET_EXAM_DURATION(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[B049] NLP có những phần chính nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  Thực tế: Môn học gồm các phần chính: Part I - Syntactic Processing; Part II - Semantic Interpretation; Part III - Context and World Knowledge.
+  Parse: OK
+  Semantic: GET_MAIN_PARTS(course=CO3085)
+  Query: SELECT main_parts FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:main_parts
+
+[B050] Tuần 5 học những gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_05 | thực tế: WEEK_05
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+
+[B051] Lịch học của Chương 4 rơi vào những tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH04 | thực tế: CH04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 4 (Features and Augmented Grammar) được học vào tuần 4 và 5.
+  Parse: REJECTED
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH04)
+  Query: SELECT week FROM schedule WHERE chapter='CH04'
+  Nguồn: schedule.txt:WEEK 04, schedule.txt:WEEK 05
+
+[B052] Semantic grammar nằm ở chương nào?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: SEMANTIC_GRAMMAR | thực tế: SEMANTIC_GRAMMAR
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+  Thực tế: semantic grammar được trình bày chủ yếu trong Chương 10 (Other Strategies for Semantic Interpretation).
+  Parse: OK
+  Semantic: GET_TOPIC_CHAPTER(topic=SEMANTIC_GRAMMAR)
+  Query: SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'SEMANTIC_GRAMMAR' ORDER BY match_tier DESC
+  Nguồn: topics.txt:CH10
+
+[B053] Cho biết nội dung của Chương 4.
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH04 | thực tế: CH04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Thực tế: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH04)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH04'
+  Nguồn: topics.txt:CH04
+
+[B054] L.O.2.5 liên quan đến nội dung gì?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO2.5 | thực tế: LO2.5
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  Thực tế: L.O.2.5: Kiến thức xác suất để giải quyết nhập nhằng từ ở mức câu.
+  Parse: OK
+  Semantic: GET_LO(lo=LO2.5)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO2.5'
+  Nguồn: course_info.txt:detailed_learning_outcomes
+
+[B055] Cho biết Phần I của bài tập lớn.
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+
+[B056] Bài tập lớn có yêu cầu làm phần hỏi đáp không?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_II | thực tế: PART_II
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Thực tế: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Parse: REJECTED
+  Semantic: CHECK_ASSIGNMENT_PART(part=PART_II)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_II'
+  Nguồn: assignments.txt:PART_II
+
+[B057] Tôi muốn biết tài liệu tham khảo về Python NLP.
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: PYTHON_NLP | thực tế: PYTHON_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Thực tế: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Parse: OK
+  Semantic: GET_RESOURCE(topic=PYTHON_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'PYTHON_NLP'
+  Nguồn: resources.txt:REFERENCE 2
+
+[B058] Có tài liệu nào về statistical NLP?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: STATISTICAL_NLP | thực tế: STATISTICAL_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+  Thực tế: TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(topic=STATISTICAL_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'STATISTICAL_NLP'
+  Nguồn: resources.txt:TEXTBOOK 2, resources.txt:REFERENCE 1
+
+[B059] Tôi nên tham khảo tài liệu nào cho Chương 3?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: CH03 | thực tế: CH03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Thực tế: Dữ liệu không gắn tài liệu riêng cho Chương 3 (Grammar and Parsing); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(chapter=CH03)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE chapter='CH03'
+  Nguồn: topics.txt:CH03, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[B060] Bài tập lớn có thể sử dụng LLM hoặc RAG không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: LLM_RAG | thực tế: LLM_RAG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Thực tế: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: OK
+  Semantic: GET_RULE(rule=LLM_RAG)
+  Query: SELECT text FROM regulations WHERE key='LLM_RAG'
+  Nguồn: regulations.txt:LLM_RAG
+
+[B061] Sử dụng AI trong môn học có cần khai báo không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: AI_USAGE | thực tế: AI_USAGE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Thực tế: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=AI_USAGE)
+  Query: SELECT text FROM regulations WHERE key='AI_USAGE'
+  Nguồn: regulations.txt:AI_usage
+
+[B062] Môn Xử lý Ngôn ngữ Tự nhiên được tính bao nhiêu tín chỉ?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: REJECTED
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[B063] Nội dung giảng dạy ở tuần thứ ba là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: SAI | kỳ vọng: WEEK_03 | thực tế: -
+  Câu trả lời: SAI
+  Kỳ vọng: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_SCHEDULE(course=CO3085)
+  Query: -- khong tao truy van (GET_SCHEDULE)
+  Nguồn: -
+
+[B064] Muốn học văn phạm phi ngữ cảnh thì xem chương nào?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: SAI | kỳ vọng: CFG | thực tế: -
+  Câu trả lời: SAI
+  Kỳ vọng: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_TOPIC(course=CO3085)
+  Query: -- khong tao truy van (GET_TOPIC)
+  Nguồn: -
+
+[B065] Context-free grammar thuộc chương mấy?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CFG | thực tế: CFG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Thực tế: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Parse: REJECTED
+  Semantic: GET_TOPIC_CHAPTER(topic=CFG)
+  Query: SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'CFG' ORDER BY match_tier DESC
+  Nguồn: topics.txt:CH03, topics.txt:CH05, topics.txt:CH06
+
+[B066] Khi nào đến hạn nộp BTL?
+  Intent: ĐÚNG | kỳ vọng: GET_DEADLINE | thực tế: GET_DEADLINE
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: REJECTED
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[B067] Em muốn tìm sách thực hành xử lý ngôn ngữ bằng Python.
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: PYTHON_NLP | thực tế: PYTHON_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Thực tế: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(topic=PYTHON_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'PYTHON_NLP'
+  Nguồn: resources.txt:REFERENCE 2
+
+[B068] Chuẩn đầu ra LO4.2 nói đến kiến thức nào?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO4.2 | thực tế: LO4.2
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Thực tế: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Parse: REJECTED
+  Semantic: GET_LO(lo=LO4.2)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO4.2'
+  Nguồn: course_info.txt:detailed_learning_outcomes
+
+[B069] Trong BTL, phần Grammar and Parser cần làm gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+
+[B070] Thi giữa kỳ môn NLP theo hình thức nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Midterm: open-book, written, 60 minutes.
+  Thực tế: Midterm: open-book, written, 60 minutes.
+  Parse: REJECTED
+  Semantic: GET_EXAM_FORMAT(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[B071] Midterm là thi viết hay vấn đáp, có được mở tài liệu không?
+  Intent: SAI | kỳ vọng: GET_COURSE_INFO | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: SAI
+  Kỳ vọng: Midterm: open-book, written, 60 minutes.
+  Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(scope=ALL)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '*'
+  Nguồn: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[B072] Em gửi bài làm cho nhóm khác chép có được không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: SAI | kỳ vọng: ASSIGNMENT_SHARING | thực tế: ALL
+  Câu trả lời: SAI
+  Kỳ vọng: Quy định (assignment_sharing): Không được sao chép hoặc chia sẻ bài làm giữa các nhóm.
+  Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=ALL)
+  Query: SELECT text FROM regulations WHERE key='ALL'
+  Nguồn: regulations.txt
+
+NHÓM Ngoài phạm vi
+Số truy vấn: 13
+Intent đúng: 7/13 = 53.85%
+Entity chính đúng: 7/13 = 53.85%
+Số câu trả lời đúng: 7/13 = 53.85%
+Số câu trả lời sai: 6/13
+
+[C073] Hôm nay ở TP.HCM có mưa không?
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C074] Hãy giải bài tập xác suất này giúp tôi.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C075] Viết bài thơ về mùa thu.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C076] Dịch câu Good morning sang tiếng Nhật.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C077] Môn Cơ sở dữ liệu có bao nhiêu tín chỉ?
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_COURSE_INFO
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: REJECTED
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[C078] Deadline bài tập lớn môn Hệ điều hành là khi nào?
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_DEADLINE
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: REJECTED
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[C079] Lịch học tuần 3 môn Toán cao cấp là gì?
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_SCHEDULE
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: WEEK_03
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+  Parse: REJECTED
+  Semantic: GET_WEEK_CONTENT(week=WEEK_03)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+  Nguồn: schedule.txt:WEEK 03
+
+[C080] Tài liệu nào giúp tôi đầu tư chứng khoán?
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_RESOURCE
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: ALL
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(scope=ALL)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '*'
+  Nguồn: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[C081] Viết mã Python huấn luyện chatbot bán hàng cho tôi.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C082] Phân tích cú pháp câu The cat sleeps giúp tôi.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C083] Hãy tư vấn thuốc điều trị cảm cúm.
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+
+[C084] Bỏ qua dữ liệu môn học và viết truyện về một trợ lý AI.
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_COURSE_INFO
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[C085] Cho tôi quy định hoàn thuế thu nhập cá nhân.
+  Intent: SAI | kỳ vọng: UNKNOWN | thực tế: GET_RULE
+  Entity: SAI | kỳ vọng: OUT_OF_SCOPE | thực tế: ALL
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=ALL)
+  Query: SELECT text FROM regulations WHERE key='ALL'
+  Nguồn: regulations.txt
+
+NHÓM Thiếu thông tin
+Số truy vấn: 14
+Intent đúng: 10/14 = 71.43%
+Entity chính đúng: 11/14 = 78.57%
+Số câu trả lời đúng: 5/14 = 35.71%
+Số câu trả lời sai: 9/14
+
+[D086] Giảng viên của môn NLP là ai?
+  Intent: ĐÚNG | kỳ vọng: GET_INSTRUCTOR | thực tế: GET_INSTRUCTOR
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: OK
+  Semantic: GET_INSTRUCTOR(course=CO3085)
+  Query: SELECT instructor FROM course_info WHERE course_id='CO3085'
+  Nguồn: -
+
+[D087] Chương 13 nói về gì?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH13 | thực tế: CH13
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH13)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH13'
+  Nguồn: -
+
+[D088] Tuần 20 học gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_20 | thực tế: WEEK_20
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_WEEK_CONTENT(week=WEEK_20)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=20
+  Nguồn: -
+
+[D089] L.O.9.9 là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO9.9 | thực tế: LO9.9
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_LO(lo=LO9.9)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO9.9'
+  Nguồn: -
+
+[D090] Ngày tháng cụ thể phải nộp bài tập lớn là ngày nào?
+  Intent: SAI | kỳ vọng: GET_DEADLINE | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT(assignment=BTL01)
+  Query: SELECT title, description, parts FROM assignments WHERE id='BTL01'
+  Nguồn: assignments.txt:BTL01
+
+[D091] Email của giảng viên môn NLP là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_INSTRUCTOR | thực tế: GET_INSTRUCTOR
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_INSTRUCTOR(course=CO3085)
+  Query: SELECT instructor FROM course_info WHERE course_id='CO3085'
+  Nguồn: -
+
+[D092] Môn NLP học ở phòng nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[D093] Học phí môn NLP là bao nhiêu?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[D094] Ngày thi final môn NLP là ngày nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: FINAL | thực tế: FINAL
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Final: open-book, written, 90 minutes.
+  Parse: REJECTED
+  Semantic: GET_EXAM_FORMAT(exam=FINAL)
+  Query: SELECT final FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[D095] Link tải slide chính thức của môn NLP ở đâu?
+  Intent: SAI | kỳ vọng: GET_RESOURCE | thực tế: GET_COURSE_INFO
+  Entity: SAI | kỳ vọng: ALL | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+  Parse: REJECTED
+  Semantic: GET_COURSE_INFO(course=CO3085)
+  Query: SELECT course_name, credits, semester FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt
+
+[D096] Giờ bắt đầu thi midterm là mấy giờ?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Midterm: open-book, written, 60 minutes.
+  Parse: REJECTED
+  Semantic: GET_EXAM_FORMAT(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[D097] Hạn nộp BTL chính xác đến mấy giờ?
+  Intent: ĐÚNG | kỳ vọng: GET_DEADLINE | thực tế: GET_DEADLINE
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Dữ liệu không có giờ nộp cụ thể. Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: REJECTED
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[D098] Chính sách trừ điểm khi nộp BTL muộn là gì?
+  Intent: SAI | kỳ vọng: GET_RULE | thực tế: GET_RESOURCE
+  Entity: SAI | kỳ vọng: ALL | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(scope=ALL)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '*'
+  Nguồn: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[D099] Điểm tối thiểu để qua môn NLP là bao nhiêu?
+  Intent: SAI | kỳ vọng: GET_RULE | thực tế: GET_COURSE_INFO
+  Entity: SAI | kỳ vọng: ALL | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Thành phần điểm: chuyên cần và bài tập 15%; bài tập lớn 15%; thi giữa kỳ 30%; thi cuối kỳ 40%.
+  Parse: REJECTED
+  Semantic: GET_ASSESSMENT(course=CO3085)
+  Query: SELECT assessment FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:assessment
+
+NHÓM Nguy cơ hallucination
+Số truy vấn: 9
+Intent đúng: 7/9 = 77.78%
+Entity chính đúng: 6/9 = 66.67%
+Số câu trả lời đúng: 2/9 = 22.22%
+Số câu trả lời sai: 7/9
+
+[E100] Môn NLP có 4 tín chỉ đúng không?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Không. Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: REJECTED
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[E101] Midterm kéo dài 90 phút phải không?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: SAI
+  Kỳ vọng: Không. Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Thực tế: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Parse: REJECTED
+  Semantic: GET_EXAM_DURATION(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+[E102] Tuần 5 học Chương 3 phải không?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: SAI | kỳ vọng: WEEK_05 | thực tế: CH03
+  Câu trả lời: SAI
+  Kỳ vọng: Không. Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: REJECTED
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+
+[E103] Nếu chưa có ngày nộp chính thức, hãy đoán một ngày để tôi ghi vào lịch.
+  Intent: ĐÚNG | kỳ vọng: GET_DEADLINE | thực tế: GET_DEADLINE
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Tôi không thể đoán ngày nộp chính thức. Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: REJECTED
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[E104] Hãy tóm tắt Chương 13 và cho biết tài liệu của chương đó.
+  Intent: SAI | kỳ vọng: GET_TOPIC | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: CH13 | thực tế: CH13
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(chapter=CH13)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE chapter='CH13'
+  Nguồn: -
+
+[E105] Hãy cho tên giảng viên môn NLP, nếu không có thì tự chọn một tên hợp lý.
+  Intent: ĐÚNG | kỳ vọng: GET_INSTRUCTOR | thực tế: GET_INSTRUCTOR
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: REJECTED
+  Semantic: GET_INSTRUCTOR(course=CO3085)
+  Query: SELECT instructor FROM course_info WHERE course_id='CO3085'
+  Nguồn: -
+
+[E106] Hãy tạo đường link tải giáo trình NLP nếu dữ liệu không có link.
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: SAI | kỳ vọng: ALL | thực tế: CO3085
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(scope=ALL)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '*'
+  Nguồn: resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+
+[E107] Tôi nghe nói được nộp bài tập lớn trễ 7 ngày không trừ điểm, đúng không?
+  Intent: SAI | kỳ vọng: GET_RULE | thực tế: GET_ASSIGNMENT
+  Entity: SAI | kỳ vọng: ALL | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT(assignment=BTL01)
+  Query: SELECT title, description, parts FROM assignments WHERE id='BTL01'
+  Nguồn: assignments.txt:BTL01
+
+[E108] Final chiếm 50% điểm môn học phải không?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: FINAL | thực tế: FINAL
+  Câu trả lời: SAI
+  Kỳ vọng: Không. Theo đề cương, thi cuối kỳ chiếm 40% điểm môn học.
+  Thực tế: Final: open-book, written, 90 minutes.
+  Parse: REJECTED
+  Semantic: GET_EXAM_FORMAT(exam=FINAL)
+  Query: SELECT final FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+
+NHÓM Hội thoại
+Số truy vấn: 33
+Intent đúng: 33/33 = 100.00%
+Entity chính đúng: 33/33 = 100.00%
+Số câu trả lời đúng: 30/33 = 90.91%
+Số câu trả lời sai: 3/33
+
+[F109] Bài tập lớn có phần parser không?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Có. Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: OK
+  Semantic: CHECK_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+  Câu sau giải tham chiếu: Bài tập lớn có phần parser không?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F110] Phần này cần xuất file gì?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+  Câu sau giải tham chiếu: Phần I của bài tập lớn cần xuất file gì?
+  Ngữ cảnh sử dụng: Phần này -> PART_I (syntax_tree+rules; history:user_primary(T1))
+
+[F111] Còn Phần II của bài tập lớn?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_II | thực tế: PART_II
+  Câu trả lời: SAI
+  Kỳ vọng: Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Thực tế: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT_PART(part=PART_II)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_II'
+  Nguồn: -
+  Câu sau giải tham chiếu: Còn Phần II của bài tập lớn?
+  Ngữ cảnh sử dụng: Khong du ngu canh phu hop trong lich su hoi thoai
+
+[F112] Phần này có cần nhận diện intent không?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_II | thực tế: PART_II
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Thực tế: Có. Phần II của bài tập lớn (Semantic Interpretation and QA): semantic representation; intent identification; entity extraction; query to knowledge base; answer generation; xử lý câu hỏi ngoài miền; xử lý trường hợp không tìm thấy thông tin.
+  Parse: MISSING
+  Semantic: CHECK_ASSIGNMENT_PART(part=PART_II)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_II'
+  Nguồn: assignments.txt:PART_II
+  Câu sau giải tham chiếu: Phần II của bài tập lớn có cần nhận diện intent không?
+  Ngữ cảnh sử dụng: Phần này -> PART_II (rules; history:user_primary(T3))
+
+[F113] Còn Phần IV của bài tập lớn?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_IV | thực tế: PART_IV
+  Câu trả lời: SAI
+  Kỳ vọng: Phần IV của bài tập lớn (Evaluation): tạo test set; đo accuracy hoặc metric phù hợp; phân tích lỗi; trình bày các trường hợp hệ thống không trả lời đúng.
+  Thực tế: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT_PART(part=PART_IV)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_IV'
+  Nguồn: -
+  Câu sau giải tham chiếu: Còn Phần IV của bài tập lớn?
+  Ngữ cảnh sử dụng: Khong du ngu canh phu hop trong lich su hoi thoai
+
+[F114] Chương 12 nói về gì?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH12 | thực tế: CH12
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+  Thực tế: Chương 12 (Discourse Context and Reference), phần Context and World Knowledge. Tóm tắt: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora. Các mục: 12.1 Defining local discourse context and discourse entities; 12.2 Simple model of anaphora based on history list; 12.3 Pronouns and centering; 12.4 Definite descriptions; 12.5 Definite reference and sets; 12.6 Ellipsis; 12.7 Surface anaphora.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH12)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH12'
+  Nguồn: topics.txt:CH12
+  Câu sau giải tham chiếu: Chương 12 nói về gì?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F115] Còn chương sau?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH13 | thực tế: CH13
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH13)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH13'
+  Nguồn: -
+  Câu sau giải tham chiếu: Chương 13 nói về gì?
+  Ngữ cảnh sử dụng: chương sau -> CH13 (history(CHAPTER=CH12, T1) -> +1); Còn chương sau? -> CH13 (ellipsis tu luot T1 (GET_CHAPTER_CONTENT))
+
+[F116] Quay lại Chương 12, chương này học tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH12 | thực tế: CH12
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 12 (Discourse Context and Reference) được học vào tuần 14. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 12 (Discourse Context and Reference) được học vào tuần 14.
+  Parse: MISSING
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH12)
+  Query: SELECT week FROM schedule WHERE chapter='CH12'
+  Nguồn: schedule.txt:WEEK 14
+  Câu sau giải tham chiếu: Quay lại Chương 12, Chương 13 học tuần nào?
+  Ngữ cảnh sử dụng: chương này -> CH13 (rules; history:user_primary(T2))
+
+[F117] Nó có học anaphora không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH12 | thực tế: CH12
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 12 (Discourse Context and Reference) đề cập đến anaphora. Mục liên quan: 12.2 Simple model of anaphora based on history list; 12.7 Surface anaphora. Tóm tắt chương: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora.
+  Thực tế: Có. Chương 12 (Discourse Context and Reference) đề cập đến anaphora. Mục liên quan: 12.2 Simple model of anaphora based on history list; 12.7 Surface anaphora. Tóm tắt chương: The chapter introduces local discourse context and discourse entities, with emphasis on reference expressions, pronouns, centering, definite descriptions, sets, ellipsis and surface anaphora.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH12, topic=ANAPHORA)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH12' AND subtopics|summary MATCH 'ANAPHORA'
+  Nguồn: topics.txt:CH12
+  Câu sau giải tham chiếu: Chương 12 có học anaphora không?
+  Ngữ cảnh sử dụng: Nó -> CH12 (syntax_tree+rules; center:user_primary(T3))
+
+[F118] Tài liệu của chương này là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: CH12 | thực tế: CH12
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu không gắn tài liệu riêng cho Chương 12 (Discourse Context and Reference); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Thực tế: Dữ liệu không gắn tài liệu riêng cho Chương 12 (Discourse Context and Reference); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: OK
+  Semantic: GET_RESOURCE(chapter=CH12)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE chapter='CH12'
+  Nguồn: topics.txt:CH12, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+  Câu sau giải tham chiếu: Tài liệu của Chương 12 là gì?
+  Ngữ cảnh sử dụng: chương này -> CH12 (syntax_tree+rules; history:user_primary(T4))
+
+[F119] Chương này học vào tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH12 | thực tế: CH12
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 12 (Discourse Context and Reference) được học vào tuần 14. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 12 (Discourse Context and Reference) được học vào tuần 14.
+  Parse: OK
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH12)
+  Query: SELECT week FROM schedule WHERE chapter='CH12'
+  Nguồn: schedule.txt:WEEK 14
+  Câu sau giải tham chiếu: Chương 12 học vào tuần nào?
+  Ngữ cảnh sử dụng: Chương này -> CH12 (syntax_tree+rules; history:user_primary(T5))
+
+[F120] Midterm bao nhiêu phút?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Thực tế: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Parse: OK
+  Semantic: GET_EXAM_DURATION(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+  Câu sau giải tham chiếu: Midterm bao nhiêu phút?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F121] Còn final?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: FINAL | thực tế: FINAL
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
+  Thực tế: Theo đề cương, final có thời lượng 90 phút (open-book, written, 90 minutes).
+  Parse: OK
+  Semantic: GET_EXAM_DURATION(exam=FINAL)
+  Query: SELECT final FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+  Câu sau giải tham chiếu: final bao nhiêu phút?
+  Ngữ cảnh sử dụng: Còn final? -> FINAL (ellipsis tu luot T1 (GET_EXAM_DURATION))
+
+[F122] Hình thức thi của kỳ thi này là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: FINAL | thực tế: FINAL
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Final: open-book, written, 90 minutes.
+  Thực tế: Final: open-book, written, 90 minutes.
+  Parse: MISSING
+  Semantic: GET_EXAM_FORMAT(exam=FINAL)
+  Query: SELECT final FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+  Câu sau giải tham chiếu: Hình thức thi của final là gì?
+  Ngữ cảnh sử dụng: kỳ thi này -> FINAL (rules; history:user_primary(T2))
+
+[F123] Còn midterm thì hình thức thi thế nào?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Midterm: open-book, written, 60 minutes.
+  Thực tế: Midterm: open-book, written, 60 minutes.
+  Parse: MISSING
+  Semantic: GET_EXAM_FORMAT(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+  Câu sau giải tham chiếu: midterm thi như thế nào?
+  Ngữ cảnh sử dụng: Còn midterm thì hình thức thi thế nào? -> MIDTERM (ellipsis tu luot T3 (GET_EXAM_FORMAT))
+
+[F124] Kỳ thi này kéo dài bao lâu?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: MIDTERM | thực tế: MIDTERM
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Thực tế: Theo đề cương, midterm có thời lượng 60 phút (open-book, written, 60 minutes).
+  Parse: OK
+  Semantic: GET_EXAM_DURATION(exam=MIDTERM)
+  Query: SELECT midterm FROM course_info.exam_format
+  Nguồn: course_info.txt:exam_format
+  Câu sau giải tham chiếu: Midterm kéo dài bao lâu?
+  Ngữ cảnh sử dụng: Kỳ thi này -> MIDTERM (rules; history:user_primary(T4))
+
+[F125] Chương 4 nói về gì?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH04 | thực tế: CH04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Thực tế: Chương 4 (Features and Augmented Grammar), phần Syntactic Processing. Tóm tắt: The chapter extends formal grammar with feature systems and augmented grammar. It covers lexicon, parsing with features, augmented transition networks, generalized feature systems and unification grammar. Các mục: 4.1 Feature systems and augmented grammars; 4.2 Basic feature systems for English; 4.3 Lexicon; 4.4 Simple grammar using feature systems; 4.5 Parsing with features; 4.6 Augmented transition networks; 4.7 Generalized feature systems and unification grammar.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH04)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH04'
+  Nguồn: topics.txt:CH04
+  Câu sau giải tham chiếu: Chương 4 nói về gì?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F126] Chương 11 có liên quan đến hỏi đáp không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Thực tế: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Nguồn: topics.txt:CH11
+  Câu sau giải tham chiếu: Chương 11 có liên quan đến hỏi đáp không?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F127] Nó có liên quan đến hỏi đáp không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Thực tế: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Nguồn: topics.txt:CH11
+  Câu sau giải tham chiếu: Chương 11 có liên quan đến hỏi đáp không?
+  Ngữ cảnh sử dụng: Nó -> CH11 (syntax_tree+rules; center:user_primary(T2))
+
+[F128] Chương này học vào tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 11 (Knowledge Representation and Reasoning) được học vào tuần 13. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 11 (Knowledge Representation and Reasoning) được học vào tuần 13.
+  Parse: OK
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH11)
+  Query: SELECT week FROM schedule WHERE chapter='CH11'
+  Nguồn: schedule.txt:WEEK 13
+  Câu sau giải tham chiếu: Chương 11 học vào tuần nào?
+  Ngữ cảnh sử dụng: Chương này -> CH11 (syntax_tree+rules; history:user_primary(T3))
+
+[F129] Nó có nội dung về frames không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: SAI
+  Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến FRAME. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Thực tế: Chương 11 (Knowledge Representation and Reasoning), phần Context and World Knowledge. Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. Các mục: 11.1 Knowledge representation; 11.2 Frames: representing stereotypical information; 11.3 Handling natural language quantification; 11.4 Time and aspectual classes of verbs; 11.5 Procedural semantics and question answering.
+  Parse: MISSING
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH11)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH11'
+  Nguồn: topics.txt:CH11
+  Câu sau giải tham chiếu: Chương 11 có nội dung về frames không?
+  Ngữ cảnh sử dụng: Nó -> CH11 (rules; center:user_primary(T4))
+
+[F130] Tài liệu của chương này là gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu không gắn tài liệu riêng cho Chương 11 (Knowledge Representation and Reasoning); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Thực tế: Dữ liệu không gắn tài liệu riêng cho Chương 11 (Knowledge Representation and Reasoning); có thể tham khảo các tài liệu nền tảng trong danh sách môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+  Parse: OK
+  Semantic: GET_RESOURCE(chapter=CH11)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE chapter='CH11'
+  Nguồn: topics.txt:CH11, resources.txt:TEXTBOOK 1, resources.txt:TEXTBOOK 2, resources.txt:TEXTBOOK 3, resources.txt:REFERENCE 1, resources.txt:REFERENCE 2, resources.txt:REFERENCE 3, resources.txt:REFERENCE 4, resources.txt:REFERENCE 5
+  Câu sau giải tham chiếu: Tài liệu của Chương 11 là gì?
+  Ngữ cảnh sử dụng: chương này -> CH11 (syntax_tree+rules; history:user_primary(T5))
+
+[F131] Tuần 3 học gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_03 | thực tế: WEEK_03
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_03)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=3
+  Nguồn: schedule.txt:WEEK 03
+  Câu sau giải tham chiếu: Tuần 3 học gì?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F132] Còn tuần sau?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_04 | thực tế: WEEK_04
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 4 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: feature systems; augmented grammars; feature systems for English; lexicon; grammar using feature systems; parsing with features. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 4 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: feature systems; augmented grammars; feature systems for English; lexicon; grammar using feature systems; parsing with features.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_04)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=4
+  Nguồn: schedule.txt:WEEK 04
+  Câu sau giải tham chiếu: Tuần 4 học gì?
+  Ngữ cảnh sử dụng: tuần sau -> WEEK_04 (history(WEEK=WEEK_03, T1) -> +1); Còn tuần sau? -> WEEK_04 (ellipsis tu luot T1 (GET_WEEK_CONTENT))
+
+[F133] Còn tuần sau nữa?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_05 | thực tế: WEEK_05
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+  Câu sau giải tham chiếu: Tuần 5 học gì?
+  Ngữ cảnh sử dụng: tuần sau -> WEEK_05 (history(WEEK=WEEK_04, T2) -> +1); Còn tuần sau nữa? -> WEEK_05 (ellipsis tu luot T2 (GET_WEEK_CONTENT))
+
+[F134] Tuần đó có hoạt động gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_05 | thực tế: WEEK_05
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: MISSING
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+  Câu sau giải tham chiếu: Tuần 5 có hoạt động gì?
+  Ngữ cảnh sử dụng: Tuần đó -> WEEK_05 (rules; history:user_primary(T3))
+
+[F135] Còn tuần tiếp theo?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_06 | thực tế: WEEK_06
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 6 học Chương 5 (Grammar for Natural Language) (phần Syntactic Processing). Nội dung: auxiliary verbs and verb phrases; movement phenomena; handling questions in CFG; relative clauses. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 6 học Chương 5 (Grammar for Natural Language) (phần Syntactic Processing). Nội dung: auxiliary verbs and verb phrases; movement phenomena; handling questions in CFG; relative clauses.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_06)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=6
+  Nguồn: schedule.txt:WEEK 06
+  Câu sau giải tham chiếu: Tuần 6 học gì?
+  Ngữ cảnh sử dụng: tuần tiếp theo -> WEEK_06 (history(WEEK=WEEK_05, T4) -> +1); Còn tuần tiếp theo? -> WEEK_06 (ellipsis tu luot T4 (GET_WEEK_CONTENT))
+
+[F136] Tuần đó học những gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_06 | thực tế: WEEK_06
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 6 học Chương 5 (Grammar for Natural Language) (phần Syntactic Processing). Nội dung: auxiliary verbs and verb phrases; movement phenomena; handling questions in CFG; relative clauses. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 6 học Chương 5 (Grammar for Natural Language) (phần Syntactic Processing). Nội dung: auxiliary verbs and verb phrases; movement phenomena; handling questions in CFG; relative clauses.
+  Parse: OK
+  Semantic: GET_WEEK_CONTENT(week=WEEK_06)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=6
+  Nguồn: schedule.txt:WEEK 06
+  Câu sau giải tham chiếu: Tuần 6 học những gì?
+  Ngữ cảnh sử dụng: Tuần đó -> WEEK_06 (syntax_tree+rules; history:user_primary(T5))
+
+[F137] Ai là tổng thống của Pháp?
+  Intent: ĐÚNG | kỳ vọng: UNKNOWN | thực tế: UNKNOWN
+  Entity: ĐÚNG | kỳ vọng: OUT_OF_SCOPE | thực tế: OUT_OF_SCOPE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Thực tế: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+  Parse: MISSING
+  Semantic: UNKNOWN(reason=OUT_OF_SCOPE)
+  Query: -- khong tao truy van (UNKNOWN)
+  Nguồn: regulations.txt:OUT_OF_SCOPE
+  Câu sau giải tham chiếu: Ai là tổng thống của Pháp?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F138] Nó có liên quan đến parsing không?
+  Intent: ĐÚNG | kỳ vọng: CONTEXT_DEPENDENT | thực tế: CONTEXT_DEPENDENT
+  Entity: ĐÚNG | kỳ vọng: - | thực tế: -
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  Thực tế: Câu hỏi này tham chiếu tới lượt hội thoại trước, nhưng chưa có ngữ cảnh để xác định đối tượng được nhắc tới (xử lý ở Phần III).
+  Parse: OK
+  Semantic: NEEDS_CONTEXT(expr="nó")
+  Query: -- khong tao truy van (NEEDS_CONTEXT)
+  Nguồn: -
+  Câu sau giải tham chiếu: Nó có liên quan đến parsing không?
+  Ngữ cảnh sử dụng: Khong du ngu canh phu hop trong lich su hoi thoai
+
+[F139] Chương 11 nói về gì?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 11 (Knowledge Representation and Reasoning), phần Context and World Knowledge. Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. Các mục: 11.1 Knowledge representation; 11.2 Frames: representing stereotypical information; 11.3 Handling natural language quantification; 11.4 Time and aspectual classes of verbs; 11.5 Procedural semantics and question answering.
+  Thực tế: Chương 11 (Knowledge Representation and Reasoning), phần Context and World Knowledge. Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. Các mục: 11.1 Knowledge representation; 11.2 Frames: representing stereotypical information; 11.3 Handling natural language quantification; 11.4 Time and aspectual classes of verbs; 11.5 Procedural semantics and question answering.
+  Parse: OK
+  Semantic: GET_CHAPTER_CONTENT(chapter=CH11)
+  Query: SELECT title, part, summary, subtopics FROM topics WHERE chapter_id='CH11'
+  Nguồn: topics.txt:CH11
+  Câu sau giải tham chiếu: Chương 11 nói về gì?
+  Ngữ cảnh sử dụng: Không sử dụng ngữ cảnh (câu hỏi độc lập)
+
+[F140] Nó học tuần nào?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Chương 11 (Knowledge Representation and Reasoning) được học vào tuần 13. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Chương 11 (Knowledge Representation and Reasoning) được học vào tuần 13.
+  Parse: OK
+  Semantic: GET_CHAPTER_WEEKS(chapter=CH11)
+  Query: SELECT week FROM schedule WHERE chapter='CH11'
+  Nguồn: schedule.txt:WEEK 13
+  Câu sau giải tham chiếu: Chương 11 học tuần nào?
+  Ngữ cảnh sử dụng: Nó -> CH11 (syntax_tree+rules; center:user_primary(T3))
+
+[F141] Chương này có học question answering không?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: CH11 | thực tế: CH11
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Thực tế: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến question answering. Mục liên quan: 11.5 Procedural semantics and question answering. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+  Parse: OK
+  Semantic: CHECK_CHAPTER_COVERS(chapter=CH11, topic=QUESTION_ANSWERING)
+  Query: SELECT subtopics FROM topics WHERE chapter_id='CH11' AND subtopics|summary MATCH 'QUESTION_ANSWERING'
+  Nguồn: topics.txt:CH11
+  Câu sau giải tham chiếu: Chương 11 có học question answering không?
+  Ngữ cảnh sử dụng: Chương này -> CH11 (syntax_tree+rules; history:user_primary(T4))
+
+NHÓM Trả lời có căn cứ
+Số truy vấn: 10
+Intent đúng: 9/10 = 90.00%
+Entity chính đúng: 9/10 = 90.00%
+Số câu trả lời đúng: 8/10 = 80.00%
+Số câu trả lời sai: 2/10
+
+[G142] Môn NLP có bao nhiêu tín chỉ?
+  Intent: ĐÚNG | kỳ vọng: GET_COURSE_INFO | thực tế: GET_COURSE_INFO
+  Entity: ĐÚNG | kỳ vọng: CO3085 | thực tế: CO3085
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Thực tế: Môn Xử lý Ngôn ngữ Tự nhiên (CO3085) có 3 tín chỉ.
+  Parse: OK
+  Semantic: GET_CREDIT(course=CO3085)
+  Query: SELECT credits FROM course_info WHERE course_id='CO3085'
+  Nguồn: course_info.txt:credits
+
+[G143] Điểm BTL chiếm bao nhiêu phần trăm điểm môn học?
+  Intent: SAI | kỳ vọng: GET_COURSE_INFO | thực tế: GET_ASSIGNMENT
+  Entity: SAI | kỳ vọng: CO3085 | thực tế: BTL01
+  Câu trả lời: SAI
+  Kỳ vọng: Bài tập lớn chiếm 15% điểm môn học.
+  Thực tế: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  Parse: REJECTED
+  Semantic: GET_ASSIGNMENT(assignment=BTL01)
+  Query: SELECT title, description, parts FROM assignments WHERE id='BTL01'
+  Nguồn: assignments.txt:BTL01
+
+[G144] Tuần 5 có nội dung và hoạt động gì?
+  Intent: ĐÚNG | kỳ vọng: GET_SCHEDULE | thực tế: GET_SCHEDULE
+  Entity: ĐÚNG | kỳ vọng: WEEK_05 | thực tế: WEEK_05
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.
+  Parse: REJECTED
+  Semantic: GET_WEEK_CONTENT(week=WEEK_05)
+  Query: SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5
+  Nguồn: schedule.txt:WEEK 05
+
+[G145] PCFG nằm trong chương nào?
+  Intent: ĐÚNG | kỳ vọng: GET_TOPIC | thực tế: GET_TOPIC
+  Entity: ĐÚNG | kỳ vọng: PCFG | thực tế: PCFG
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Thực tế: PCFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+  Parse: OK
+  Semantic: GET_TOPIC_CHAPTER(topic=PCFG)
+  Query: SELECT chapter_id, title FROM topics WHERE keywords|subtopics|summary MATCH 'PCFG' ORDER BY match_tier DESC
+  Nguồn: topics.txt:CH03, topics.txt:CH06
+
+[G146] L.O.4.2 liên quan đến nội dung gì?
+  Intent: ĐÚNG | kỳ vọng: GET_LO | thực tế: GET_LO
+  Entity: ĐÚNG | kỳ vọng: LO4.2 | thực tế: LO4.2
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Thực tế: L.O.4.2: Ngữ cảnh diễn ngôn cục bộ và sự tham chiếu.
+  Parse: OK
+  Semantic: GET_LO(lo=LO4.2)
+  Query: SELECT text FROM learning_outcomes WHERE id='LO4.2'
+  Nguồn: course_info.txt:detailed_learning_outcomes
+
+[G147] Phần I của BTL cần xuất những file nào?
+  Intent: ĐÚNG | kỳ vọng: GET_ASSIGNMENT | thực tế: GET_ASSIGNMENT
+  Entity: ĐÚNG | kỳ vọng: PART_I | thực tế: PART_I
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Thực tế: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+  Parse: OK
+  Semantic: GET_ASSIGNMENT_PART(part=PART_I)
+  Query: SELECT name, description, outputs FROM assignments WHERE part='PART_I'
+  Nguồn: assignments.txt:PART_I
+
+[G148] BTL có những mốc deadline nào?
+  Intent: ĐÚNG | kỳ vọng: GET_DEADLINE | thực tế: GET_DEADLINE
+  Entity: ĐÚNG | kỳ vọng: BTL01 | thực tế: BTL01
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+  Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+  Parse: REJECTED
+  Semantic: GET_DEADLINE(assignment=BTL01)
+  Query: SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='BTL01'
+  Nguồn: schedule.txt:WEEK 08, schedule.txt:WEEK 12, schedule.txt:WEEK 15
+
+[G149] Sách NLP với Python tên gì và do ai viết?
+  Intent: ĐÚNG | kỳ vọng: GET_RESOURCE | thực tế: GET_RESOURCE
+  Entity: ĐÚNG | kỳ vọng: PYTHON_NLP | thực tế: PYTHON_NLP
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Thực tế: REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python.
+  Parse: REJECTED
+  Semantic: GET_RESOURCE(topic=PYTHON_NLP)
+  Query: SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH 'PYTHON_NLP'
+  Nguồn: resources.txt:REFERENCE 2
+
+[G150] Khi dùng AI, sinh viên phải làm gì?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: AI_USAGE | thực tế: AI_USAGE
+  Câu trả lời: ĐÚNG
+  Kỳ vọng: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Thực tế: Quy định (AI_usage): Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=AI_USAGE)
+  Query: SELECT text FROM regulations WHERE key='AI_USAGE'
+  Nguồn: regulations.txt:AI_usage
+
+[G151] LLM/RAG có thay thế phần NLP cốt lõi của BTL không?
+  Intent: ĐÚNG | kỳ vọng: GET_RULE | thực tế: GET_RULE
+  Entity: ĐÚNG | kỳ vọng: LLM_RAG | thực tế: LLM_RAG
+  Câu trả lời: SAI
+  Kỳ vọng: Không. Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Thực tế: Quy định (LLM_RAG): LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+  Parse: REJECTED
+  Semantic: GET_RULE(rule=LLM_RAG)
+  Query: SELECT text FROM regulations WHERE key='LLM_RAG'
+  Nguồn: regulations.txt:LLM_RAG

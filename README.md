@@ -8,7 +8,7 @@
 ## Thông tin Nhóm & Đề tài
 
 * **Tên đề tài:** Hệ thống Trợ lý Hỗ trợ Học tập (Course Assistant) cho môn Xử lý Ngôn ngữ Tự nhiên.
-* **Lựa chọn thực hiện:** Nhóm chọn **Lựa chọn 2: Mở rộng bằng LLM/RAG**, được xây dựng kế thừa chặt chẽ và thể hiện đầy đủ kết quả từ nền tảng **Classical NLP** (Parser cú pháp Phần I $\rightarrow$ Biểu diễn Vị từ Ngữ nghĩa $\rightarrow$ Trích xuất Thực thể & Ý định $\rightarrow$ Cổng Guardrail chống ảo giác cho RAG).
+* **Lựa chọn thực hiện:** Nhóm chọn **Lựa chọn 1: Classical/Statistical NLP** (Mục 4.1), triển khai đầy đủ pipeline NLP cổ điển: Văn phạm CFG & Parser cú pháp (Phần I) $\rightarrow$ Biểu diễn Vị từ Ngữ nghĩa & Trích xuất Intent/Entity $\rightarrow$ Truy vấn Knowledge Base & Sinh câu trả lời (Phần II) $\rightarrow$ Xử lý ngữ cảnh hội thoại cục bộ (Phần III) $\rightarrow$ Đánh giá hệ thống trên bộ 151 câu hỏi (Phần IV).
 
 ---
 
@@ -18,20 +18,19 @@
 |---|---|---|:---:|
 | **3.1 Tập luật & Văn phạm (CFG)** | `src/grammar/cfg.py`, `grammar.txt` | `output/grammar.txt` | **Hoàn thành** |
 | **3.2 Giải thuật sinh câu mẫu** | `src/grammar/generator.py` | `output/samples.txt` *(5.000 câu)* | **Hoàn thành** |
-| **3.3 Bộ phân tích cú pháp (Parser)** | `src/grammar/parser.py` | `output/parse-results.txt` | **Hoàn thành** *(20/20 test pass)* |
+| **3.3 Bộ phân tích cú pháp (Parser)** | `src/grammar/parser.py` | `output/parse-results.txt` | **Hoàn thành** *(35/35 test pass)* |
 | **4.1.1 Biểu diễn ngữ nghĩa (Semantic)** | `src/hcmut/.../app/nlu.py` | `output/semantic.txt` | **Hoàn thành** *(Dạng vị từ)* |
 | **4.1.2 Nhận diện Intent & Entity** | `src/hcmut/.../app/nlu.py` | `output/intent-entity.txt` | **Hoàn thành** *(Nối cây cú pháp)* |
 | **4.1.3 Truy vấn Knowledge Base** | `src/hcmut/.../app/qa.py` | `output/query.txt` *(Pseudo-SQL)* | **Hoàn thành** |
 | **4.1.4 Truy xuất & Sinh câu trả lời** | `src/hcmut/.../app/qa.py`, `kb.py` | `output/answer.txt` | **Hoàn thành** |
-| **4.2 Mở rộng LLM/RAG** | `src/hcmut/.../app/rag.py` | `output/retrieval.txt`, `output/rag/*` | **Hoàn thành** *(BM25 + Chống ảo giác)* |
-| **5. Ngữ cảnh hội thoại (Phần III)** | `src/hcmut/.../app/nlu.py` | `output/intent-entity.txt` | Nhận diện câu `CONTEXT_DEPENDENT` |
-| **6. Đánh giá hệ thống (Phần IV)** | `src/hcmut/.../app/evaluate.py` | `output/evaluation.txt` | **Hoàn thành** *(Đạt 100% Intent/Entity)* |
+| **5. Ngữ cảnh hội thoại (Phần III)** | `src/hcmut/.../app/dialogue.py` | `output/dialogue.txt` | **Hoàn thành** *(8 hội thoại mẫu)* |
+| **6. Đánh giá hệ thống (Phần IV)** | `src/hcmut/.../app/evaluate.py` | `output/evaluation.txt` | **Hoàn thành** *(151 câu hỏi)* |
 
 ---
 
 ## 1. Cài đặt & Hướng dẫn Chạy chương trình
 
-Hệ thống được thiết kế hoàn toàn khép kín, **chỉ sử dụng thư viện chuẩn của Python và NLTK**, không phụ thuộc các framework RAG cồng kềnh, đảm bảo có thể chạy 100% offline mà không cần API key.
+Hệ thống được thiết kế hoàn toàn khép kín, **chỉ sử dụng thư viện chuẩn của Python và NLTK**, đảm bảo chạy 100% offline, tái lập kết quả ổn định và không cần API key.
 
 ### Cách 1: Chạy bằng Docker (Khuyên dùng khi chấm bài)
 Build context là thư mục `project/`. Mọi kết quả output sẽ được ánh xạ trực tiếp về máy host qua Volume:
@@ -53,10 +52,10 @@ cd project
 # Cài đặt thư viện (chỉ gồm nltk==3.10.4)
 pip install -r requirements.txt
 
-# Chạy toàn bộ pipeline tích hợp (Phần I -> Phần II Classical -> RAG -> Đánh giá)
+# Chạy toàn bộ pipeline tích hợp (Phần I -> Phần II Classical -> Phần III Dialogue -> Phần IV Đánh giá)
 python main.py
 
-# Chạy bộ 20 unit tests kiểm thử cú pháp và giải thuật
+# Chạy bộ 35 unit tests kiểm thử cú pháp, KB và hội thoại
 python -m unittest discover -s tests -v
 ```
 
@@ -64,7 +63,7 @@ python -m unittest discover -s tests -v
 
 ## 2. Kiến trúc Hệ thống (System Architecture)
 
-Toàn bộ hệ thống Course Assistant vận hành theo một pipeline thống nhất, kết nối chặt chẽ từ Cú pháp $\rightarrow$ Ngữ nghĩa $\rightarrow$ Tri thức $\rightarrow$ RAG:
+Toàn bộ hệ thống Course Assistant vận hành theo một pipeline NLP cổ điển thống nhất, kết nối chặt chẽ từ Cú pháp $\rightarrow$ Ngữ nghĩa $\rightarrow$ Tri thức $\rightarrow$ Hội thoại $\rightarrow$ Đánh giá:
 
 ```
 [Câu hỏi đầu vào: input/sentences.txt]
@@ -82,24 +81,25 @@ Toàn bộ hệ thống Course Assistant vận hành theo một pipeline thống
      │                       │ ──► [output/intent-entity.txt] (Intent, Entity)
      └───────────┬───────────┘
                  │
-        ┌────────┴─────────────────────────────────┐
-        │                                          │
-        ▼                                          ▼
-┌───────────────────────────────┐  ┌───────────────────────────────────────┐
-│ 3A. Classical QA Pipeline     │  │ 3B. LLM / RAG Pipeline (Mục 4.2)      │
-│  - Sinh pseudo-SQL            │  │  - Chunking Knowledge Base            │
-│  - Query Knowledge Base       │  │  - BM25 Retrieval + Entity Reranking  │
-│  - Ghép câu trả lời chuẩn xác │  │  - Guardrails kiểm soát chống ảo giác │
-│    [output/query.txt]         │  │  - Chế độ Extractive / Claude API     │
-│    [output/answer.txt]        │  │    [output/retrieval.txt]             │
-└───────────────────────────────┘  └───────────────────────────────────────┘
-                 │                                 │
-                 └────────────────┬────────────────┘
-                                  ▼
-                    ┌───────────────────────────┐
-                    │  4. Module Đánh giá       │ ◄── [data/sample_queries.txt]
-                    │     (Phần IV - Mục 6)     │ ──► [output/evaluation.txt]
-                    └───────────────────────────┘
+                 ▼
+     ┌───────────────────────────────┐
+     │  3. Classical QA Pipeline     │ ◄── [Knowledge Base: data/*.txt]
+     │  - Sinh pseudo-SQL            │ ──► [output/query.txt]
+     │  - Query Knowledge Base       │ ──► [output/answer.txt]
+     │  - Guardrail ngoài phạm vi    │
+     └───────────┬───────────────────┘
+                 │
+                 ▼
+     ┌───────────────────────────────┐
+     │  4. Local Discourse Context   │ ◄── [Hội thoại mẫu: data/dialogues.txt]
+     │     (Phần III - Mục 5)        │ ──► [output/dialogue.txt]
+     └───────────┬───────────────────┘
+                 │
+                 ▼
+     ┌───────────────────────────────┐
+     │  5. Module Đánh giá           │ ◄── [data/evaluation_queries.txt (151 câu)]
+     │     (Phần IV - Mục 6)         │ ──► [output/evaluation.txt]
+     └───────────────────────────────┘
 ```
 
 ---
@@ -139,43 +139,24 @@ Toàn bộ hệ thống Course Assistant vận hành theo một pipeline thống
   `SELECT credits FROM course_info WHERE course_id='CO3085'`
   Engine thực thi câu truy vấn trực tiếp trên KB và ghép câu trả lời tự nhiên (`output/answer.txt`). Nếu câu hỏi nằm ngoài phạm vi hoặc không có dữ liệu, hệ thống đưa ra thông báo từ chối chuẩn: *"Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học."*
 
-### 3.5. Mở rộng Hệ thống bằng LLM/RAG (Phần II — Mục 4.2)
-* **Chunking (`src/hcmut/.../app/rag.py`):**
-  Toàn bộ Knowledge Base được phân mảnh thành các chunk ngữ cảnh độc lập kèm ID định danh nguồn trích dẫn: `topic:CHxx`, `schedule:WEEK_xx`, `regulation:xxx`, `faq:Qxx`.
-* **Thuật toán BM25 & Entity Reranking:**
-  Cài đặt thuật toán xếp hạng BM25 thuần túy bằng Python (không cần thư viện bên ngoài). Kết hợp mở rộng truy vấn (query expansion) và cộng trọng số cho các chunk khớp với thực thể đã được bóc tách từ NLU Phần I.
-* **Cơ chế Chống Bịa đặt (Hallucination Guardrails):**
-  1. *Cổng phạm vi (Scope Gating):* Tận dụng bộ phân loại Intent của Phần II để chặn các câu hỏi `UNKNOWN` hoặc `CONTEXT_DEPENDENT` trước khi gọi mô hình.
-  2. *Kiểm tra thực thể:* Chặn sớm các thực thể không tồn tại trong dữ liệu (ví dụ: Chương 13, Tuần 20, L.O.9.9).
-  3. *Ngưỡng điểm BM25:* Lọc bỏ các tài liệu có điểm truy xuất dưới ngưỡng `MIN_SCORE`.
-  4. *Hậu kiểm số liệu (Post-generation Grounding):* Mọi con số/mã xuất hiện trong câu trả lời bắt buộc phải có mặt trong ngữ cảnh trích xuất; nếu phát hiện số lạ sẽ tự động thu hồi và báo không tìm thấy.
-* **Chế độ phát sinh linh hoạt:**
-  - Nếu có biến môi trường `ANTHROPIC_API_KEY`: Gọi mô hình Claude API (`claude-haiku-5-5`) để sinh câu trả lời mượt mà kèm nguồn `[id]`.
-  - Nếu chạy offline hoặc không có API key: Tự động kích hoạt chế độ **Extractive Offline** (trích xuất câu mang bằng chứng cao nhất từ top chunk kèm nguồn trích dẫn), đảm bảo an toàn tuyệt đối khi chấm tự động trên Docker.
+### 3.5. Xử lý Ngữ cảnh Hội thoại Cục bộ (Phần III — Mục 5)
+* **Dialogue Manager (`src/hcmut/.../app/dialogue.py`):**
+  Duy trì trạng thái hội thoại (`DiscourseState`) với History List và Centering qua từng lượt hỏi đáp, giải quyết các hiện tượng tham chiếu đại từ (*"nó"*), mô tả xác định (*"phần này"*, *"chương này"*), tham chiếu thứ tự (*"chương sau"*, *"tuần tiếp theo"*) và tỉnh lược (ellipsis). Kết quả được ghi đầy đủ vào `output/dialogue.txt`.
 
 ---
 
 ## 4. Đánh giá Thực nghiệm (Phần IV — Mục 6)
 
-Hệ thống được đánh giá tự động thông qua module [`evaluate.py`]trên tập kiểm thử chuẩn gồm 34 câu hỏi (`data/sample_queries.txt`) bao phủ đủ các dạng câu hợp lệ, câu ngoài phạm vi và câu cần ngữ cảnh:
+Hệ thống được đánh giá tự động thông qua module `evaluate.py` trên tập kiểm thử mở rộng gồm 151 truy vấn (`data/evaluation_queries.txt`), bao phủ câu hỏi hợp lệ, diễn đạt tương đương, ngoài phạm vi, thiếu thông tin trong KB, tiền đề sai và 6 hội thoại nhiều lượt:
 
 ```text
-======================================================================
-DANH GIA SO BO - Classical NLP (che do 1 luot, khong ngu canh)
-- So cau kiem thu: 34
-- Do chinh xac Intent: 34/34 = 100.0%
-- Do chinh xac Entity: 31/31 = 100.0% (khong tinh cau can ngu canh)
-- So cau sai: 0
-
-DANH GIA RAG (Che do Extractive & Retrieval Evaluation)
-- Tong cau kiem thu: 34 (KB: 28, Ngoai pham vi: 3, Can ngu canh: 3)
-- Retrieval Hit@1: 23/28 = 82.1%
-- Retrieval Hit@3: 24/28 = 85.7%
-- Tu choi dung cau ngoai pham vi: 3/3 = 100.0%
-- Nhan dien cau can ngu canh: 3/3 = 100.0%
-- Ty le cau tra loi co trich dan nguon: 28/28 = 100.0%
-- Kiem tra chong Hallucination: Phat hien va chan thanh cong so lieu bia
-======================================================================
+ĐÁNH GIÁ TỔNG QUAN - CLASSICAL QA
+Số truy vấn: 151
+Intent đúng: 135/151 = 89.40%
+Entity chính đúng: 130/151 = 86.09%
+Số câu trả lời đúng: 114/151 = 75.50%
+Số câu trả lời sai: 37/151
+Hội thoại đúng toàn bộ: 4/6
 ```
 
 ---

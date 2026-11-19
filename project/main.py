@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from src.grammar import CourseParser, SentenceGenerator, export_grammar, load_cfg
-from src.hcmut.iaslab.nlp.app import dialogue, evaluate, part2, rag
+from src.hcmut.iaslab.nlp.app import dialogue, evaluate, part2
 
 
 def run_part1(base_dir: Path) -> None:
@@ -58,26 +58,14 @@ def main() -> None:
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
     )
-    # 3. Chạy Phần II (RAG): Retrieval -> Answer
-    rag.run(
-        input_dir=str(base_dir / "input"),
-        output_dir=str(base_dir / "output"),
-        kb_dir=str(base_dir / "data"),
-    )
-    # 4. Chạy Phần III: Xử lý ngữ cảnh hội thoại cục bộ (dialogue.txt)
+    # 3. Chạy Phần III: Xử lý ngữ cảnh hội thoại cục bộ (dialogue.txt)
     dialogue.run(
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
         dialogues_path=str(base_dir / "data" / "dialogues.txt"),
     )
-    # 5. Chạy Phần IV: Đánh giá hệ thống
-
+    # 4. Chạy Phần IV: Đánh giá hệ thống
     evaluate.run(
-        output_dir=str(base_dir / "output"),
-        kb_dir=str(base_dir / "data"),
-        queries=str(base_dir / "data" / "evaluation_queries.txt"),
-    )
-    evaluate.run_rag(
         output_dir=str(base_dir / "output"),
         kb_dir=str(base_dir / "data"),
         queries=str(base_dir / "data" / "evaluation_queries.txt"),

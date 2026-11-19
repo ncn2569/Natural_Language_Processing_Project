@@ -60,8 +60,8 @@ Tham chiếu kỳ vọng (reference): "Phần này" -> PART_I_GRAMMAR_PARSER
     Câu sau diễn giải : Bài tập lớn có phần parser không?
     Cú pháp & Ngữ nghĩa: parse=OK | CHECK_ASSIGNMENT_PART(part=PART_I)
     Truy vấn KB       : SELECT name, description, outputs FROM assignments WHERE part='PART_I'
-  Câu trả lời       : A1: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-    Nguồn KB          : -
+  Câu trả lời       : A1: Có. Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+    Nguồn KB          : assignments.txt:PART_I
 
 [Lượt 2]
   Hội thoại đầu vào : U2: Phần này cần xuất file gì?
@@ -70,8 +70,8 @@ Tham chiếu kỳ vọng (reference): "Phần này" -> PART_I_GRAMMAR_PARSER
     Câu sau diễn giải : Phần I của bài tập lớn cần xuất file gì?
     Cú pháp & Ngữ nghĩa: parse=OK | GET_ASSIGNMENT_PART(part=PART_I)
     Truy vấn KB       : SELECT name, description, outputs FROM assignments WHERE part='PART_I'
-  Câu trả lời       : A2: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-    Nguồn KB          : -
+  Câu trả lời       : A2: Phần I của bài tập lớn (Grammar and Parser): xây dựng grammar cho miền Course Assistant; sinh câu hợp lệ từ grammar; xây dựng parser; xuất parse tree; xử lý câu không hợp lệ. Output: output/grammar.txt; output/samples.txt; output/parse-results.txt.
+    Nguồn KB          : assignments.txt:PART_I
 
 ========================================================================
 DIALOGUE 04

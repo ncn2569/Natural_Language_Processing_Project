@@ -86,25 +86,6 @@ class AssignmentKnowledgeBaseTests(unittest.TestCase):
                 self.assertTrue(result.found)
                 self.assertNotIn("Output:", result.answer)
 
-    def test_rag_retrieves_assignment_evidence_without_calling_llm(self):
-        from src.hcmut.iaslab.nlp.app.rag import RagAssistant, build_chunks
-        from src.hcmut.iaslab.nlp.app.nlu import build_frame
-
-        rag = RagAssistant(PROJECT_DIR / "data")
-        chunks = {c["id"]: c["text"] for c in build_chunks(rag.kb)}
-        self.assertIn("assignment:PART_IV", chunks)
-        self.assertIn("parse-results.txt", chunks["assignment:PART_I"])
-        for query, expected in (
-            ("Bài tập lớn yêu cầu xây dựng những gì?", "assignment:BTL01"),
-            ("Phần I của bài tập lớn là gì?", "assignment:PART_I"),
-            ("Bài tập lớn có phần hỏi đáp không?", "assignment:PART_II"),
-            ("Bài tập lớn có phần parser không?", "assignment:PART_I"),
-        ):
-            with self.subTest(query=query):
-                frame = build_frame(query, rag.linker)
-                hits = rag.retrieve(query, frame=frame)
-                self.assertIn(expected, [h["id"] for h in hits[:3]])
-
 
 class DialogueContextTests(unittest.TestCase):
     @classmethod
