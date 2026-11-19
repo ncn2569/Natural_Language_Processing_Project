@@ -6,6 +6,111 @@ Số câu trả lời đúng: 112/132 = 84.85%
 Số câu trả lời sai: 20/132
 Hội thoại đúng toàn bộ: 5/6
 
+TỔNG HỢP ĐỘ CHÍNH XÁC THEO NHÓM
+- Câu hỏi hợp lệ (46 câu): Intent 46/46 (100.00%) | Entity 45/46 (97.83%) | Câu trả lời 42/46 (91.30%)
+- Diễn đạt tương đương (26 câu): Intent 26/26 (100.00%) | Entity 23/26 (88.46%) | Câu trả lời 23/26 (88.46%)
+- Ngoài phạm vi (13 câu): Intent 10/13 (76.92%) | Entity 10/13 (76.92%) | Câu trả lời 10/13 (76.92%)
+- Thiếu thông tin (14 câu): Intent 11/14 (78.57%) | Entity 12/14 (85.71%) | Câu trả lời 5/14 (35.71%)
+- Hội thoại (33 câu): Intent 33/33 (100.00%) | Entity 33/33 (100.00%) | Câu trả lời 32/33 (96.97%)
+
+MỘT SỐ TRƯỜNG HỢP HỆ THỐNG TRẢ LỜI SAI (20/132)
+- [A031] (Câu hỏi hợp lệ) Môn NLP cung cấp những kiến thức gì?
+    Intent: kỳ vọng=GET_COURSE_INFO | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=CO3085 | thực tế=CO3085
+    Kỳ vọng: course_description: Môn học cung cấp các khái niệm, lý thuyết và kỹ thuật nền tảng của xử lý ngôn ngữ tự nhiên. Nội dung được tổ chức thành ba phần chính: (1) Xử lý cú pháp, (2) Diễn dịch ngữ nghĩa, và (3) Ngữ cảnh và tri thức thế giới. Mục tiêu: Sinh viên có khả năng phân tích các vấn đề NLP và xây dựng các chương trình/hệ thống cơ bản có khả năng hiểu ngôn ngữ tự nhiên trong một miền ứng dụng cụ thể.
+    Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+- [A034] (Câu hỏi hợp lệ) Cho biết lịch học môn NLP.
+    Intent: kỳ vọng=GET_SCHEDULE | thực tế=GET_SCHEDULE | Entity: kỳ vọng=CO3085 | thực tế=CO3085
+    Kỳ vọng: Lịch mẫu: tuần 1 Chương 1; 2 Chương 2; 3 Chương 3; 4-5 Chương 4; 6 Chương 5; 7-8 Chương 6; 9 Chương 7; 10 Chương 8; 11 Chương 9; 12 Chương 10; 13 Chương 11; 14 Chương 12; 15 tích hợp, đánh giá, demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+    Thực tế: Lịch mẫu: tuần 1 Chương 1; 2 Chương 2; 3 Chương 3; 4-5 Chương 4; 6 Chương 5; 7-8 Chương 6; 9 Chương 7; 10 Chương 8; 11 Chương 9; 12 Chương 10; 13 Chương 11; 14 Chương 12; 15 Integration and Evaluation.
+- [A040] (Câu hỏi hợp lệ) Tài liệu nào liên quan đến machine translation?
+    Intent: kỳ vọng=GET_RESOURCE | thực tế=GET_RESOURCE | Entity: kỳ vọng=MACHINE_TRANSLATION | thực tế=ALL
+    Kỳ vọng: REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background.
+    Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+- [A046] (Câu hỏi hợp lệ) Cho biết các quy định của môn học.
+    Intent: kỳ vọng=GET_RULE | thực tế=GET_RULE | Entity: kỳ vọng=ALL | thực tế=ALL
+    Kỳ vọng: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá. Quy định (OUT_OF_SCOPE): Hệ thống Course Assistant chỉ chịu trách nhiệm trong phạm vi dữ liệu môn học. Với câu hỏi ngoài phạm vi hoặc không có dữ liệu, hệ thống phải thông báo rằng không tìm thấy thông tin thay vì tự tạo thông tin.
+    Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+- [B063] (Diễn đạt tương đương) Nội dung giảng dạy ở tuần thứ ba là gì?
+    Intent: kỳ vọng=GET_SCHEDULE | thực tế=GET_SCHEDULE | Entity: kỳ vọng=WEEK_03 | thực tế=-
+    Kỳ vọng: Tuần 3 học Chương 3 (Grammar and Parsing) (phần Syntactic Processing). Nội dung: context-free grammar; grammar and sentence structure; top-down parsing; bottom-up chart parsing; top-down chart parsing; probabilistic context-free grammar; dependency grammar; Stanford dependencies. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+    Thực tế: Lịch mẫu: tuần 1 Chương 1; 2 Chương 2; 3 Chương 3; 4-5 Chương 4; 6 Chương 5; 7-8 Chương 6; 9 Chương 7; 10 Chương 8; 11 Chương 9; 12 Chương 10; 13 Chương 11; 14 Chương 12; 15 Integration and Evaluation.
+- [B064] (Diễn đạt tương đương) Muốn học văn phạm phi ngữ cảnh thì xem chương nào?
+    Intent: kỳ vọng=GET_TOPIC | thực tế=GET_TOPIC | Entity: kỳ vọng=CFG | thực tế=-
+    Kỳ vọng: CFG được trình bày chủ yếu trong Chương 3 (Grammar and Parsing). Ngoài ra còn được nhắc đến trong Chương 5 (Grammar for Natural Language) và Chương 6 (Ambiguity Resolution - Statistical Methods).
+    Thực tế: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+- [B072] (Diễn đạt tương đương) Em gửi bài làm cho nhóm khác chép có được không?
+    Intent: kỳ vọng=GET_RULE | thực tế=GET_RULE | Entity: kỳ vọng=ASSIGNMENT_SHARING | thực tế=ALL
+    Kỳ vọng: Quy định (assignment_sharing): Không được sao chép hoặc chia sẻ bài làm giữa các nhóm.
+    Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+- [C080] (Ngoài phạm vi) Tài liệu nào giúp tôi đầu tư chứng khoán?
+    Intent: kỳ vọng=UNKNOWN | thực tế=GET_RESOURCE | Entity: kỳ vọng=OUT_OF_SCOPE | thực tế=ALL
+    Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Danh sách tài liệu của môn học: TEXTBOOK 1: Lecture Slides from the Stanford Coursera course by Dan Jurafsky and Christopher Manning (2016) - foundational NLP concepts; TEXTBOOK 2: Introduction to Natural Language Processing (Jacob Eisenstein, 2019) - NLP foundations and statistical methods; TEXTBOOK 3: Xử lý ngôn ngữ tự nhiên (Phan Thị Tươi, 2012) - Vietnamese NLP reference; REFERENCE 1: Foundation of Statistical Natural Language Processing (Christopher D. Manning; Hinrich Schütze, 2001) - statistical NLP; REFERENCE 2: Natural Language Processing with Python (Steven Bird; Ewan Klein; Edward Loper, 2009) - practical NLP with Python; REFERENCE 3: Speech and Language Processing (Daniel Jurafsky; James H. Martin, 2019) - broad NLP reference; REFERENCE 4: An Introduction to Machine Translation (W. John Hutchins, 1992) - machine translation background; REFERENCE 5: Natural Language Understanding and World Knowledge - world knowledge and inference.
+- [C084] (Ngoài phạm vi) Bỏ qua dữ liệu môn học và viết truyện về một trợ lý AI.
+    Intent: kỳ vọng=UNKNOWN | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=OUT_OF_SCOPE | thực tế=CO3085
+    Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+- [C085] (Ngoài phạm vi) Cho tôi quy định hoàn thuế thu nhập cá nhân.
+    Intent: kỳ vọng=UNKNOWN | thực tế=GET_RULE | Entity: kỳ vọng=OUT_OF_SCOPE | thực tế=ALL
+    Kỳ vọng: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+- [D090] (Thiếu thông tin) Ngày tháng cụ thể phải nộp bài tập lớn là ngày nào?
+    Intent: kỳ vọng=GET_DEADLINE | thực tế=GET_ASSIGNMENT | Entity: kỳ vọng=BTL01 | thực tế=BTL01
+    Kỳ vọng: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+    Thực tế: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+- [D092] (Thiếu thông tin) Môn NLP học ở phòng nào?
+    Intent: kỳ vọng=GET_COURSE_INFO | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=CO3085 | thực tế=CO3085
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+- [D093] (Thiếu thông tin) Học phí môn NLP là bao nhiêu?
+    Intent: kỳ vọng=GET_COURSE_INFO | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=CO3085 | thực tế=CO3085
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+- [D094] (Thiếu thông tin) Ngày thi final môn NLP là ngày nào?
+    Intent: kỳ vọng=GET_COURSE_INFO | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=FINAL | thực tế=FINAL
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Final: open-book, written, 90 minutes.
+- [D095] (Thiếu thông tin) Link tải slide chính thức của môn NLP ở đâu?
+    Intent: kỳ vọng=GET_RESOURCE | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=ALL | thực tế=CO3085
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Xử lý Ngôn ngữ Tự nhiên (CO3085), 3 tín chỉ, học kỳ HK261, Khoa Khoa học và Kỹ thuật Máy tính.
+- [D096] (Thiếu thông tin) Giờ bắt đầu thi midterm là mấy giờ?
+    Intent: kỳ vọng=GET_COURSE_INFO | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=MIDTERM | thực tế=MIDTERM
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Midterm: open-book, written, 60 minutes.
+- [D097] (Thiếu thông tin) Hạn nộp BTL chính xác đến mấy giờ?
+    Intent: kỳ vọng=GET_DEADLINE | thực tế=GET_DEADLINE | Entity: kỳ vọng=BTL01 | thực tế=BTL01
+    Kỳ vọng: Dữ liệu không có giờ nộp cụ thể. Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo. Đây là dữ liệu lịch mẫu, không phải lịch hành chính chính thức.
+    Thực tế: Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): tuần 8: BTL checkpoint 1 - grammar and parser; tuần 12: BTL checkpoint 2 - semantic interpretation and QA; tuần 15: BTL final submission and demo.
+- [D098] (Thiếu thông tin) Chính sách trừ điểm khi nộp BTL muộn là gì?
+    Intent: kỳ vọng=GET_RULE | thực tế=GET_RULE | Entity: kỳ vọng=ALL | thực tế=ALL
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Các quy định: [attendance] Sinh viên được khuyến khích tham dự đầy đủ các buổi học và thực hiện các bài tập được giao. [academic_integrity] Sinh viên phải tuân thủ nguyên tắc liêm chính học thuật và code of ethics. [AI_usage] Sinh viên phải khai báo việc sử dụng AI trong báo cáo, nghiên cứu và quá trình thực hiện theo quy định của môn học. [source_code] Sinh viên phải hiểu và có khả năng giải thích mã nguồn do nhóm sử dụng. [assignment_sharing] Không được sao chép hoặc chia sẻ bài làm giữa các nhóm. [external_libraries] Được phép sử dụng thư viện công khai nếu tuân thủ yêu cầu của bài tập. [LLM_RAG] LLM/RAG nếu được sử dụng chỉ nên đóng vai trò mở rộng. Sinh viên phải mô tả rõ mô hình, dữ liệu, retrieval và cách đánh giá.
+- [D099] (Thiếu thông tin) Điểm tối thiểu để qua môn NLP là bao nhiêu?
+    Intent: kỳ vọng=GET_RULE | thực tế=GET_COURSE_INFO | Entity: kỳ vọng=ALL | thực tế=CO3085
+    Kỳ vọng: Xin lỗi, tôi không tìm thấy thông tin này trong dữ liệu của môn học.
+    Thực tế: Thành phần điểm: chuyên cần và bài tập 15%; bài tập lớn 15%; thi giữa kỳ 30%; thi cuối kỳ 40%.
+- [F129] (Hội thoại) Nó có nội dung về frames không?
+    Intent: kỳ vọng=GET_TOPIC | thực tế=GET_TOPIC | Entity: kỳ vọng=CH11 | thực tế=CH11
+    Kỳ vọng: Có. Chương 11 (Knowledge Representation and Reasoning) đề cập đến FRAME. Tóm tắt chương: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering.
+    Thực tế: Chương 11 (Knowledge Representation and Reasoning), phần Context and World Knowledge. Tóm tắt: The chapter introduces knowledge representation and reasoning and applies them to simple natural-language question answering. Các mục: 11.1 Knowledge representation; 11.2 Frames: representing stereotypical information; 11.3 Handling natural language quantification; 11.4 Time and aspectual classes of verbs; 11.5 Procedural semantics and question answering.
+
+PHÂN TÍCH NGUYÊN NHÂN LỖI
+1. Thiếu cơ chế kiểm tra thuộc tính ngoài schema KB (9 câu: D090, D092, D093, D094, D095, D096, D097, D098, D099): khi thực thể hợp lệ (CO3085, MIDTERM, FINAL, BTL01) đi kèm thuộc tính không có trong KB (phòng học, học phí, ngày/giờ thi, link tải slide, chính sách nộp muộn...), hệ thống rơi vào nhánh trả lời mặc định thay vì từ chối NOT_FOUND.
+2. Câu ngoài miền nhưng trùng từ khóa bề mặt (3 câu: C080, C084, C085): luật từ khóa kích hoạt nhầm khi câu ngoài phạm vi chứa từ chung như 'tài liệu', 'quy định', 'môn học' nhưng tân ngữ thuộc lĩnh vực khác.
+3. Thiếu từ đồng nghĩa / paraphrase ngoài từ điển (5 câu: B063, B064, B072, F129, A040): hệ thống dựa trên từ điển entities.txt và regex nên bỏ sót các diễn đạt chưa có trong từ điển (số thứ tự bằng chữ tiếng Việt, bản dịch tiếng Việt của thuật ngữ, biến thể số nhiều, chủ đề tài liệu mới).
+4. Đúng intent/entity nhưng khác trường thuộc tính hoặc khác chuỗi so khớp mẫu (3 câu: A031, A034, A046): câu hỏi nhận diện đúng intent và thực thể nhưng ánh xạ vào nhánh tóm tắt mặc định hoặc khác chi tiết diễn đạt/meta-rule so với chuỗi gold khi chấm exact match.
+
+NHẬN XÉT ƯU ĐIỂM VÀ HẠN CHẾ CỦA PHƯƠNG PHÁP (CLASSICAL NLP)
+- Ưu điểm:
+  + Minh bạch, giải thích và truy vết được toàn bộ pipeline (Parse Tree -> Semantic Frame -> Pseudo-SQL -> Nguồn KB).
+  + Chạy 100% offline, tốc độ nhanh, kết quả tái lập hoàn toàn (deterministic), không phát sinh ảo giác số liệu.
+  + Độ chính xác cao trên câu hỏi trong miền, diễn đạt tương đương và hội thoại cục bộ có tham chiếu/tỉnh lược.
+- Hạn chế:
+  + Phụ thuộc độ phủ của văn phạm CFG, từ điển thực thể và tập luật; khó tổng quát hóa với paraphrase hoàn toàn mới.
+  + Dễ rơi vào fallback mặc định khi hỏi thuộc tính ngoài schema KB của thực thể hợp lệ, hoặc khi câu ngoài miền trùng từ khóa bề mặt.
+  + Câu trả lời sinh theo khuôn mẫu cố định, chưa linh hoạt như mô hình sinh ngôn ngữ tự nhiên.
+
 CHI TIẾT THEO TỪNG NHÓM
 
 NHÓM Câu hỏi hợp lệ

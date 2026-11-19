@@ -23,7 +23,7 @@
   SELECT text FROM regulations WHERE key='AI_USAGE'
 
 [009] Tôi cần hoàn thành những bài tập nào?
-  -- khong tao truy van (UNKNOWN)
+  SELECT title, description, parts FROM assignments WHERE id='BTL01'
 
 [010] Tuần 5 học những gì?
   SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week=5

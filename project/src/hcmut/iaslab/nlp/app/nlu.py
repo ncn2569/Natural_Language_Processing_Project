@@ -179,7 +179,7 @@ def tree_intent(tree):
         or "được phép" in by_label.get("Modal", [])
     ):
         return "GET_RULE"
-    if "AssignmentName" in by_label or "bài tập lớn" in nouns or (
+    if "AssignmentName" in by_label or nouns & {"bài tập lớn", "bài tập"} or (
         "file" in nouns and "xuất" in verbs
     ):
         return "GET_ASSIGNMENT"
@@ -330,6 +330,7 @@ CUES = {
     "instructor": r"giảng viên|giáo viên|\bthầy\b|\bcô giáo\b|ai dạy|người dạy",
     "resource": r"(?<!mở )tài liệu|giáo trình|(?<!chính )\bsách\b|tham khảo|textbook",
     "rule": r"quy định|nội quy|chính sách|có được|được phép|cho phép|cấm|điểm danh|liêm chính|khai báo|gian lận|sao chép|chia sẻ|mã nguồn|source code",
+    "assignment": r"(?:những|các)?\s*bài tập\s+nào|hoàn thành.*bài tập|bài tập\s+(?:của môn|môn học|cần làm|cần nộp)",
     "course": r"tín chỉ|\bects\b|môn học gồm|phần nào|những phần|các phần|chính nào|thành phần điểm|trọng số|bao nhiêu phút|mấy phút|thời lượng|bao lâu|\bkhoa\b|học kỳ|học kì",
     "schedule": r"\btuần\b|\blịch\b|tiết|thứ mấy|\bweek\b",
     "topic": r"\bchương\b|nói về|học về|nội dung|phương pháp|liên quan đến|được học|học ở đâu|trình bày",
@@ -376,7 +377,7 @@ def classify(text, entities, parse_intent=None):
         return "GET_RULE", "cue quy dinh / entity RULE"
     if "COURSE_PART" in types and not assign_ctx and "chương" in t:
         return "GET_TOPIC", "phan mon hoc hoi danh sach chuong"
-    if assign_ctx or ("PARTREF" in types and re.search(r"\b(?:file|output|xuất|nộp)\b", t)):
+    if assign_ctx or has("assignment") or ("PARTREF" in types and re.search(r"\b(?:file|output|xuất|nộp)\b", t)):
         return "GET_ASSIGNMENT", "entity bai tap lon"
     if has("course"):
         return "GET_COURSE_INFO", "cue thong tin mon hoc / ky thi"
@@ -569,6 +570,7 @@ def build_frame(sentence, linker, tree_state=("MISSING", None)):
             prim = part_val
         else:
             frame.predicate, a["assignment"] = "GET_ASSIGNMENT", "BTL01"
+            prim = prim or "BTL01"
     elif intent == "GET_DEADLINE":
         frame.predicate, a["assignment"] = "GET_DEADLINE", "BTL01"
         prim = prim or "BTL01"

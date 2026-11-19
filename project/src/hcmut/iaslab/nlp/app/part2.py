@@ -12,7 +12,7 @@ from .kb import KnowledgeBase
 from .nlu import EntityLinker, build_frame, parse_bracket
 from .qa import Engine, build_query
 
-PROJECT_ROOT = Path(__file__).parents[5]
+PROJECT_ROOT = Path(__file__).resolve().parents[5]
 
 
 def default_dirs():

@@ -39,9 +39,9 @@
   found: True
 
 [009] Tôi cần hoàn thành những bài tập nào?
-  A: Xin lỗi, câu hỏi này nằm ngoài phạm vi của Course Assistant. Tôi không tìm thấy thông tin này trong dữ liệu của môn học.
-  sources: regulations.txt:OUT_OF_SCOPE
-  found: False
+  A: Bài tập lớn: Intelligent Course Assistant. Xây dựng hệ thống xử lý câu hỏi tự nhiên trong miền thông tin của một môn học. Hệ thống phải thể hiện pipeline NLP từ parsing đến semantic interpretation và question answering. Gồm: Phần I: Grammar and Parser; Phần II: Semantic Interpretation and QA; Phần III: Local Discourse Context; Phần IV: Evaluation.
+  sources: assignments.txt:BTL01
+  found: True
 
 [010] Tuần 5 học những gì?
   A: Tuần 5 học Chương 4 (Features and Augmented Grammar) (phần Syntactic Processing). Nội dung: augmented transition networks; generalized feature systems; unification grammar. Hoạt động: feature-based parsing exercises.

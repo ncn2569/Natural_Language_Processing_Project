@@ -151,7 +151,103 @@ class ClassicalEvaluator:
         head = ["ĐÁNH GIÁ TỔNG QUAN - CLASSICAL QA", *summary_lines(total)]
         if dialogues:
             head.append(f"Hội thoại đúng toàn bộ: {sum(dialogues.values())}/{len(dialogues)}")
-        lines = [*head, "", "CHI TIẾT THEO TỪNG NHÓM"]
+
+        # Tóm tắt theo nhóm, các ca trả lời sai, phân tích nguyên nhân lỗi và ưu/nhược điểm (Mục 6).
+        group_overview = ["", "TỔNG HỢP ĐỘ CHÍNH XÁC THEO NHÓM"]
+        for group, stats in groups.items():
+            n = stats["total"]
+            group_overview.append(
+                f"- {group} ({n} câu): "
+                f"Intent {stats['intent_correct']}/{n} ({stats['intent_correct'] / n:.2%}) | "
+                f"Entity {stats['entity_correct']}/{n} ({stats['entity_correct'] / n:.2%}) | "
+                f"Câu trả lời {stats['answer_correct']}/{n} ({stats['answer_correct'] / n:.2%})"
+            )
+
+        failed_rows = [r for r in results if not r["answer_ok"]]
+        error_section = ["", f"MỘT SỐ TRƯỜNG HỢP HỆ THỐNG TRẢ LỜI SAI ({len(failed_rows)}/{total['total']})"]
+        for row in failed_rows:
+            error_section.extend([
+                f"- [{row['id']}] ({row['group']}) {row['question']}",
+                f"    Intent: kỳ vọng={row['expected_intent']} | thực tế={row['intent']} | "
+                f"Entity: kỳ vọng={row['expected_entity']} | thực tế={row['entity']}",
+                f"    Kỳ vọng: {row['expected_answer']}",
+                f"    Thực tế: {row['answer']}",
+            ])
+
+        by_err_group = {
+            g: [r for r in failed_rows if r["group"] == g]
+            for g in groups
+            if any(r["group"] == g for r in failed_rows)
+        }
+        analysis_section = [
+            "",
+            "PHÂN TÍCH NGUYÊN NHÂN LỖI",
+        ]
+        if "Thiếu thông tin" in by_err_group:
+            ids = ", ".join(r["id"] for r in by_err_group["Thiếu thông tin"])
+            analysis_section.append(
+                f"1. Thiếu cơ chế kiểm tra thuộc tính ngoài schema KB ({len(by_err_group['Thiếu thông tin'])} câu: {ids}): "
+                "khi thực thể hợp lệ (CO3085, MIDTERM, FINAL, BTL01) đi kèm thuộc tính không có trong KB "
+                "(phòng học, học phí, ngày/giờ thi, link tải slide, chính sách nộp muộn...), hệ thống rơi vào "
+                "nhánh trả lời mặc định thay vì từ chối NOT_FOUND."
+            )
+        if "Ngoài phạm vi" in by_err_group:
+            ids = ", ".join(r["id"] for r in by_err_group["Ngoài phạm vi"])
+            analysis_section.append(
+                f"2. Câu ngoài miền nhưng trùng từ khóa bề mặt ({len(by_err_group['Ngoài phạm vi'])} câu: {ids}): "
+                "luật từ khóa kích hoạt nhầm khi câu ngoài phạm vi chứa từ chung như 'tài liệu', 'quy định', 'môn học' "
+                "nhưng tân ngữ thuộc lĩnh vực khác."
+            )
+        lex_rows = (
+            by_err_group.get("Diễn đạt tương đương", [])
+            + by_err_group.get("Hội thoại", [])
+            + [
+                r
+                for r in by_err_group.get("Câu hỏi hợp lệ", [])
+                if not (r["intent_ok"] and r["entity_ok"])
+            ]
+        )
+        if lex_rows:
+            ids = ", ".join(r["id"] for r in lex_rows)
+            analysis_section.append(
+                f"3. Thiếu từ đồng nghĩa / paraphrase ngoài từ điển ({len(lex_rows)} câu: {ids}): "
+                "hệ thống dựa trên từ điển entities.txt và regex nên bỏ sót các diễn đạt chưa có trong từ điển "
+                "(số thứ tự bằng chữ tiếng Việt, bản dịch tiếng Việt của thuật ngữ, biến thể số nhiều, chủ đề tài liệu mới)."
+            )
+        fmt_rows = [
+            r
+            for r in by_err_group.get("Câu hỏi hợp lệ", [])
+            if r["intent_ok"] and r["entity_ok"]
+        ]
+        if fmt_rows:
+            ids = ", ".join(r["id"] for r in fmt_rows)
+            analysis_section.append(
+                f"4. Đúng intent/entity nhưng khác trường thuộc tính hoặc khác chuỗi so khớp mẫu ({len(fmt_rows)} câu: {ids}): "
+                "câu hỏi nhận diện đúng intent và thực thể nhưng ánh xạ vào nhánh tóm tắt mặc định hoặc khác chi tiết diễn đạt/meta-rule so với chuỗi gold khi chấm exact match."
+            )
+
+        pros_cons_section = [
+            "",
+            "NHẬN XÉT ƯU ĐIỂM VÀ HẠN CHẾ CỦA PHƯƠNG PHÁP (CLASSICAL NLP)",
+            "- Ưu điểm:",
+            "  + Minh bạch, giải thích và truy vết được toàn bộ pipeline (Parse Tree -> Semantic Frame -> Pseudo-SQL -> Nguồn KB).",
+            "  + Chạy 100% offline, tốc độ nhanh, kết quả tái lập hoàn toàn (deterministic), không phát sinh ảo giác số liệu.",
+            "  + Độ chính xác cao trên câu hỏi trong miền, diễn đạt tương đương và hội thoại cục bộ có tham chiếu/tỉnh lược.",
+            "- Hạn chế:",
+            "  + Phụ thuộc độ phủ của văn phạm CFG, từ điển thực thể và tập luật; khó tổng quát hóa với paraphrase hoàn toàn mới.",
+            "  + Dễ rơi vào fallback mặc định khi hỏi thuộc tính ngoài schema KB của thực thể hợp lệ, hoặc khi câu ngoài miền trùng từ khóa bề mặt.",
+            "  + Câu trả lời sinh theo khuôn mẫu cố định, chưa linh hoạt như mô hình sinh ngôn ngữ tự nhiên.",
+        ]
+
+        lines = [
+            *head,
+            *group_overview,
+            *error_section,
+            *analysis_section,
+            *pros_cons_section,
+            "",
+            "CHI TIẾT THEO TỪNG NHÓM",
+        ]
         for group, stats in groups.items():
             lines.extend(["", f"NHÓM {group}", *summary_lines(stats)])
             for row in results:

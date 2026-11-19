@@ -71,13 +71,13 @@
   note     : intent: cue quy dinh / entity RULE
 
 [009] Tôi cần hoàn thành những bài tập nào?
-  intent   : UNKNOWN
+  intent   : GET_ASSIGNMENT
   entities : -
-  primary  : OUT_OF_SCOPE
+  primary  : BTL01
   yes/no   : False
   parse    : OK
-  source   : rules
-  note     : intent: khong co tu khoa/entity thuoc mien mon hoc
+  source   : rules+tree(agree)
+  note     : intent: entity bai tap lon
 
 [010] Tuần 5 học những gì?
   intent   : GET_SCHEDULE

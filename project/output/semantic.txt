@@ -23,7 +23,7 @@
   GET_RULE(rule=AI_USAGE)
 
 [009] Tôi cần hoàn thành những bài tập nào?
-  UNKNOWN(reason=OUT_OF_SCOPE)
+  GET_ASSIGNMENT(assignment=BTL01)
 
 [010] Tuần 5 học những gì?
   GET_WEEK_CONTENT(week=WEEK_05)
