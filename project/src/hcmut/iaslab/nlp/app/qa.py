@@ -48,16 +48,12 @@ def build_query(f):
         return q("info", f"SELECT format FROM course_info WHERE course_id='{a['course']}'", field="format")
     if p == "GET_COURSE_DESCRIPTION":
         return q("info", f"SELECT course_description FROM course_info WHERE course_id='{a['course']}'", field="course_description")
-    if p == "GET_COURSE_FIELD":
-        return q("info", f"SELECT {a['field']} FROM course_info WHERE course_id='{a['course']}'", field=a["field"], strict=True)
     if p == "GET_COURSE_INFO":
         return q("summary", f"SELECT course_name, credits, semester FROM course_info WHERE course_id='{a['course']}'")
     if p in ("GET_EXAM_DURATION", "GET_EXAM_FORMAT"):
         return q("exam", f"SELECT {a['exam'].lower()} FROM course_info.exam_format", exam=a["exam"], duration=p.endswith("DURATION"))
-    if p == "GET_EXAM_SCHEDULE":
-        return q("info", f"SELECT {a['field']} FROM course_info.exam_format WHERE exam='{a['exam']}'", field=a["field"], strict=True)
     if p == "GET_SCHEDULE":
-        return q("schedule", f"SELECT week, chapter, part FROM schedule ORDER BY week")
+        return q("schedule", "SELECT week, chapter, part FROM schedule ORDER BY week")
     if p == "GET_WEEK_CONTENT":
         n = int(a["week"].split("_")[1])
         return q("week", f"SELECT part, chapter, topics, activity, milestone FROM schedule WHERE week={n}", week=n)
@@ -85,28 +81,20 @@ def build_query(f):
         return q("assign_part", f"SELECT name, description, outputs FROM assignments WHERE part='{a['part']}'", part=a["part"], check=p.startswith("CHECK"))
     if p == "GET_DEADLINE":
         return q("deadline", f"SELECT week, milestone FROM schedule WHERE milestone LIKE 'BTL%'  -- assignment='{a['assignment']}'")
-    if p == "GET_RESOURCE_LINK":
-        return q("resource_link", "SELECT url FROM resources WHERE url IS NOT NULL", strict=True)
     if p == "GET_RESOURCE":
         if "chapter" in a:
             return q("resource", f"SELECT id, title, author, year, usage FROM resources WHERE chapter='{a['chapter']}'", topic="*", chapter=a["chapter"])
         flt = a.get("topic", "*")
         return q("resource", f"SELECT id, title, author, year, usage FROM resources WHERE usage|title MATCH '{flt}'", topic=flt)
     if p == "GET_RULE":
-        return q("rule", f"SELECT text FROM regulations WHERE key='{a['rule']}'", rule=a["rule"], strict=a["rule"] != "ALL")
+        return q("rule", f"SELECT text FROM regulations WHERE key='{a['rule']}'", rule=a["rule"])
     if p == "GET_INSTRUCTOR":
-        return q("info", f"SELECT instructor FROM course_info WHERE course_id='{a['course']}'", field="instructor", strict=True)
+        return q("info", f"SELECT instructor FROM course_info WHERE course_id='{a['course']}'", field="instructor")
     return Query("none", "-- khong tao truy van (" + p + ")")
 
 
 # ------------------------------------------------------------------ thuc thi
-SEARCH_RULES = {
-    "RESOURCE": {
-        "STATISTICAL_NLP": r"statistical",
-        "PYTHON_NLP": r"python",
-        "MACHINE_TRANSLATION": r"machine translation",
-    }
-}
+SEARCH_RULES = {"RESOURCE": {"STATISTICAL_NLP": r"statistical", "PYTHON_NLP": r"python"}}
 
 LO_VI_EN_GLOSSARY = {
     "tổng quan": ["introduction", "organization", "overview"],
@@ -198,7 +186,7 @@ class Engine:
             return Result(NEED_CONTEXT, [], found=False)
         fn = getattr(self, "_x_" + q.op, None)
         res = fn(f, q) if fn else None
-        if res is None and not q.params.get("strict"):
+        if res is None:
             res = self._faq_fallback(f)
         return res or Result(NOT_FOUND, [], found=False)
 
@@ -259,11 +247,7 @@ class Engine:
             return None
         groups = []
         for w_num, w in sorted(self.kb.weeks.items()):
-            label = f"Chương {int(w['chapter'][2:])}" if w.get("chapter") else (
-                "tích hợp, đánh giá, demo"
-                if "integration" in w.get("part", "").lower()
-                else w.get("part", "")
-            )
+            label = f"Chương {int(w['chapter'][2:])}" if w.get("chapter") else w.get("part", "")
             if groups and groups[-1][2] == label:
                 groups[-1][1] = w_num
             else:
@@ -446,21 +430,10 @@ class Engine:
         ms = [(w, d["milestone"]) for w, d in sorted(self.kb.weeks.items()) if d.get("milestone", "").upper().startswith("BTL")]
         if not ms:
             return None
-        prefix = (
-            "Dữ liệu không có giờ nộp cụ thể. "
-            if re.search(r"mấy giờ|giờ nộp|chính xác đến.*giờ", f.sentence.lower())
-            else ""
-        )
-        s = prefix + "Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): " + "; ".join(f"tuần {w}: {m}" for w, m in ms) + "."
+        s = "Dữ liệu chỉ có các mốc theo tuần (không có ngày nộp cụ thể): " + "; ".join(f"tuần {w}: {m}" for w, m in ms) + "."
         return Result(s, [f"schedule.txt:WEEK {w:02d}" for w, _ in ms])
 
     # ----- tai lieu
-    def _x_resource_link(self, f, q):
-        links = [r for r in self.kb.resources if r.get("url") or r.get("link")]
-        if not links:
-            return None
-        return Result("; ".join(f"{r['id']}: {r.get('url') or r.get('link')}" for r in links), ["resources.txt:" + r["id"] for r in links])
-
     def _x_resource(self, f, q):
         topic = q.params["topic"]
         chapter = q.params.get("chapter")
@@ -496,10 +469,7 @@ class Engine:
         regs = {k.lower(): k for k in self.kb.regs}
         if key == "ALL":
             ks = [k for k in self.kb.regs if k != "OUT_OF_SCOPE"]
-            s = "Các quy định: " + " ".join(f"[{k}] {self.kb.regs[k]}" for k in ks)
-            if "OUT_OF_SCOPE" in self.kb.regs:
-                s += f" Quy định (OUT_OF_SCOPE): {self.kb.regs['OUT_OF_SCOPE']}"
-            return Result(s, ["regulations.txt"])
+            return Result("Các quy định: " + " ".join(f"[{k}] {self.kb.regs[k]}" for k in ks), ["regulations.txt"])
         real = regs.get(key.lower())
         if not real:
             return None

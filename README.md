@@ -181,22 +181,24 @@ Module `src/hcmut/iaslab/nlp/app/evaluate.py` đánh giá tự động toàn b�
 
 | Nhóm kiểm thử | Số truy vấn | Intent đúng | Entity chính đúng | Câu trả lời đúng |
 | --- | :---: | :---: | :---: | :---: |
-| Câu hỏi hợp lệ | 46 | 46/46 (100.00%) | 46/46 (100.00%) | 46/46 (100.00%) |
-| Diễn đạt tương đương | 26 | 26/26 (100.00%) | 26/26 (100.00%) | 26/26 (100.00%) |
-| Ngoài phạm vi | 13 | 13/13 (100.00%) | 13/13 (100.00%) | 13/13 (100.00%) |
-| Thiếu thông tin trong KB | 14 | 14/14 (100.00%) | 14/14 (100.00%) | 14/14 (100.00%) |
-| Hội thoại có ngữ cảnh (6 hội thoại) | 33 | 33/33 (100.00%) | 33/33 (100.00%) | 33/33 (100.00%) |
-| **Tổng cộng** | **132** | **132/132 (100.00%)** | **132/132 (100.00%)** | **132/132 (100.00%)** |
+| Câu hỏi hợp lệ | 46 | 46/46 (100.00%) | 45/46 (97.83%) | 42/46 (91.30%) |
+| Diễn đạt tương đương | 26 | 26/26 (100.00%) | 23/26 (88.46%) | 23/26 (88.46%) |
+| Ngoài phạm vi | 13 | 10/13 (76.92%) | 10/13 (76.92%) | 10/13 (76.92%) |
+| Thiếu thông tin trong KB | 14 | 11/14 (78.57%) | 12/14 (85.71%) | 5/14 (35.71%) |
+| Hội thoại có ngữ cảnh (6 hội thoại) | 33 | 33/33 (100.00%) | 33/33 (100.00%) | 32/33 (96.97%) |
+| **Tổng cộng** | **132** | **126/132 (95.45%)** | **123/132 (93.18%)** | **112/132 (84.85%)** |
 
-* **Hội thoại đúng toàn bộ:** `6/6` hội thoại.
+* **Hội thoại đúng toàn bộ:** `5/6` hội thoại.
 * Kết quả chi tiết từng câu được xuất tại `output/evaluation.txt` và `output/evaluation-results.json`.
 
 ---
 
 ## 8. Các hạn chế của hệ thống
 
-1. **Phụ thuộc văn phạm, từ điển và tập luật cố định:** Vì sử dụng hướng Classical NLP dựa trên luật, những cách diễn đạt mới hoàn toàn ngoài từ điển thực thể/biểu thức quy tắc hoặc câu viết sai chính tả nặng có thể chưa được ánh xạ đúng intent/entity.
-2. **Độ phủ cú pháp CFG giới hạn:** Văn phạm CFG tập trung vào các cấu trúc hỏi đáp trọng tâm trong miền môn học; các câu phức dài hoặc chứa từ ngoài từ vựng CFG sẽ trả về `()` ở bước Parser và chuyển sang phân tích bằng luật từ vựng ở bước NLU.
-3. **Không hỗ trợ suy luận nhiều bước hoặc câu hỏi ghép nhiều ý độc lập:** Hệ thống xử lý từng khung vị từ đơn; các câu hỏi tổng hợp nhiều yêu cầu khác loại trong cùng một câu (ví dụ vừa hỏi số tín chỉ vừa hỏi lịch học tuần 5) sẽ chỉ chọn intent ưu tiên cao nhất.
-4. **Hội thoại cục bộ ở mức cơ bản:** `DialogueManager` giải quyết tốt tham chiếu đại từ, mô tả xác định, tham chiếu thứ tự và tỉnh lược đơn giản, nhưng chưa xử lý các hiện tượng phức tạp như tham chiếu tập hợp nhiều đối tượng (*"cả hai chương đó"*) hay hồi chỉ xa qua nhiều chủ đề đan xen.
-5. **Câu trả lời sinh theo khuôn mẫu cố định:** Văn phong trả lời chuẩn xác theo dữ liệu KB và không bịa thông tin, nhưng kém linh hoạt hơn so với mô hình sinh ngôn ngữ tự nhiên.
+Qua kết quả thực nghiệm (20/132 câu chưa khớp kỳ vọng), hệ thống còn các hạn chế đặc trưng của hướng Classical NLP dựa trên luật:
+
+1. **Câu hỏi ngoài miền nhưng chứa từ khóa trùng với miền môn học (3/13 ca nhóm Ngoài phạm vi):** Khi không có tên môn học khác mà chỉ trùng từ khóa như *"tài liệu"*, *"quy định"*, *"môn học"* (ví dụ *"Tài liệu nào giúp tôi đầu tư chứng khoán?"*, *"Cho tôi quy định hoàn thuế thu nhập cá nhân."*), bộ phân loại luật vẫn gán vào `GET_RESOURCE`/`GET_RULE` thay vì `UNKNOWN`.
+2. **Thuộc tính không có trong KB của thực thể hợp lệ (9/14 ca nhóm Thiếu thông tin):** Khi hỏi các thuộc tính không tồn tại trong dữ liệu mẫu (*phòng học, học phí, ngày/giờ thi, link tải slide, chính sách trừ điểm nộp muộn, điểm qua môn*), câu vẫn khớp thực thể `CO3085`/`MIDTERM`/`FINAL` và rơi vào nhánh trả lời mặc định (tóm tắt môn học, hình thức thi, danh sách quy định) thay vì báo không tìm thấy.
+3. **Phụ thuộc độ phủ từ điển đồng nghĩa và paraphrase:** Các cách diễn đạt chưa có trong `data/entities.txt` hoặc từ điển mở rộng (như số thứ tự bằng chữ *"tuần thứ ba"*, cụm dịch tiếng Việt *"văn phạm phi ngữ cảnh"*, dạng số nhiều *"frames"*, hoặc chủ đề tài liệu *"machine translation"*) làm bước liên kết thực thể bỏ sót hoặc trả về mức tổng quát.
+4. **Độ phủ văn phạm CFG và câu hỏi ghép nhiều ý:** Văn phạm CFG tập trung vào các cấu trúc hỏi đáp trọng tâm trong miền môn học; các câu dài, phức tạp hoặc nằm ngoài từ vựng CFG trả về `()` ở Parser và dựa vào luật từ vựng ở NLU.
+5. **Giới hạn so khớp chuỗi mẫu khi đánh giá tự động:** Một số câu trả lời đúng về mặt dữ liệu KB (ví dụ lịch học tổng quan tuần 15 giữ nguyên tên tiếng Anh `Integration and Evaluation` từ `schedule.txt`, hoặc danh sách quy định ẩn mục `OUT_OF_SCOPE`) vẫn bị đánh sai bởi phép so khớp mẫu chính xác.

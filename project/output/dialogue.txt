@@ -173,7 +173,7 @@ EXTRA 02 - Hội thoại 3 lượt với Centering (Cb duy trì qua nhiều lư�
 
 [Lượt 3]
   Hội thoại đầu vào : U3: Nó có liên quan đến PCFG không?
-  Ngữ cảnh sử dụng  : center=CH03(CHAPTER, T2) | history=[CH03(CHAPTER, T2, user_primary), MACHINE_TRANSLATION(RESOURCE_TOPIC, T2, answer), PYTHON_NLP(RESOURCE_TOPIC, T2, answer), REFERENCE(TOPIC, T2, answer), STATISTICAL_NLP(RESOURCE_TOPIC, T2, answer), PARSING(TOPIC, T2, answer)]
+  Ngữ cảnh sử dụng  : center=CH03(CHAPTER, T2) | history=[CH03(CHAPTER, T2, user_primary), PYTHON_NLP(RESOURCE_TOPIC, T2, answer), REFERENCE(TOPIC, T2, answer), STATISTICAL_NLP(RESOURCE_TOPIC, T2, answer), PARSING(TOPIC, T2, answer), CO3085(COURSE, T2, answer)]
   Kết quả diễn giải : "Nó" -> CH03 (anaphora, syntax_tree+rules; center:user_primary(T2))
     Câu sau diễn giải : Chương 3 có liên quan đến PCFG không?
     Cú pháp & Ngữ nghĩa: parse=OK | CHECK_CHAPTER_COVERS(chapter=CH03, topic=PCFG)
